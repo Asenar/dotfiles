@@ -1,0 +1,41 @@
+[alias]
+	# you can copy or link to /usr/local/bin/git-diff-prev f
+	diffprev = !~/bin/git-diff-prev
+  st = status
+  stq = status -uno
+	
+  h = log --graph --decorate --abbrev-commit
+  ha = log --graph --decorate --all --abbrev-commit
+  h2 = log --graph --decorate --pretty=format:'%h | %an (%ad) - %s' --date=local --abbrev-commit
+  h2a = log --graph --decorate --all --pretty=format:'%h | %an (%ad) - %s' --date=local --abbrev-commit
+  ci = commit
+
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	lgb = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --branches
+	lga = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --all
+
+[pager]
+	diff =
+[color]
+	ui = true
+	filemode = false
+	diff = auto
+	status = auto
+	branch = auto
+	pager = true
+[format]
+	pretty = oneline
+[diff]
+	# you can copy or link to /usr/local/bin/git-diff-wrapper
+	external = ~/bin/git-diff-wrapper
+[core]
+	editor = vim
+[merge]
+	tool = vimdiff
+
+[branch "master"]
+	mergeoptions = --no-ff --no-commit
+
+[branch "develop"]
+	mergeoptions = --no-ff --no-commit
+

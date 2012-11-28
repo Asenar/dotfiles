@@ -1,0 +1,5 @@
+#!/bin/bash
+
+echo "1=$1 2=$2"
+echo "(require to call the command from the git root dir)"
+git diff $(git log --format=%h $1|tail -n1) $1

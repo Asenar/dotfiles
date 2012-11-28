@@ -1,0 +1,7 @@
+#!/bin/bash
+# use vim for default git diff
+# 
+# USAGE : put in ~/bin/ and type :
+# git config --global diff.external git_diff_wrapper
+
+vimdiff "$2" "$5"
