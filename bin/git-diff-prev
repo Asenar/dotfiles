@@ -1,5 +1,23 @@
 #!/bin/bash
+#
+# file : git-diff-prev
+# desc : git version of "svn diff -rPREV" 
+#
+# author : Michaël Marineti
+# creation : 2012-11-28
+# modified : 2013-01-31
+#
+# You can place that file in /usr/local/bin/ 
+# and add an alias in your ~/.gitconfig : 
+# git config --global alias.diffprev !/usr/local/bin/git-diff-prev
+# 
+# CHANGELOG 
+# 2013-01-31 - Add description
+#
 
-echo "1=$1 2=$2"
-echo "(require to call the command from the git root dir)"
-git diff $(git log --format=%h $1|tail -n1) $1
+#echo "1=$1 2=$2"
+#if [ ! -d .git ]; then
+#	echo "This require to call the command from the git root dir"
+#	exit 1
+#fi
+git diff $(git log -1 --format=%h $1) $1
