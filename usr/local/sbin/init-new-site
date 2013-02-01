@@ -1,0 +1,191 @@
+#!/bin/bash
+#
+# file : init-new-site
+# desc : this script create a new user, directories and everything for starting a new site :) 
+#
+# author : Michaël Marineti
+# creation : 2012-07-21
+# modified : 2013-02-01
+#
+# TODO
+#
+# CHANGELOG
+# 2013-02-01 
+# more generic 
+# add default_admin_mail
+#
+# 2012-10-26
+#
+
+default_admin_mail=root
+
+script_name="`basename $0`"
+script_version="1.2"
+source /usr/local/include/custom_lib
+
+##########################
+read -s "who will receive the login/password (default $default_admin_mail) ? " adminmail
+if [ "$adminmail" = "" ]; then
+	adminmail=$default_admin_mail
+fi
+
+
+
+# sftp group 
+GROUPUSER=sftp
+
+SERVER_ID=$(cat /etc/hostname)
+
+show_help="$(getArgAfter --help $@ || getArgAfter -h $@ )"
+
+if (test "$show_help" ) then
+	echo "init-new-site --sitename=mywebsite.com [--alias=v2.mywebsite.com] [--no-user] [--activate] [--verbose|-v]"
+	echo "Options"
+	echo "--alias\tadd alias in vhost config"
+	echo "--no-user\tdo not create sftp user"
+	echo "--activate\tat the end, run a2ensite && apache reload " 
+	echo "-v, --verbose\tbe more verbose" 
+	echo "-h, --help\tshow this message and exit" 
+	exit
+fi
+
+
+sitename="$(getArgAfter --sitename $@)"
+alias1=$(getArgAfter --alias $@)
+no_user="$(getArgAfter --no-user)"
+
+apache_sites_dir=/etc/apache2/sites-available
+base_dir=/home/www
+
+
+if (test "$sitename" = "" ) then
+	exitIfError 1 "erreur, pas de sitename (--sitename)"
+fi
+
+# test if this name is valid and available
+valid_name=`echo "$sitename"|grep '^[0-9a-z.-]*\.\(com\|net\|fr\|org\|info\)$'`
+
+if ( test "$valid_name" != "$sitename") then
+	exitIfError 2 "nom de domaine non valide : le format n'est pas respecte ^[a-z.-]*\.(com|net|fr|org|info)$"
+fi
+
+user=$(echo $sitename|sed 's#\(.*\)\.[^.]*#\1#' )
+
+	exitIfError 3 "oups, le dossier '$base_dir/$user' existe deja "
+
+exit 0
+
+if ( test -e "$apache_sites_dir/$sitename" ) then
+	echo "oups, le vhost existes deja"
+	exit 4
+else
+	echo "Site absent :) "
+fi
+
+
+if (test -z "$no_user" ) then
+	user=$(echo $sitename|sed 's#\(.*\)\.[^.]*#\1#' )
+	docroot=$base_dir/$user
+	# creating user for that directory only :)
+	# username is, by default, the domain name without ".fr/.com" at the end
+else
+	docroot=$base_dir/$sitename
+fi
+
+if ( test -e "$docroot") then
+	exitIfError 3 "oups, le dossier '$docroot' existe deja "
+fi
+
+
+
+# creating directory with correct rights :)
+mkdir -p $docroot/www $docroot/prive
+
+if (test -z "$no_user" ) then
+	pass=`apg -q -a  0 -n 1 -M NCL`
+	pass_crypted=$(perl -e "print crypt($pass, 'password')");
+	useradd -s /bin/false -M -d $docroot -g $GROUPUSER -p $pass_crypted $user
+	exitIfError $? "User $user NOT CREATED...... MAYBE ALREADY EXIST ?"
+	verbose "user $user created."
+
+fi
+
+chown root:sftp $docroot -R && chmod 755 $docroot/www -R
+
+chmod g+w $docroot/www $docroot/prive
+#@TODO utiliser un fichier de template
+echo "ici" > $docroot/www/index.html
+
+chmod +x $docroot -R
+
+tmpfile=`mktemp`
+
+vhost_def="<VirtualHost *:80>
+	ServerAdmin postmaster@$sitename
+	ServerName $sitename
+	ServerAlias www.$sitename
+
+	php_admin_value engine off
+	<Directory />
+		Options FollowSymLinks
+		AllowOverride None
+	</Directory>
+
+	DocumentRoot $docroot/www
+	<Directory />
+		Options FollowSymLinks
+		AllowOverride None
+	</Directory>
+	<Directory $docroot/www/>
+		Options -Indexes FollowSymLinks MultiViews
+		AllowOverride None
+		Order allow,deny
+		allow from all
+	</Directory>
+	
+	# Possible values include: debug, info, notice, warn, error, crit, alert, emerg.
+	LogLevel warn
+	ErrorLog \${APACHE_LOG_DIR}/error-$sitename.log
+	CustomLog \${APACHE_LOG_DIR}/access-$sitename.log combined
+</VirtualHost>
+"
+echo "$vhost_def" > $tmpfile
+
+echo "$vhost_def"
+
+echo "Valider (y/n) ?"
+read pouet
+if (test "$pouet" != "y" -a "$pouet" != "Y") then
+	echo "Edition vhost ..."
+	# vim +":r! cat $tmpfile" $apache_sites_dir/$sitename 
+	vim $tmpfile
+fi
+
+cp $tmpfile $apache_sites_dir/$sitename
+# always cleaning after works is done 
+rm $tmpfile
+
+
+
+echo "Alors là, je suis super fier de ce script qui :
+- créé un vhost
+- créé un user sftp pour qu'il ne puisse écrire que sur ce vhost :)
+- m'envoie tout ça !
+
+host $sitename
+user $user
+pass $pass
+"|mail -s "$SERVER_ID - nouvel utilisateur $user" $adminmail
+# how to handle password ?
+# passwd
+# how to send all this informations :p
+
+auto_enable="$(getArgAfter --activate $@)"
+if (test -n "$auto_enable") then
+	# enabling vhost
+	# @TODO : check syntax
+	a2ensite $sitename
+	# reload apache :)
+	service apache2 reload
+fi
+

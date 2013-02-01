@@ -1,0 +1,48 @@
+#!/bin/sh
+
+#### functions
+### verbose()
+# Affiche sur la sortie standard l'argument passé en parametre,
+# si $verbose_mode vaut "1"
+verbose () {
+  if (test "$verbose_mode" = "1" ) then
+    printf "$1\r\n"
+  fi
+  return 0
+}
+
+exitIfError (){
+  error="$1"
+  msg="$2"
+  if (test $error != 0) then
+    echo "Error : "$error
+    echo "[error] $msg"
+    echo "Use auto-completion or type \"$script_name --help\" for usage."
+    exit $error
+  fi
+}  
+
+# @param $1 arg to find
+# @param $2 need to be "$@"
+getArgAfter (){
+  thisone=0;
+  param_to_search=$1
+  all_params=$#
+  # seq 2 $# : getting all args of the function except the first one
+  lebonarg=0;
+  for i in `seq 2 $all_params`;
+  do 
+    param=`eval echo '${'${i}'}'`
+    param_value=`echo ${param#$param_to_search}`
+    if (test "$param" != "$param_value") then
+      if (test -z "$param_value") then
+        echo "1"
+      else
+        echo "${param_value#=}"
+      fi
+      return 0
+    fi;
+  done
+  return 1
+}
+
