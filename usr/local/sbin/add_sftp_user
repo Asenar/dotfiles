@@ -1,7 +1,8 @@
 #!/bin/bash
 # file: add_sftp_user
-# desc: add a system user, with /bin/false as default shell 
+# desc: add a system user, with /bin/false as default shell
 # and create for him a special section in /etc/ssh/sshd_config
+# this will chroot him in its homedir when using sftp
 #
 # creation: 2013-01-25
 # modified: 2013-02-31
