@@ -1,0 +1,125 @@
+#!/bin/bash
+# file: add_sftp_user
+# desc: add a system user, with /bin/false as default shell 
+# and create for him a special section in /etc/ssh/sshd_config
+#
+# creation: 2013-01-25
+# modified: 2013-02-31
+# CHANGELOG
+# 
+#
+# TODO
+# - fr > en
+
+#############################################
+sshd_config=/etc/ssh/sshd_config
+sshd_backup=/etc/ssh/sshd_config.back
+
+default_email_to=root
+#############################################
+
+
+echo "Creation d'un nouvel acces sftp" 
+echo "Il sera demandé: 
+Nom d'utilisateur
+Mot de passe
+Répertoire home (par défaut /home/sftp/[user])
+le mot de passe est envoyé à $email_to
+Modification de la configuration sshd (et vérification de la syntaxe)
+ + redémarrage du service
+"
+read -s "Mot de passe envoyé à (default=$default_email_to)?" email_to
+if [ "$email_to" = "" ]; then
+	email_to=$default_email_to
+fi
+
+
+read -p "Saisir le nom du nouvel utilisateur:" username_entry
+
+user=$(echo $username_entry|sed 's#\(.*\)\.[^.]*#\1#' )
+
+defaultdir=/home/sftp/$user
+read -p "dossier racine (laisser vide pour utiliser $homedir):" custom_home
+
+if [ -n "$custom_home" ]; then
+  homedir=$custom_home
+  if [ !-d $homedir ]; then
+    mkdir -p $homedir
+    echo "nouveau dossier $homedir créé. Attention aux droits (root:sftp) pour tout le chemin (racine comprise) pour éviter les erreurs d'auth.log "
+	fi
+else
+	$homedir=$defaultdir
+  if [ !-d $homedir ]; then
+    mkdir -p $homedir
+    echo "nouveau dossier $homedir créé. Attention aux droits (root:sftp) pour tout le chemin (racine comprise) pour éviter les erreurs d'auth.log "
+	fi
+fi
+
+pass=`apg -q -a  0 -n 1 -M NCL`
+pass_crypted=$(perl -e "print crypt($pass, 'password')");
+echo "user $user pass $pass"|mail -s "nouvel utilisateur sftp $user" $email_to
+
+useradd -s /bin/false -M $homedir sftp -p $pass_crypted $user
+# usermod -g sftp -s /bin/false $user
+if [ test $? -eq 0 ]; then
+	echo "user $user created."
+else
+	echo "User $user NOT CREATED...... MAYBE ALREADY EXIST ?"
+fi
+
+chown root:sftp $homedir -R 
+chmod +x $homedir -R
+
+tmpfile=`mktemp`
+sshd_insert_conf="
+#### Added by add_sftp_user ####
+
+Match user $user
+  X11Forwarding no
+  ChrootDirectory $homedir
+  AllowTcpForwarding no
+  ForceCommand internal-sftp
+"
+cat $sshd_config > $tmpfile
+
+echo "$sshd_insert_conf" >> $tmpfile
+
+diff -U 12 $tmp $sshd_config
+
+echo -p "Valider (y=ok, n=mode edition) ?" pouet
+if [ "$pouet" != "y" -a "$pouet" != "Y" ]; then
+	echo "Edition sshd ..."
+	vim $tmpfile
+fi
+
+cp $sshd_config $sshd_backup
+
+cp $tmpfile $sshd_config
+/usr/bin/sshd -t
+error_sshd=$?
+
+while [ $error_sshd != 0 ]
+do
+	vim $sshd_config
+	/usr/bin/sshd -t
+	error_sshd=$?
+	if [ $error_sshd == 0 ]; then
+		read -p "Fichier de configuration valide. Terminer (y/n)?" pouet
+		diff -U 12 $tmp $sshd_config
+		if [ $pouet == "y" ]; then
+			/etc/init.d/ssh restart
+		else
+			error_sshd = 1;
+		fi
+	else
+		read -p "Encore une erreur dans le fichier de configuration. Abort (a)?" pouet
+		if [ $pouet == "a" ]; then
+			cp $sshd_backup $sshd_config;
+			error_sshd=0;
+			read -p "Attention, la configuration ssh n'a pas été changée" pouet
+		fi
+	fi
+done
+	
+# always cleaning after works is done 
+rm $tmpfile
