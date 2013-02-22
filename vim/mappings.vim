@@ -1,6 +1,5 @@
 " autocomplete, if you want (requires ctags if I remember)
 " imap   <C-Space> <C-X><C-O>
-"
 
 " PHP FOLDING classes, methods and functions
 " PHP FOLDING
@@ -76,6 +75,9 @@ nmap <TAB> gt<CR>
 nmap <S-TAB> gT<CR>
 
 :map ² :BufExplorer<CR> 
+
+" quit vim if all has been saved
+nmap QQ :qa<CR>
 
 " Panic Button
 nnoremap <f12> mzggg?G`z
