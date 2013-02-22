@@ -10,24 +10,18 @@ nnoremap <silent> <F3> :TlistToggle<CR>
 " open all
 nmap <silent> zz zR 
 
-" @TODO add "if $HOME/.vim/plugin/phpfolding !
-" requires ~/.vim/plugin/phpfolding.vim 
-map <F5> <Esc>:EnableFastPHPFolds<Cr>
-map <F6> <Esc>:EnablePHPFolds<Cr>
-map <F7> <Esc>:DisablePHPFolds<Cr>
-nmap <F8> :set number!<CR>    
-imap <F8> <Esc>:set number!<CR>a
 
-nmap <F9> :CodeSniffErrorOnly<CR>    
-imap <F9> <Esc>:CodeSniffErrorOnly<CR>a
-nmap <C-F9> :CodeSniff<CR>    
-imap <C-F9> <Esc>:CodeSniff<CR>a
 
-" Map <ctrl>+p to single line mode documentation (in insert and command mode)
-inoremap <C-P><ESC> :call PhpDocSingle()<CR>i
-nnoremap <C-P> :call PhpDocSingle()<CR>
-" Map <ctrl>+p to multi line mode documentation (in visual mode)
-vnoremap <C-P> :call PhpDocRange()<CR>
+map <F4> :make<CR> " Compile
+map <F5> :cwindow<CR> " Ouvre la quickfix si nécessaire
+map <C-F9> :cprevious<CR> " Recule d'une erreur
+map <F9> :cnext<CR> " Avance d'une erreur
+
+"nmap <F9> :CodeSniffErrorOnly<CR>    
+"imap <F9> <Esc>:CodeSniffErrorOnly<CR>a
+"nmap <C-F9> :CodeSniff<CR>    
+"imap <C-F9> <Esc>:CodeSniff<CR>a
+
 
 " "sudo" save: command map w!! 
 :cmap w!! w !sudo tee % >/dev/null
@@ -61,10 +55,10 @@ nnoremap <leader>f <C-w>s<C-w>j
 "nmap <F6> :set number!<CR>
 nmap <silent> zz zR
 
-inoremap <F4> <C-O>za
-nnoremap <F4> za
-onoremap <F4> <C-C>za
-vnoremap <F4> zf
+"inoremap <F4> <C-O>za
+"nnoremap <F4> za
+"onoremap <F4> <C-C>za
+"vnoremap <F4> zf
 :map Q <Nop>
 
 " add new tabs

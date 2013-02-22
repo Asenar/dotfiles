@@ -98,22 +98,7 @@ set showfulltag
 " filler means scrollbind 
 set diffopt=filler,iwhite
 
-
-" CTRL M : run file with PHP CLI
-"autocmd FileType php noremap <C-M> :!/usr/bin/php %<CR>
-" CTRL L : PHP parser check
-autocmd FileType php noremap <C-L> :!/usr/bin/php -l %<CR>
-" CTRL K CodeSniffer (il faut configurer codesniffer comme il faut, ou ajouter --standard=Prestashop )
-autocmd FileType php noremap <C-K> :!phpcs %<CR>
-" completion automatique
-"imap   <C-Space> <C-X><C-O>
-
-" uncomment to disable phpfolding at opening (If I remember)
-" let phpfolding=0
-" requires ~/.vim/after/ftplugin/php_localvarcheck
-"let g:php_localvarcheck_enable=1
-let g:php_localvarcheck_enable=0
-let g:php_localvarcheck_global=0
+" php things moved in ftplugin :)
 
 " Load a tag file
 " Loads a tag file from ~/.vim.tags/, based on the argument provided. The
