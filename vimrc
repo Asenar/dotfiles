@@ -13,10 +13,10 @@ let mapleader = ","
 "
 "" General appearance and behaviour
 "
+execute pathogen#infect()
 syntax on
 " should I keep that ? (see at the bottom filetype off)
 filetype plugin indent on
-execute pathogen#infect()
 
 " show line,colomn in the status bar
 set ruler
@@ -86,7 +86,7 @@ set shiftwidth=2
 set tabstop=2
 " minimal number of screen lines to keep above and below cursor
 set scrolloff=1
-" encoding utf8, what else ?
+" encoding utf8, what else ? fileencoding maybe
 set encoding=utf8
 " current line has a different color :)
 set cursorline
@@ -99,6 +99,17 @@ set showfulltag
 set diffopt=filler,iwhite
 
 " php things moved in ftplugin :)
+" @TODO fix
+if match($TERM, '256color$') != -1
+	set background=dark
+	set t_Co=256
+	colorscheme 256_xoria
+else
+	set t_Co=256
+	set background=dark
+	colorscheme kalahari
+endif
+
 
 " Load a tag file
 " Loads a tag file from ~/.vim.tags/, based on the argument provided. The
@@ -116,16 +127,16 @@ let g:loaded_zencoding_vim = 0
 " funny thing: change color according to the day 
 "if strftime("%H") < 6 + 0
 "	colorscheme darkblue
-"	"echo "setting colorscheme to darkblue"
+"echo "setting colorscheme to darkblue"
 "elseif strftime("%H") < 12 + 0
 "	colorscheme morning
-"	"echo "setting colorscheme to morning"
+"echo "setting colorscheme to morning"
 "elseif strftime("%H") < 18 + 0
 "	colorscheme shine
-"	"echo "setting colorscheme to shine"
+"echo "setting colorscheme to shine"
 "else
 "	colorscheme evening
-"	"echo "setting colorscheme to evening"
+"echo "setting colorscheme to evening"
 "endif
 "
 set t_Co=256
@@ -135,10 +146,6 @@ colorscheme kalahari " https://raw.github.com/fabi1cazenave/kalahari.vim/master/
 
 source $HOME/.vim/mappings.vim
 
-" PATHOGEN / VIM-BUNDLE THING
-"filetype plugin indent on
-"au! BufRead,BufWrite,BufWritePost,BufNewFile *.org
-"au BufEnter *.org            call org#SetOrgFileType()
-filetype off               " required!
-set runtimepath+=~/.vim/bundle
-call vundle#rc()
+
+
+
