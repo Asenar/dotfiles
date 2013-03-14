@@ -122,3 +122,12 @@ let g:php_localvarcheck_global=0
 let g:loaded_zencoding_vim = 0
 
 source $HOME/.vim/mappings.vim
+" <c-i> <c-o> pour retourner au point précédent
+" demander a kaze pour les marques
+" rxvt-unicode les jolies fenetres
+"
+" tmux ou 
+"
+" mutt : notmuch
+" Ajouter une colonne avec les marqueurs => plugin quickfixsigns
+" http://www.vim.org/scripts/script.php?script_id=2584

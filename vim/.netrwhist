@@ -1,5 +1,9 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
-let g:netrw_dirhist_1='/home/michael/.dotfiles/vim/bundle/vim-orgmode'
-let g:netrw_dirhist_2='/home/michael/.dotfiles/vim/bundle/vim-orgmode/ftdetect'
-let g:netrw_dirhist_3='/home/michael/.dotfiles/vim/bundle/vim-orgmode/ftplugin'
+let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_1='/usr/local/gitolite/src/lib'
+let g:netrw_dirhist_2='/usr/local/gitolite/src'
+let g:netrw_dirhist_3='/usr/local/gitolite/src/triggers'
+let g:netrw_dirhist_4='/usr/local/gitolite/src'
+let g:netrw_dirhist_5='/usr/local/gitolite/src/lib'
+let g:netrw_dirhist_6='/usr/local/gitolite/src'
+let g:netrw_dirhist_7='/usr/local/gitolite/src/commands'
