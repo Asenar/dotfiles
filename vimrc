@@ -110,6 +110,12 @@ else
 	colorscheme kalahari
 endif
 
+colorscheme kalahari
+set background=dark
+set background=light
+set background=dark
+set t_Co=256
+
 
 " Load a tag file
 " Loads a tag file from ~/.vim.tags/, based on the argument provided. The
