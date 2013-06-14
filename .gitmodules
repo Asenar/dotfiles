@@ -13,3 +13,21 @@
 [submodule "vim/bundle/quickfixsigns"]
 	path = vim/bundle/quickfixsigns
 	url = https://github.com/tomtom/quickfixsigns_vim
+[submodule "vim/bundle/vim-ragtag"]
+	path = vim/bundle/vim-ragtag
+	url = https://github.com/tpope/vim-ragtag
+[submodule "vim/bundle/vim-pomodoro"]
+	path = vim/bundle/vim-pomodoro
+	url = https://github.com/mnick/vim-pomodoro
+[submodule "vim/bundle/nerdtree"]
+	path = vim/bundle/nerdtree
+	url = https://github.com/scrooloose/nerdtree
+[submodule "vim/bundle/trag_vim"]
+	path = vim/bundle/trag_vim
+	url = https://github.com/tomtom/trag_vim
+[submodule "vim/bundle/tlib_vim"]
+	path = vim/bundle/tlib_vim
+	url = https://github.com/tomtom/tlib_vim
+[submodule "vim/bundle/AsyncCommand"]
+	path = vim/bundle/AsyncCommand
+	url = https://github.com/pydave/AsyncCommand
