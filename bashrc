@@ -139,7 +139,7 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 # require vim plugin AsyncCommand
 alias v="vim --servername pomodoro"
-alias vimt='vim --servername pomodoro +":tab sball"'
+alias vt='vim --servername pomodoro +":tab sball"'
 #source /home/michael/.dotfiles/liquidprompt/liquidprompt
 
 export LC_TIME=fr_FR.UTF-8
