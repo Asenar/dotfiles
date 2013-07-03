@@ -132,12 +132,14 @@ if [ -x /usr/bin/dircolors ]; then
     alias ls='ls --color=auto'
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
-	
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
     alias less='less -R'
 fi
+# require vim plugin AsyncCommand
+alias v="vim --servername pomodoro"
+alias vimt='vim --servername pomodoro +":tab sball"'
+#source /home/michael/.dotfiles/liquidprompt/liquidprompt
 
-alias vimt='vim +":tab sball"'
-source ~/.dotfiles/liquidprompt/liquidprompt
+export LC_TIME=fr_FR.UTF-8
