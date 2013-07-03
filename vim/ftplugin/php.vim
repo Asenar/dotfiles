@@ -19,11 +19,9 @@ let g:php_localvarcheck_global=0
 
 " @TODO add "if $HOME/.vim/plugin/phpfolding !
 " requires ~/.vim/plugin/phpfolding.vim 
-map <F5> <Esc>:EnableFastPHPFolds<Cr>
-map <F6> <Esc>:EnablePHPFolds<Cr>
-map <F7> <Esc>:DisablePHPFolds<Cr>
-nmap <F8> :set number!<CR>
-imap <F8> <Esc>:set number!<CR>a
+	map <C-F5> <Esc>:EnableFastPHPFolds<Cr>
+	map <C-F6> <Esc>:EnablePHPFolds<Cr>
+	map <C-F7> <Esc>:DisablePHPFolds<Cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -67,7 +65,7 @@ syntax on
 " noremap ; :!php5 -l %<CR>
 
 " Map ; to "add ; to the end of the line, when missing"
-noremap ; :s/\([^;]\)$/\1;/<cr>
+" noremap ; :s/\([^;]\)$/\1;/<cr>
 
 " DEPRECATED in favor of PDV documentation (see below!)
 " Map <CTRL>-P to run actual file with PHP CLI
