@@ -1,4 +1,6 @@
-" Simple re-format for minified Javascript
+" Some custom function you will not find useful
+"
+"Simple re-format for minified Javascript
 command! UnMinify call UnMinify()
 function! UnMinify()
 	%s/{\ze[^\r\n]/{\r/g
@@ -62,3 +64,7 @@ imap <F8> <Esc>:call SwitchColor(1)<CR>
 
 map <S-F8> :call SwitchColor(-1)<CR>
 imap <S-F8> <Esc>:call SwitchColor(-1)<CR>
+
+function! Number2price()
+	normal cwprice_format2f,dxcct), 2:wklklklklklklklklklklklklklklklklklklklklklklklklklklklklklklklklklklklklklklklklkd*@
+endfunction
