@@ -10,14 +10,22 @@ let mapleader = ","
 " VIM, not VI
 "set nocompatible
 
+" required by quickfixsigns
+set lazyredraw
+" update quickfixsigns always (need to be before pathogen#infect)
+let g:quickfixsigns_events = ['BufEnter', 'CursorHold', 'CursorHoldI', 'InsertLeave', 'InsertEnter', 'InsertChange', 'CursorMoved', 'CursorMovedI']
 "
 "" General appearance and behaviour
 "
 execute pathogen#infect()
+" doc in bundle are now included :)
+Helptags
 syntax on
 " should I keep that ? (see at the bottom filetype off)
 filetype plugin indent on
 
+" use µ to type ^ in normal mode :)
+noremap £ ^
 " show tabline even when 1 tab
 set showtabline=2
 " show line,colomn in the status bar
@@ -234,3 +242,12 @@ if &term =~ "screen"
 endif
 autocmd InsertLeave * hi StatusLine ctermbg=black
 autocmd InsertEnter * hi StatusLine ctermbg=red
+
+" Return to last edit position when opening files (You want this!)
+autocmd BufReadPost *
+     \ if line("'\"") > 0 && line("'\"") <= line("$") |
+     \   exe "normal! g`\"" |
+     \ endif
+" Remember info about open buffers on close
+set viminfo^=%
+
