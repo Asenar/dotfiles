@@ -28,7 +28,21 @@ fail () {
 }
 
 setup_gitconfig () {
-  if ! [ -f git/gitconfig.symlinkZ ]
+  if ! [ -f git/gitconfig.symlink ]; then
+		doit="true"
+	else
+		cat git/gitconfig.symlink
+    user "File already exists: git/gitconfig.symlink, what do you want to do? \r\n [o]verwrite, [u]se it?"
+    read -n 1 action
+		if [ "$action" == "o" ]; then
+			doit="true"
+		else
+			doit="false"
+		fi
+	fi
+
+	echo "";
+	if [ "$doit" == "true" ];
   then
     info 'setup gitconfig'
 
@@ -39,7 +53,11 @@ setup_gitconfig () {
 
     sed -e "s/AUTHOR_NAME/$git_authorname/g" -e "s/AUTHOR_EMAIL/$git_authoremail/g" git/gitconfig.symlink.example > git/gitconfig.symlink
 
-    success 'gitconfig'
+    success "gitconfig"
+	else
+	echo "";
+    info "previous gitconfig kept"
+	echo "";
   fi
 }
 
@@ -55,14 +73,11 @@ install_dotfiles () {
   backup_all=false
   skip_all=false
 	allfiles=$(find $DOTFILES_ROOT -maxdepth 2 -name \*.symlink)
-	echo "LIST :"
-	echo $allfiles;
-	echo "";
   for source in $allfiles;
   do
     dest="$HOME/.`basename \"${source%.*}\"`"
 
-    if [ -f $dest ] || [ -d $dest ]
+    if [ -f $dest ] || [ -h $dest ] || [ -d $dest ]
     then
 
       overwrite=false
@@ -71,7 +86,7 @@ install_dotfiles () {
 
       if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]
       then
-        user "File already exists: `basename $source`, what do you want to do? [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
+        user "File already exists: `basename $source`, what do you want to do? \r\n [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
         read -n 1 action
 
         case "$action" in
