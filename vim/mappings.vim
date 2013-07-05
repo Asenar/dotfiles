@@ -99,11 +99,15 @@ cnoremap kj <Esc>
 " Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
 " Move a line of text using ALT+[jk] or Command+[jk] on mac
 " ... press <c-V><a-j> to map alt key in gnome-terminal
-nmap j mz:m+<cr>`z
-nmap k  mz:m-2<cr>`z
-vmap j  :m'>+<cr>`<my`>mzgv`yo`z
-vmap k  :m'<-2<cr>`>my`<mzgv`yo`z
-"nmap <M-j> mz:m+<cr>`z
-"nmap <M-k> mz:m-2<cr>`z
-"vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-"vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+nmap j :m+<cr>``
+nmap k :m-2<cr>``
+" vmap j  :m'>+<cr>`<my`>mzgv`yo`z
+" vmap k  :m'<-2<cr>`>my`<mzgv`yo`z
+nmap <a-j> :m+<cr>``
+nmap <a-k>  :m-2<cr>``
+" vmap <a-j>  :m'>+<cr>`<my`>mzgv`yo`z
+" vmap <a-k>  :m'<-2<cr>`>my`<mzgv`yo`z
+nmap <m-j> :m+<cr>``
+nmap <m-k>  :m-2<cr>``
+" vmap <m-j>  :m'>+<cr>`<my`>mzgv`yo`z
+" vmap <m-k>  :m'<-2<cr>`>my`<mzgv`yo`z
