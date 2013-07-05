@@ -141,5 +141,6 @@ fi
 alias v="vim --servername pomodoro"
 alias vt='vim --servername pomodoro +":tab sball"'
 #source /home/michael/.dotfiles/liquidprompt/liquidprompt
-
+alias vimt='vim +":tab sball"'
+# source ~/.dotfiles/liquidprompt/liquidprompt
 export LC_TIME=fr_FR.UTF-8
