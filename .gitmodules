@@ -31,3 +31,6 @@
 [submodule "vim/bundle/AsyncCommand"]
 	path = vim/bundle/AsyncCommand
 	url = https://github.com/pydave/AsyncCommand
+[submodule "vim/bundle/unite.vim"]
+	path = vim/bundle/unite.vim
+	url = https://github.com/Shougo/unite.vim
