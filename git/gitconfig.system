@@ -1,3 +1,5 @@
+# like gitconfig.main without the vim improvement 
+# alias gitasenar="git -c user.email=github@marinetti.fr -c user.name='Michael Marinetti'"
 [alias]
 # Statuses
 s = status -s
@@ -11,7 +13,7 @@ co = checkout
 ci = commit
 # Log history (requires git 1.8.3  for "%C(auto)" ) : display short sha1, refs (branches,tags), log msg, relative datetime and author
 lf = log --graph --pretty=format:'%C(yellow)%h%Creset %C(auto)%d%Creset %s %Cgreen(%cr) %C(bold cyan)<%an>%Creset' --abbrev-commit --date=relative --format=fuller 
-lg = log --graph --pretty=format:'%C(yellow)%h%Creset %C(auto)%d%Creset %s %Cgreen(%cr) %C(bold cyan)<%an>%Creset' --abbrev-commit --date=relative 
+lg = log --graph --pretty=format:'%C(yellow)%h%Creset  %C(auto)%d%Creset %s %Cgreen(%cr) %C(bold cyan)<%an>%Creset' --abbrev-commit --date=relative 
 lgb = log --graph --pretty=format:'%C(yellow)%h%Creset %C(auto)%d%Creset %s %Cgreen(%cr) %C(bold cyan)<%an>%Creset' --abbrev-commit --date=relative --branches 
 lga = log --graph --pretty=format:'%C(yellow)%h%Creset %C(auto)%d%Creset %s %Cgreen(%cr) %C(bold cyan)<%an>%Creset' --abbrev-commit --date=relative --all 
 # 
@@ -20,13 +22,7 @@ ha = log --graph --decorate --all --abbrev-commit --pretty=oneline
 h2 = log --graph --decorate --pretty=format:'%h | %an (%ad) - %s' --date=local --abbrev-commit
 h2a = log --graph --decorate --all --pretty=format:'%h | %an (%ad) - %s' --date=local --abbrev-commit
 
-# you can copy or link to /usr/local/bin/git-diff-prev f
-diffprev = !$HOME/.dotfiles/bin/git-diff-prev
-# alias gitasenar="git -c user.email=github@marinetti.fr -c user.name='Michael Marinetti'"
 
-[pager]
-# required for git-diff-prev
-diff =
 
 [color]
 ui = true
@@ -52,16 +48,16 @@ tag = bold yellow reverse
 stash = blue
 HEAD = bold cyan reverse
 
-
 [format]
 # pretty = oneline
 [diff]
 # you can copy or link to /usr/local/bin/git-diff-wrapper
-external = $HOME/.dotfiles/bin/git-diff-wrapper
+# external = $HOME/.dotfiles/bin/git-diff-wrapper
+
 [core]
-editor = vim
+# editor = vim
 [merge]
-tool = vimdiff
+# tool = vimdiff
 
 [branch "master"]
 mergeoptions = --no-ff --no-commit
