@@ -1,0 +1,6 @@
+#!/usr/bin/php
+<?php
+$string=$_SERVER['argv'][1];
+echo md5($string).PHP_EOL;
+
+?>
