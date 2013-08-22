@@ -106,18 +106,19 @@ cnoremap kj <Esc>
 "   inoremap <right> <nop>
 "   vnoremap <right> <nop>
 
+" don't work in gnome-terminal -_-
 " Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
 " Move a line of text using ALT+[jk] or Command+[jk] on mac
 " ... press <c-V><a-j> to map alt key in gnome-terminal
-nmap j :m+<cr>``
-nmap k :m-2<cr>``
+" nmap j :m+<cr>``
+" nmap k :m-2<cr>``
 " vmap j  :m'>+<cr>`<my`>mzgv`yo`z
 " vmap k  :m'<-2<cr>`>my`<mzgv`yo`z
-nmap <a-j> :m+<cr>``
-nmap <a-k>  :m-2<cr>``
+" nmap <a-j> :m+<cr>``
+" nmap <a-k>  :m-2<cr>``
 " vmap <a-j>  :m'>+<cr>`<my`>mzgv`yo`z
 " vmap <a-k>  :m'<-2<cr>`>my`<mzgv`yo`z
-nmap <m-j> :m+<cr>``
-nmap <m-k>  :m-2<cr>``
+" nmap <m-j> :m+<cr>``
+" nmap <m-k>  :m-2<cr>``
 " vmap <m-j>  :m'>+<cr>`<my`>mzgv`yo`z
 " vmap <m-k>  :m'<-2<cr>`>my`<mzgv`yo`z
