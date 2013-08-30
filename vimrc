@@ -87,6 +87,7 @@ if match($TERM, '256color$') != -1
 	set t_Co=256
   colorscheme 256_xoria
 else
+	set t_Co=256
   set background=dark
 	colorscheme kalahari
 endif
