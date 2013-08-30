@@ -1,30 +1,38 @@
 " autocomplete, if you want (requires ctags if I remember)
 " imap   <C-Space> <C-X><C-O>
-"
 
 " PHP FOLDING classes, methods and functions
 " PHP FOLDING
 
 " My settings     
-nmap <silent> <F2> :NERDTreeToggle<CR>    
-nnoremap <silent> <F3> :TlistToggle<CR>                                                                       
 " open all
 nmap <silent> zz zR 
 
-" @TODO add "if $HOME/.vim/plugin/phpfolding !
-" requires ~/.vim/plugin/phpfolding.vim 
-map <F5> <Esc>:EnableFastPHPFolds<Cr>
-map <F6> <Esc>:EnablePHPFolds<Cr>
-map <F7> <Esc>:DisablePHPFolds<Cr>
-nmap <F8> :set number!<CR>    
+
+"nmap <silent> <F2> :NERDTreeToggle<CR>
+"nnoremap <silent> <F3> :TlistToggle<CR>
+" toggle fold
+"inoremap <F4> <C-O>za
+"nnoremap <F4> za
+"onoremap <F4> <C-C>za
+" create a new fold
+"vnoremap <F4> zf
+"map <F4> :make<CR> " Compile
+" refresh syntax
+noremap <F5> :syntax sync fromstart<CR>
+map <F6> :cwindow<CR> " Ouvre la quickfix si nécessaire
+nmap <F7> <ESC>:PomodoroStart<CR>
+imap <F7> <ESC>:PomodoroStart<CR>a
+nmap <F8> :set number!<CR>
 imap <F8> <Esc>:set number!<CR>a
-
-nmap <F9> :CodeSniffErrorOnly<CR>    
-imap <F9> <Esc>:CodeSniffErrorOnly<CR>a
-nmap <C-F9> :CodeSniff<CR>    
-imap <C-F9> <Esc>:CodeSniff<CR>a
-
-" Map <ctrl>+p to single line mode documentation (in insert and command mode)
+map <S-F9> :cprevious<CR> " Recule d'une erreur
+map <F9> :cnext<CR> " Avance d'une erreur
+"nmap <F9> :CodeSniffErrorOnly<CR>
+"imap <F9> <Esc>:CodeSniffErrorOnly<CR>a
+"nmap <C-F9> :CodeSniff<CR>
+"imap <C-F9> <Esc>:CodeSniff<CR>a
+" Panic Button
+nnoremap <F12> mzggg?G`z
 inoremap <C-P><ESC> :call PhpDocSingle()<CR>i
 nnoremap <C-P> :call PhpDocSingle()<CR>
 " Map <ctrl>+p to multi line mode documentation (in visual mode)
@@ -61,7 +69,7 @@ nnoremap <leader>f <C-w>s<C-w>j
 
 "nmap <F6> :set number!<CR>
 nmap <silent> zz zR
-
+" from tuppervim-mars?
 inoremap <F4> <C-O>za
 nnoremap <F4> za
 onoremap <F4> <C-C>za
@@ -75,7 +83,41 @@ imap <C-t> <ESC>:tabnew<CR>
 nmap <TAB> gt<CR>
 nmap <S-TAB> gT<CR>
 
-:map ² :BufExplorer<CR> 
+map ² :BufExplorer<CR>
 
-" Panic Button
-nnoremap <f12> mzggg?G`z
+" quit vim if all has been saved;
+nmap QQ :qa<CR>
+
+" lazy escape
+inoremap kj <Esc>
+cnoremap kj <Esc>
+
+" for real men
+    noremap <up> <nop>
+    noremap <down> <nop>
+    noremap <left> <nop>
+    noremap <right> <nop>
+"   inoremap <up> <nop>
+"   vnoremap <up> <nop>
+"   inoremap <down> <nop>
+"   vnoremap <down> <nop>
+"   inoremap <left> <nop>
+"   vnoremap <left> <nop>
+"   inoremap <right> <nop>
+"   vnoremap <right> <nop>
+
+" Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
+" Move a line of text using ALT+[jk] or Command+[jk] on mac
+" ... press <c-V><a-j> to map alt key in gnome-terminal
+nmap j :m+<cr>``
+nmap k :m-2<cr>``
+" vmap j  :m'>+<cr>`<my`>mzgv`yo`z
+" vmap k  :m'<-2<cr>`>my`<mzgv`yo`z
+nmap <a-j> :m+<cr>``
+nmap <a-k>  :m-2<cr>``
+" vmap <a-j>  :m'>+<cr>`<my`>mzgv`yo`z
+" vmap <a-k>  :m'<-2<cr>`>my`<mzgv`yo`z
+nmap <m-j> :m+<cr>``
+nmap <m-k>  :m-2<cr>``
+" vmap <m-j>  :m'>+<cr>`<my`>mzgv`yo`z
+" vmap <m-k>  :m'<-2<cr>`>my`<mzgv`yo`z
