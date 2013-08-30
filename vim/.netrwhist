@@ -1,9 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =7
-let g:netrw_dirhist_1='/usr/local/gitolite/src/lib'
-let g:netrw_dirhist_2='/usr/local/gitolite/src'
-let g:netrw_dirhist_3='/usr/local/gitolite/src/triggers'
-let g:netrw_dirhist_4='/usr/local/gitolite/src'
-let g:netrw_dirhist_5='/usr/local/gitolite/src/lib'
-let g:netrw_dirhist_6='/usr/local/gitolite/src'
-let g:netrw_dirhist_7='/usr/local/gitolite/src/commands'
