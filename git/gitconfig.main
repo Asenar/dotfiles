@@ -22,11 +22,9 @@ h2a = log --graph --decorate --all --pretty=format:'%h | %an (%ad) - %s' --date=
 
 # you can copy or link to /usr/local/bin/git-diff-prev f
 diffprev = !$HOME/.dotfiles/bin/git-diff-prev
+d = difftool
 # alias gitasenar="git -c user.email=github@marinetti.fr -c user.name='Michael Marinetti'"
 
-[pager]
-# required for git-diff-prev
-diff =
 
 [color]
 ui = true
@@ -55,19 +53,22 @@ HEAD = bold cyan reverse
 
 [format]
 # pretty = oneline
-[diff]
-# you can copy or link to /usr/local/bin/git-diff-wrapper
-external = $HOME/.dotfiles/bin/git-diff-wrapper
 [core]
 editor = vim
+
+[diff]
+tool = vimdiff
+
+[difftool]
+prompt = false
+
+
 [merge]
 tool = vimdiff
 
-[branch "master"]
-mergeoptions = --no-ff --no-commit
-
-[branch "develop"]
-mergeoptions = --no-ff --no-commit
-
 [push]
 default = upstream
+
+[instaweb]
+
+httpd = apache2

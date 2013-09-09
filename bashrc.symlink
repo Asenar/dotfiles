@@ -144,3 +144,9 @@ alias vt='vim --servername pomodoro +":tab sball"'
 alias vimt='vim +":tab sball"'
 # source ~/.dotfiles/liquidprompt/liquidprompt
 export LC_TIME=fr_FR.UTF-8
+
+export PATH="$PATH:$HOME/git/github/git-achievements"
+alias g='git-achievements'
+alias git='git-achievements'
+
+export PATH="$PATH:/home/michael/git/github/gource-live"
