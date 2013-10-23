@@ -1,4 +1,4 @@
-# like gitconfig.main without the vim improvement 
+# like gitconfig.main without the vim improvement
 # alias gitasenar="git -c user.email=github@marinetti.fr -c user.name='Michael Marinetti'"
 [alias]
 # Statuses
@@ -24,29 +24,29 @@ h2a = log --graph --decorate --all --pretty=format:'%h | %an (%ad) - %s' --date=
 
 
 
-[color]
-ui = true
-filemode = false
-diff = auto
-status = auto
-branch = auto
-pager = true
-
-[color "branch"]
-current = bold cyan reverse
-HEAD = bold cyan reverse
-local = bold green
-remote = bold red
-upstream = yellow
-plain = reverse yellow
-
-[color "decorate"]
-current = bold cyan reverse
-branch = bold green
-remoteBranch = bold red
-tag = bold yellow reverse
-stash = blue
-HEAD = bold cyan reverse
+# [color]
+# ui = true
+# filemode = false
+# diff = auto
+# status = auto
+# branch = auto
+# pager = true
+# 
+# [color "branch"]
+# current = bold cyan reverse
+# HEAD = bold cyan reverse
+# local = bold green
+# remote = bold red
+# upstream = yellow
+# plain = reverse yellow
+# 
+# [color "decorate"]
+# current = bold cyan reverse
+# branch = bold green
+# remoteBranch = bold red
+# tag = bold yellow reverse
+# stash = blue
+# HEAD = bold cyan reverse
 
 [format]
 # pretty = oneline

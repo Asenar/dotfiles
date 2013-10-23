@@ -71,8 +71,8 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'pydave/AsyncCommand'
-NeoBundle 'mnick/vim-pomodoro'
+" NeoBundle 'pydave/AsyncCommand'
+" NeoBundle 'mnick/vim-pomodoro'
 NeoBundle 'tomtom/quickfixsigns_vim'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'tpope/vim-surround'
@@ -111,15 +111,14 @@ set number
 " List invisible chars
 "set listchars=tab:▶\ ,trail:◀,extends:»,precedes:«
 "set listchars=nbsp:¤,tab:>·,trail:¤,extends:>,precedes:<
-"set listchars=nbsp:¤,tab:··,trail:¤,extends:>,precedes:<
-set listchars=eol:\ ,tab:▸\ ,trail:·,extends:>,precedes:<,nbsp:¤
+set listchars=nbsp:¤,tab:▶\ ,trail:◀,extends:»,precedes:«
 set list
 " persistent undo
 " set undofile
 " set undodir=~/.vim/undodir
 
 " wildmenu show possible matches above the command line
-set nowildmenu
+set wildmenu
 " see :help wildmode for all options available
 " full means complete the next full match
 set wildmode=full
@@ -267,15 +266,16 @@ autocmd Filetype gitcommit setlocal spell textwidth=72
 
 
 " Duration of a pomodoro in minutes (default: 25)
-let g:pomodoro_time_work = 25
-" Duration of a break in minutes (default: 5)
-let g:pomodoro_time_slack = 5 
-" Log completed pomodoros, 0 = False, 1 = True (default: 0)
-let g:pomodoro_do_log = 1
-" Path to the pomodoro log file (default: /tmp/pomodoro.log)
-let g:pomodoro_log_file = "/tmp/pomodoro.log" 
-let g:pomodoro_notification_cmd = 'zenity --notification --text="Pomodoro finished"'
-set laststatus=2
+if has('clientserver')
+	let g:pomodoro_time_work = 25
+	" Duration of a break in minutes (default: 5)
+	let g:pomodoro_time_slack = 5 
+	" Log completed pomodoros, 0 = False, 1 = True (default: 0)
+	let g:pomodoro_do_log = 1
+	" Path to the pomodoro log file (default: /tmp/pomodoro.log)
+	let g:pomodoro_log_file = "/tmp/pomodoro.log" 
+	let g:pomodoro_notification_cmd = 'zenity --notification --text="Pomodoro finished"'
+	set laststatus=2
 
 "set statusline+=%#InfoMsg#%{PomodoroStatus()}%#StatusLine#
 " set statusline=%n%0F%m%r%h%w%q#%{echo " "}#%{PomodoroStatus()}%#StatusLine#
@@ -310,6 +310,7 @@ set laststatus=2
 "   %) end of width specification
 " set statusline=%<\ %n:%f\ %m%r%y%=%-35.(line:\ %l\ of\ %L,\ col:\ %c%V\ (%P)%)
 set statusline=%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P%{PomodoroStatus()}
+endif
 
 iabbrev _date <C-r>=strftime('%Y-%m-%d')<CR>
 " http://www.vimtweets.com/tips.json

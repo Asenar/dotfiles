@@ -142,6 +142,7 @@ alias v="vim --servername pomodoro"
 alias vt='vim --servername pomodoro +":tab sball"'
 #source /home/michael/.dotfiles/liquidprompt/liquidprompt
 alias vimt='vim +":tab sball"'
+alias suvicron='sudo EDITOR=vim crontab -e'
 # source ~/.dotfiles/liquidprompt/liquidprompt
 export LC_TIME=fr_FR.UTF-8
 
@@ -150,3 +151,4 @@ alias g='git-achievements'
 alias git='git-achievements'
 
 export PATH="$PATH:/home/michael/git/github/gource-live"
+umask 002
