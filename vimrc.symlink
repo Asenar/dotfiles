@@ -5,10 +5,55 @@
 """"""""""""""""""""""""""""""""""""""""""""
 " mapleader and maplocal leader at the top 
 " so plugins will take it (vim-orgmode)
-let maplocalleader = ","
-let mapleader = ","
-" VIM, not VI
-"set nocompatible
+let maplocalleader = "ù"
+let mapleader = "ù"
+let g:mapleader = "ù"
+
+
+" Text editing
+set encoding=utf8 " utf-8 encoding
+set formatoptions=tqrn1j " see help
+set number " show line numbers
+set textwidth=78 " 78 characters limit
+set cmdheight=1 " slightly bigger command line
+
+set nowrap " no wrapping
+set hidden " allow hidden buffers
+
+" Vim specific
+"set autoread " automatically reload file changes
+"set autowriteall " same as autowrite but for all actions
+set backspace=indent,eol,start " more powerful backspacing
+set diffopt+=vertical " make vertical default split
+"set foldlevel=0 " fold to level 0 when opening file
+"set foldmethod=marker " basic marker as default folding method
+set modeline " last lines in document sets vim mode
+set modelines=5 " number lines checked for modelines
+set omnifunc=syntaxcomplete#Complete " basic autocomplete from buffers
+
+"set noerrorbells " no error sounds
+set nostartofline " don't jump to first char when paging
+"set novisualbell " no visual sounds
+
+" Display
+set title " show title in console title bar
+set lazyredraw " don't redraw while executing macros
+set laststatus=2 " always show status line
+set scrolloff=3 " make cursor offset
+set shortmess=atToO " abbreviate messages oO is useful see help
+set showmode " show current mode
+set splitbelow " split at the bottom
+set splitright " vsplit on right
+set noshowcmd " do not display incomplete commands
+set noruler " do not show ruler
+
+
+" History of: file marks, command lines, input line, searches.
+" Also disable highlights on start and save buffers.
+" history and viminfo are two separate settings.
+" Putting the same value only makes it more consistent.
+set history=5000
+set viminfo='5000,:5000,@5000,/5000,h,%
 
 " required by quickfixsigns
 set lazyredraw
@@ -17,9 +62,35 @@ let g:quickfixsigns_events = ['BufEnter', 'CursorHold', 'CursorHoldI', 'InsertLe
 "
 "" General appearance and behaviour
 "
-execute pathogen#infect()
-" doc in bundle are now included :)
-Helptags
+set nocompatible               " Be iMproved
+
+if has('vim_starting')
+	set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
+call neobundle#rc(expand('~/.vim/bundle/'))
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'pydave/AsyncCommand'
+NeoBundle 'mnick/vim-pomodoro'
+NeoBundle 'tomtom/quickfixsigns_vim'
+NeoBundle 'scrooloose/syntastic'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'jceb/vim-orgmode'
+NeoBundle 'tpope/vim-speeddating'
+NeoBundle 'othree/html5.vim'
+NeoBundle 'shawncplus/phpcomplete.vim'
+NeoBundle 'ervandew/supertab'
+
+filetype plugin indent on     " Required!
+" Brief help
+" :NeoBundleList          - list configured bundles
+" :NeoBundleInstall(!)    - install(update) bundles
+" :NeoBundleClean(!)      - confirm(or auto-approve) removal of unused
+" bundles
+NeoBundleCheck
+
 syntax on
 " should I keep that ? (see at the bottom filetype off)
 filetype plugin indent on
@@ -37,10 +108,12 @@ set showmatch
 " and show line number
 set number
 " show tabs / nbsp / trailing spaces
+" List invisible chars
 "set listchars=tab:▶\ ,trail:◀,extends:»,precedes:«
 "set listchars=nbsp:¤,tab:>·,trail:¤,extends:>,precedes:<
 "set listchars=nbsp:¤,tab:··,trail:¤,extends:>,precedes:<
-"set list
+set listchars=eol:\ ,tab:▸\ ,trail:·,extends:>,precedes:<,nbsp:¤
+set list
 " persistent undo
 " set undofile
 " set undodir=~/.vim/undodir
@@ -50,6 +123,32 @@ set nowildmenu
 " see :help wildmode for all options available
 " full means complete the next full match
 set wildmode=full
+set wildchar=<Tab> wildmenu wildmode=full
+set wildcharm=<C-Z>
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
+set wildignore+=*/cache/*,*/undodir/*
+set wildignore+=*/.build*/*,*/build/*,*/.deps/*
+set wildignore+=*.pch,*.d,*.o,*.Po
+set wildmenu
+set wildmode=longest,full
+
+
+" Status line
+set statusline=%t "tail of the filename
+set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
+set statusline+=%{&ff}] "file format
+set statusline+=%h "help file flag
+set statusline+=%m "modified flag
+set statusline+=%r "read only flag
+set statusline+=%y "filetype
+set statusline+=%= "left/right separator
+set statusline+=%c, "cursor column
+set statusline+=%l/%L "cursor line/total lines
+set statusline+=\ %P "percent through file
+
+
+
+
 " backspace do a backspace :=)
 set backspace=indent,eol,start
 " do not automatically go to newline
@@ -65,10 +164,10 @@ set nodigraph
 "highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 "match OverLength /\%81v.\+/
 if exists('+colorcolumn')
-  set colorcolumn=120
+	set colorcolumn=120
 else
 	au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>120v.\+', -1)
-  "set colorcolumn=120
+	"set colorcolumn=120
 endif
 
 "
@@ -95,7 +194,7 @@ set shiftwidth=2
 " number of spaces that a <Tab> in the file counts for
 set tabstop=2
 " minimal number of screen lines to keep above and below cursor
-set scrolloff=5
+set scrolloff=2
 " encoding utf8, what else ? fileencoding maybe
 set encoding=utf8
 " current line has a different color :)
@@ -226,29 +325,38 @@ let g:syntastic_warning_symbol='⚠'
 " src: http://vim.wikia.com/wiki/Configuring_the_cursor
 " @see: :h t_EI
 if &term =~ "xterm\\|rxvt"
-  let &t_EI = "\033]12;white\007"
-  let &t_SI = "\033]12;red\007"
-  :silent !echo -ne "\033]12;white\007"
-  autocmd VimLeave * :silent :!echo -ne "\033]12;white\007"
+	let &t_EI = "\033]12;white\007"
+	let &t_SI = "\033]12;red\007"
+	:silent !echo -ne "\033]12;white\007"
+	autocmd VimLeave * :silent :!echo -ne "\033]12;white\007"
 endif
 if &term =~ "screen"
-"let &t_EI = "\033P\033]12;white\007\033\\"
-"let &t_SI = "\033P\033]12;red\007\033\\"
-":silent !echo -ne "\033P\033]12;white\007\033\\"
-  autocmd InsertLeave * :silent :!echo -ne "\033P\033]12;white\007\033\\"
-  autocmd InsertEnter * :silent :!echo -ne "\033P\033]12;red\007\033\\"
-  autocmd VimLeave * :silent :!echo -ne "\033P\033]12;white\007\033\\"
-  set term=xterm
+	"let &t_EI = "\033P\033]12;white\007\033\\"
+	"let &t_SI = "\033P\033]12;red\007\033\\"
+	":silent !echo -ne "\033P\033]12;white\007\033\\"
+	autocmd InsertLeave * :silent :!echo -ne "\033P\033]12;white\007\033\\"
+	autocmd InsertEnter * :silent :!echo -ne "\033P\033]12;red\007\033\\"
+	autocmd VimLeave * :silent :!echo -ne "\033P\033]12;white\007\033\\"
+	set term=xterm
 endif
 autocmd InsertLeave * hi StatusLine ctermbg=black
 autocmd InsertEnter * hi StatusLine ctermbg=red
 
 " Return to last edit position when opening files (You want this!)
 autocmd BufReadPost *
-     \ if line("'\"") > 0 && line("'\"") <= line("$") |
-     \   exe "normal! g`\"" |
-     \ endif
+			\ if line("'\"") > 0 && line("'\"") <= line("$") |
+			\   exe "normal! g`\"" |
+			\ endif
 " Remember info about open buffers on close
 set viminfo^=%
 
 runtime ftplugin/man.vim
+
+" see vim/syntax/php.vim
+let php_sql_query = 1 "Sql coloration in php
+let php_html_in_strings = 1 "html coloration in html
+let php_parent_error_open = 1
+let php_no_shorttags = 1
+" I prefer foldmethod=manual
+let php_folding = 0
+let php_sync_method = 0
