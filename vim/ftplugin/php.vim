@@ -11,7 +11,7 @@ autocmd FileType php noremap <C-K> :!phpcs %<CR>
 " completion automatique
 "imap   <C-Space> <C-X><C-O>
 " uncomment to disable phpfolding at opening (If I remember)
-" let phpfolding=0
+let phpfolding=0
 " requires ~/.vim/after/ftplugin/php_localvarcheck
 "let g:php_localvarcheck_enable=1
 let g:php_localvarcheck_enable=0
@@ -26,8 +26,8 @@ let g:php_localvarcheck_global=0
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " My modifications
-set keywordprg=/usr/local/zend/bin/pman
-set dictionary+=~/.vim/dic/xdebug2
+"set keywordprg=/usr/local/zend/bin/pman
+"set dictionary+=~/.vim/dic/xdebug2
 " END My modifications
 
 " Including PDV is automatic (php_php-doc.vim in ftplugin)
