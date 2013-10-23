@@ -54,10 +54,12 @@ vnoremap <C-P> :call PhpDocRange()<CR>
 :map <Leader>s :set hlsearch<CR>
 :map <Leader>S :set nohlsearch<CR>
 
-" search next/previous diff                                                                                                
-noremap § %
-noremap % [c
-noremap ù ]c
+"""""""""""""" AZERTY """""""""""""""""""
+"noremap § %
+" go to previous diff 
+noremap µ [c
+" go to next diff 
+noremap § ]c
 
 " Map <leader>f to split horizontally, and move to bottom window
 nnoremap <leader>f <C-w>s<C-w>j
@@ -82,8 +84,11 @@ imap <C-t> <ESC>:tabnew<CR>
 " normal mode : switch between tabs with <TAB>/<S-TAB>
 nmap <TAB> gt<CR>
 nmap <S-TAB> gT<CR>
-
-map ² :BufExplorer<CR>
+" Opening closing tabs
+map <Leader>tc :tabclose<CR>
+map <Leader>td ,bd,tc
+map <Leader>tt :tabnew %<CR>
+map <Leader>tn :tabnew<CR>
 
 " quit vim if all has been saved;
 nmap QQ :qa<CR>
@@ -122,3 +127,62 @@ cnoremap kj <Esc>
 " nmap <m-k>  :m-2<cr>``
 " vmap <m-j>  :m'>+<cr>`<my`>mzgv`yo`z
 " vmap <m-k>  :m'<-2<cr>`>my`<mzgv`yo`z
+
+" LEADER POWER
+" to switch lines (need alt)
+" nmap <leader>j :m+<cr>``
+" nmap <leader>k :m-2<cr>``
+" vmap <leader>j  :m'>+<cr>`<my`>mzgv`yo`z
+" vmap <leader>k  :m'<-2<cr>`>my`<mzgv`yo`z
+
+" change to directory containing current file
+nmap <Leader>cd :cd %:p:h<CR>
+
+" Ctrl-P Buffer
+"    nnoremap <Leader>pp :CtrlP<CR>
+"    nnoremap <Leader>pb :CtrlPBuffer<CR>
+"    nnoremap <Leader>pm :CtrlPMRU<CR>
+
+" Replace " with '
+nnoremap <Leader>s' :perldo s/"(.*?)"/'\1'/g<CR>
+nnoremap <Leader>s" :perldo s/'(.*?)'/"\1"/g<CR>
+vnoremap <Leader>s' :perldo s/"(.*?)"/'\1'/g<CR>
+vnoremap <Leader>s" :perldo s/'(.*?)'/"\1"/g<CR>
+
+" Fast reload of common files
+nnoremap <Leader>so :so %<CR>
+" nnoremap <Leader>sc :so $HOME/.vim/colors/monokai.vim<CR>
+nnoremap <Leader>sv :so $MYVIMRC<CR>
+
+
+" Splitting windows the right way
+" Thanks to: http://goo.gl/R73uk
+" window
+nmap <Leader>sw<Left> :topleft vnew<CR>
+nmap <Leader>sw<Right> :botright vnew<CR>
+nmap <Leader>sw<Up> :topleft new<CR>
+nmap <Leader>sw<Down> :botright new<CR>
+
+
+" buffer
+" or <leader>sh
+nmap <Leader>s<Left> :leftabove vnew<CR>
+nmap <Leader>sh :leftabove vnew<CR>
+
+nmap <Leader>s<Right> :rightbelow vnew<CR>
+nmap <Leader>sl :rightbelow vnew<CR>
+
+nmap <Leader>s<Up> :leftabove new<CR>
+nmap <Leader>sk :leftabove vnew<CR>
+
+nmap <Leader>s<Down> :rightbelow new<CR>
+nmap <Leader>sj :rightbelow vnew<CR>
+
+
+" Quick toggles
+nmap <Leader>ti :set ignorecase!<CR>
+nmap <Leader>tl :set list!<CR>
+nmap <Leader>tw :set wrap!<CR>
+
+nnoremap <Leader>y% :let @+ = expand("%:p")<CR>
+
