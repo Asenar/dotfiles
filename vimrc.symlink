@@ -5,9 +5,9 @@
 """"""""""""""""""""""""""""""""""""""""""""
 " mapleader and maplocal leader at the top 
 " so plugins will take it (vim-orgmode)
-let maplocalleader = "ù"
-let mapleader = "ù"
-let g:mapleader = "ù"
+let maplocalleader = "²"
+let mapleader = "²"
+let g:mapleader = "²"
 
 
 " Text editing
