@@ -79,9 +79,17 @@ NeoBundle 'tpope/vim-surround'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'jceb/vim-orgmode'
 NeoBundle 'tpope/vim-speeddating'
-NeoBundle 'othree/html5.vim'
-NeoBundle 'shawncplus/phpcomplete.vim'
-NeoBundle 'ervandew/supertab'
+"     NeoBundle 'othree/html5.vim'
+"     NeoBundle 'shawncplus/phpcomplete.vim'
+"     NeoBundle 'ervandew/supertab'
+" NeoBundle 'pangloss/vim-javascript'
+" /home/michael/.vim/bundle/PHP-Indenting-for-VIm
+" /home/michael/.vim/bundle/git
+" /home/michael/.vim/bundle/nerdtree
+" /home/michael/.vim/bundle/quickfixsigns
+" /home/michael/.vim/bundle/vim-javascript
+" /home/michael/.vim/bundle/vim-javascript-syntax
+" /home/michael/.vim/bundle/vim-phpqa
 
 filetype plugin indent on     " Required!
 " Brief help
@@ -208,21 +216,21 @@ set diffopt=filler,iwhite
 
 " php things moved in ftplugin :)
 " @TODO fix
-if match($TERM, '256color$') != -1
-	set background=dark
-	set t_Co=256
-	colorscheme 256_xoria
-else
-	set t_Co=256
-	set background=dark
-	colorscheme kalahari
-endif
+" if match($TERM, '256color$') != -1
+" 	set background=dark
+" 	set t_Co=256
+" 	colorscheme 256_xoria
+" else
+" 	set t_Co=256
+" 	set background=dark
+" 	colorscheme kalahari
+" endif
 
-colorscheme kalahari
-set background=dark
-set background=light
-set background=dark
-set t_Co=256
+" colorscheme iijo
+" set background=dark
+" set background=light
+" set background=dark
+" set t_Co=256
 
 
 " Load a tag file
@@ -254,9 +262,9 @@ let g:loaded_zencoding_vim = 0
 "endif
 "
 set t_Co=256
-" set t_Co=512 " oO
 colorscheme kalahari " https://raw.github.com/fabi1cazenave/kalahari.vim/master/colors/kalahari.vim
 " colorscheme 256_xoria
+" colorscheme iijo
 
 source $HOME/.vim/mappings.vim
 source $HOME/.vim/functions.vim
