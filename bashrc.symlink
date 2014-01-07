@@ -148,4 +148,5 @@ export LC_TIME=fr_FR.UTF-8
 
 
 export PATH="$PATH:/home/michael/git/github/gource-live"
-umask 002
+# umask 002
+PROMPT_COMMAND='echo -ne "\033]0;${PWD}\007"'
