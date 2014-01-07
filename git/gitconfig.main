@@ -11,10 +11,23 @@ co = checkout
 # Commit
 ci = commit
 # Log history (requires git 1.8.3  for "%C(auto)" ) : display short sha1, refs (branches,tags), log msg, relative datetime and author
-lf = log --graph --pretty=format:'%C(yellow)%h%Creset %C(auto)%d%Creset %s %Cgreen(%cr) %C(bold cyan)<%an>%Creset' --abbrev-commit --date=relative --format=fuller 
-lg = log --graph --pretty=format:'%C(yellow)%h%Creset %C(auto)%d%Creset %s %Cgreen(%cr) %C(bold cyan)<%an>%Creset' --abbrev-commit --date=relative 
-lgb = log --graph --pretty=format:'%C(yellow)%h%Creset %C(auto)%d%Creset %s %Cgreen(%cr) %C(bold cyan)<%an>%Creset' --abbrev-commit --date=relative --branches 
-lga = log --graph --pretty=format:'%C(yellow)%h%Creset %C(auto)%d%Creset %s %Cgreen(%cr) %C(bold cyan)<%an>%Creset' --abbrev-commit --date=relative --all 
+# %C(auto): to use colors defined in [color] section
+# %h      : abbreviated sha1
+# %Creset : to reset color
+# %d      : --decorate (branch & tag names)
+# %s      : commit message
+# %ad     : author date (will follow --date directive) (and not commiter date)
+# %an     : author name (can be %cn for commiter name)
+
+lg =  log --graph \
+    --pretty=format:'%C(auto)%h%Creset %C(auto)%d%Creset %s %C(green)(%ad) %C(bold cyan)<%an>%Creset'
+lgb = log --graph \
+    --pretty=format:'%C(auto)%h%Creset %C(auto)%d%Creset %s %C(green)(%ad) %C(bold cyan)<%an>%Creset'
+lga = log --graph \
+    --pretty=format:'%C(auto)%h%Creset %C(auto)%d%Creset %s %C(green)(%ad) %C(bold cyan)<%an>%Creset'
+
+lf =  log --graph --stat \
+    --pretty=format:'%C(auto)%h%Creset %C(auto)%d%Creset %s %C(green)(%ad) %C(bold cyan)<%an>%Creset'
 
 h = log --graph --decorate --abbrev-commit --pretty=oneline
 ha = log --graph --decorate --all --abbrev-commit --pretty=oneline
@@ -25,6 +38,11 @@ h2a = log --graph --decorate --all --pretty=format:'%h | %an (%ad) - %s' --date=
 diffprev = !$HOME/.dotfiles/bin/git-diff-prev
 # alias gitasenar="git -c user.email=github@marinetti.fr -c user.name='Michael Marinetti'"
 
+[log]
+abbrevCommit = true
+date = relative
+decorate = short
+graph    = true
 
 [color]
 ui = true
@@ -54,16 +72,18 @@ pager = true
 [format]
 # pretty = oneline
 
-[diff]
-# you can copy or link to /usr/local/bin/git-diff-wrapper
-tool = vimdiff
 [core]
 editor = vim
 
+[diff]
+tool = vimdiff
+# Git diff will use (i)ndex, (w)ork tree, (c)ommit and (o)bject
+# https://github.com/ornicar/dotfiles/blob/master/gitconfig
+# see git help config
+mnemonicprefix = true
 
 [difftool]
 prompt = false
-
 
 [merge]
 tool = vimdiff
