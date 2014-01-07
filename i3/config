@@ -74,7 +74,10 @@ set $lock $(i3lock -c 000000)
 # set $lock $(i3lock -c 000000 -i /home/michael/Pictures/black-metallic-pattern.png -t )
 
 # window font (note: iso10646 = unicode)
-font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+#font -misc-fixed-medium-r-normal--18-120-75-75-C-70-iso10646-1
+font pango:Inconsolata Sans Mono 10
+
+#font xft:Droid Sans Mono 10
 #font -misc-inconsolata-medium-r-normal--0-0-0-0-p-0-iso10646-1
 #font -misc-inconsolata-medium-r-normal--11-80-100-100-p-54-iso646-1
 
@@ -87,35 +90,53 @@ new_float normal
 
 # Statusline (i3bar)
 bar {
-	output $screen0
-  # TODO: remove redundant battery information from the status line
-  #status_command i3status
-  status_command i3status --config ~/.i3/i3status3
+  id bar-1
+  output $screen0
+   # TODO: remove redundant battery information from the status line
+   #status_command i3status
+  status_command i3status --config ~/.i3/i3status
   position bottom
   mode dock
-#mode hide
+# tray_output <none|primary|output>
   tray_output $screen0
-#font -misc-fixed-medium-r-normal--20-120-75-75-C-70-iso10646-1
-#font pango:DejaVu Sans Mono 20
-#font SourceSansSourceSansPro-Regular
-#	font -adobe-times-medium-r-normal--11-80-100-100-p-54-iso8859-1
+	font pango:DejaVu Sans Mono 10
+#font pango:Inconsolata Sans Mono 10
+  workspace_buttons yes
+  binding_mode_indicator yes
+  colors{
+    background #205F20
+    statusline #ffffff
+    separator #666666
+
+    focused_workspace  #4c7899 #285577 #ffffff
+    active_workspace   #33aaaa #5f676a #ffffff
+    inactive_workspace #333333 #228022 #333333
+    urgent_workspace   #2f343a #900000 #ffffff
+  }
 }
 
 bar {
-	output $screen1
+  id bar-2
+  output $screen1
   # TODO: remove redundant battery information from the status line
   position bottom
-  status_command i3status --config ~/.i3/i3status3
+  status_command i3status --config ~/.i3/i3status
   mode dock
-#mode hide
+  #mode hide
   tray_output $screen1
-#font -misc-fixed-medium-r-normal--20-120-75-75-C-70-utf8-1
-#font pango:DejaVu Sans Mono 20
-#font SourceSansSourceSansPro-Regular
-#	font -adobe-times-medium-r-normal--11-80-100-100-p-54-iso8859-1
+  workspace_buttons yes
+	binding_mode_indicator yes
+  colors{
+    background #205F20
+    statusline #ffffff
+    separator #666666
+
+    focused_workspace  #4c7899 #285577 #ffffff
+    active_workspace   #33aaaa #5f676a #ffffff
+    inactive_workspace #333333 #228022 #333333
+    urgent_workspace   #2f343a #900000 #ffffff
+  }
 }
-
-
 
 # Default color theme:
 #   class                 border  backgr. text
