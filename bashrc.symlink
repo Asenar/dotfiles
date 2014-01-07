@@ -146,9 +146,6 @@ alias suvicron='sudo EDITOR=vim crontab -e'
 # source ~/.dotfiles/liquidprompt/liquidprompt
 export LC_TIME=fr_FR.UTF-8
 
-export PATH="$PATH:$HOME/git/github/git-achievements"
-alias g='git-achievements'
-alias git='git-achievements'
 
 export PATH="$PATH:/home/michael/git/github/gource-live"
 umask 002
