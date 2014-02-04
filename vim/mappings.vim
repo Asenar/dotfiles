@@ -1,5 +1,9 @@
 " autocomplete, if you want (requires ctags if I remember)
 " imap   <C-Space> <C-X><C-O>
+"
+" save 1 keystroke on classic keyboard
+" use µ to type ^ in normal mode :)
+noremap £ ^
 
 " PHP FOLDING classes, methods and functions
 " PHP FOLDING
@@ -110,6 +114,12 @@ cnoremap kj <Esc>
 "   vnoremap <left> <nop>
 "   inoremap <right> <nop>
 "   vnoremap <right> <nop>
+"
+
+" Treat long lines as break lines (useful when moving around in them)
+nnoremap j gj
+nnoremap k gk
+
 
 " don't work in gnome-terminal -_-
 " Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
