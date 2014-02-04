@@ -56,6 +56,9 @@
 # define your preferred main modifier key: Alt_L (Mod1) or Super_L (Mod4)
 set $mod Mod4
 
+set $screen0 VGA-1
+set $screen1 DVI-I-1
+
 # use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
@@ -75,7 +78,8 @@ set $lock $(i3lock -c 000000)
 
 # window font (note: iso10646 = unicode)
 #font -misc-fixed-medium-r-normal--18-120-75-75-C-70-iso10646-1
-font pango:Inconsolata Sans Mono 10
+#font pango:Inconsolata Sans Mono 9
+font pango:Code Sans Mono 9
 
 #font xft:Droid Sans Mono 10
 #font -misc-inconsolata-medium-r-normal--0-0-0-0-p-0-iso10646-1
@@ -99,8 +103,8 @@ bar {
   mode dock
 # tray_output <none|primary|output>
   tray_output $screen0
-	font pango:DejaVu Sans Mono 10
-#font pango:Inconsolata Sans Mono 10
+#  font pango:DejaVu Sans Mono 8
+font pango:Inconsolata Sans Mono 10
   workspace_buttons yes
   binding_mode_indicator yes
   colors{
@@ -125,7 +129,7 @@ bar {
   #mode hide
   tray_output $screen1
   workspace_buttons yes
-	binding_mode_indicator yes
+  binding_mode_indicator yes
   colors{
     background #205F20
     statusline #ffffff
@@ -177,20 +181,21 @@ set $w10 10
 set $w11 11
 set $w12 12: i3config
 
-set $screen0 VGA-1
-set $screen1 DVI-I-1
-workspace $w01 output $screen0
-workspace $w02 output $screen1
-workspace $w03 output $screen0
-workspace $w04 output $screen1
-workspace $w05 output $screen1
-workspace $w06 output $screen0
-workspace $w07 output $screen1
-# workspace $w08 output $screen0
-# workspace $w09 output $screen0
-# workspace $w10 output $screen0
-# workspace $w11 output $screen0
-workspace $w12 output $screen1
+set $screen0 "VGA-1"
+set $screen1 "DVI-I-1"
+
+workspace "1: work"      output $screen0
+workspace "2: workterm"  output $screen1
+workspace "3: procr"     output $screen0
+workspace "4: mail"      output $screen1
+workspace "5: chat"      output $screen1
+workspace "6: tasks"     output $screen0
+workspace "7: term"      output $screen1
+#workspace 8              output $screen0
+#workspace 9              output $screen1
+#workspace 10             output $screen1
+#workspace 11             output $screen1
+workspace "12: i3config" output $screen1
 
 
 # http://i3wm.org/docs/userguide.html#command_criteria (xprop might be useful…)
@@ -200,16 +205,16 @@ workspace $w12 output $screen1
 # - title       : X11 window title (_NET_WM_NAME or WM_NAME as fallback)
 
 # Common apps are sorted by workspace
-assign [class="^Thunderbird"] → $w06
+assign [class="^Thunderbird"]  → $w06
 #assign [class="^Firefox"]     → $w07
 #assign [class="^Aurora"]      → $w09
 #assign [title="^Aurora"]      → $w09
 #assign [title="Aurora$"]      → $w09
 #assign [class="^Nightly"]     → $w09
-assign [class="^VirtualBox"]  → $w10
-assign [class="^Pidgin"]      → $w05
-assign [class="^Skype"]       → $w05
-assign [class="^Hotot"]       → $w11
+assign [class="^VirtualBox"]   → $w10
+assign [class="^Pidgin"]       → $w05
+assign [class="^Skype"]        → $w05
+assign [class="^Hotot"]        → $w11
 
 # These windows require a specific rule to be displayed in floating mode:
 #for_window [window_role="^Manager"]    floating enable
@@ -227,7 +232,7 @@ for_window [class="^B2g$"]             floating enable
 for_window [title="^Debconf"]          floating enable
 for_window [title="^screenkey"]        floating enable
 for_window [window_role="^Detached$"]  floating enable
-for_window [type="dialog"]                        floating enable
+for_window [window_role="dialog"]      floating enable
 
 # >>>
 
@@ -240,6 +245,10 @@ bind $mod+38 layout tabbed
 bind $mod+39 layout stacked
 bind $mod+40 layout default
 bind $mod+41 fullscreen
+
+# Switch between Tabbed/Stacking/Divided/Fullscreen modes         ($mod+x)
+#bind $mod+53 layout toggle all
+bindsym --release $mod+x exec --no-startup-id import /tmp/latest-screenshot.png
 
 # Toggle global fullscreen                                       ($mod+shift+f)
 bind $mod+Shift+41 fg
@@ -325,10 +334,10 @@ bind $mod+Control+46 resize grow   right 10 px or 5 ppt
 bindsym $mod+r mode "resize"
 mode "resize" {
   # Vim-style
-  bind 43 resize shrink right 20 px or 10 ppt
-  bind 44 resize grow   down  20 px or 10 ppt
-  bind 45 resize shrink down  20 px or 10 ppt
-  bind 46 resize grow   right 20 px or 10 ppt
+  bind 43 resize shrink right 10 px or 5 ppt
+  bind 44 resize grow   down  10 px or 5 ppt
+  bind 45 resize shrink down  10 px or 5 ppt
+  bind 46 resize grow   right 10 px or 5 ppt
   # cursor keys
   #bindsym Left  resize shrink right 10 px or 5 ppt
   #bindsym Down  resize grow   down  10 px or 5 ppt
@@ -340,7 +349,6 @@ mode "resize" {
   bindsym Escape mode "default"
   bindsym space  mode "default"
 }
-bindsym $mod+x layout toggle all
 
 # Previous/Next Workspace                                           ($mod+[ui])
 bind $mod+30 workspace prev
@@ -508,9 +516,10 @@ bind $mod+Shift+61 move scratchpad
 #bind 235 exec $()
 #bind 199 exec $()
 
-exec --no-startup-id i3-msg 'workspace $w01; exec gnome-terminal;exec firefox -P work'
+exec --no-startup-id i3-msg 'workspace $w01; exec gnome-terminal'
+exec --no-startup-id i3-msg 'workspace $w01; exec firefox -P work'
 exec --no-startup-id i3-msg "workspace $w02; exec gnome-terminal"
-exec --no-startup-id i3-msg "workspace $w03; exec firefox -P proc; workspace $w01"
+exec --no-startup-id i3-msg "workspace $w03; exec firefox -P procrastifox; workspace $w01"
 exec --no-startup-id i3-msg "workspace $w04; exec icedove"
 # exec --no-startup-id i3-msg 'workspace $w05; exec xchat'
 exec --no-startup-id i3-msg 'workspace $w12; exec gnome-terminal -e "vim /home/michael/.i3/config ";workspace $w01'
