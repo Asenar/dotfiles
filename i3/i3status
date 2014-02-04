@@ -21,6 +21,8 @@ order += "ethernet eth0"
 #order += "battery 0"
 order += "cpu_temperature 0"
 order += "load"
+order += "cpu_usage"
+order += "volume master"
 order += "time"
 
 wireless wlan0 {
@@ -59,8 +61,19 @@ cpu_temperature 0 {
   format = "T: %degrees °C"
 }
 
+cpu_usage {
+  format = "CPU: %usage"
+}
+
 disk "/" {
   format = "%free"
+}
+
+volume master {
+  format = "♪: %volume"
+  device = "default"
+  mixer = "Master"
+  mixer_idx = 0
 }
 
 # vim: set ft=config:
