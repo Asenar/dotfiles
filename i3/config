@@ -66,7 +66,7 @@ floating_modifier $mod
 set $terminal gnome-terminal
 
 # define your preferred application launcher
-set $launcher $(dmenu_path | sort -u | dmenu -fn '-*-fixed-*-r-normal-*-*-120-*-*-*-*-iso8859-*' -nb '#000000' -nf '#FFFFFF' -sb '#1793d1')
+set $launcher $(dmenu_run | sort -u | dmenu -fn '-*-fixed-*-r-normal-*-*-120-*-*-*-*-iso8859-*' -nb '#000000' -nf '#FFFFFF' -sb '#1793d1')
 
 # define your preferred screen lock
 # set $lock $(xdg-screensaver lock)
