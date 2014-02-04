@@ -80,7 +80,7 @@ install_dotfiles () {
   do
     dest="$HOME/.`basename \"${source%.*}\"`"
 
-    if [ -f $dest ] || [ -h $dest ] || [ -d $dest ]
+    if [ -f $dest ] || [ -h $dest ] || [ -d $dest ]
     then
 
       overwrite=false
