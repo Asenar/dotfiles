@@ -1,0 +1,70 @@
+#|
+#| File          : ~/.config/i3status/config
+#| Author        : Fabien Cazenave
+#| Charset       : UTF-8
+#| License       : WTFPL
+#| Last Modified : 2013-01-21
+#|
+
+general {
+  colors = true
+#interval = 60
+	interval = 1
+}
+order = "load"
+order += "cpu_usage"
+order += "volume master"
+order += "time"
+
+wireless wlan0 {
+  format_up = "W: (%quality at %essid) %ip"
+  format_down = "W: down"
+}
+
+ethernet eth0 {
+  # if you use %speed, i3status requires root privileges
+  format_up = "E: %ip (%speed)"
+#format_up = "E: %ip"
+  format_down = "E: down"
+}
+
+battery 0 {
+  format = "%status %percentage %remaining"
+}
+
+run_watch DHCP {
+  pidfile = "/var/run/dhclient*.pid"
+}
+
+run_watch VPN {
+  pidfile = "/var/run/vpnc/pid"
+}
+
+time {
+ format = "%Y-%m-%d %H:%M:%S"
+}
+
+ load {
+   format = "%1min"
+ }
+
+cpu_temperature 0 {
+  format = "T: %degrees °C"
+}
+
+cpu_usage {
+  format = "CPU: %usage"
+}
+
+disk "/" {
+  format = "%free"
+}
+
+volume master {
+  format = "♪: %volume"
+  device = "default"
+  mixer = "Master"
+  mixer_idx = 0
+}
+
+# vim: set ft=config:

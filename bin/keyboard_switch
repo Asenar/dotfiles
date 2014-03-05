@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# qwerty lafayette : https://github.com/fabi1cazenave/qwerty-lafayette
+#
+#
+#  1. add the xkb to  /usr/share/X11/xkb/symbols/fr ( see http://simos.info/blog/archives/113)
+#
+#  line_total=$(cat lafayette.xkb|wc -l)
+#  line_start=$(grep 'xkb_symbols "lafayette"' lafayette.xkb -nr|awk -F: '{print $1}')
+#  line_from_bottom=$(echo "$line_total - $line_start"|bc)
+#  tail -n $line_from_bottom >> /usr/share/X11/xkb/symbols/fr
+
+#
+
+current=$(setxkbmap -print | grep xkb_symbols | awk -F"+" '{print $2}')
+
+if [ $current == 'fr' ]; then
+	setxkbmap fr lafayette
+else if [ $current == 'fr(lafayette)' ]; then
+	setxkbmap us
+	# xkbcomp -w9 /usr/share/X11/xkb/keymap/kaze/lafayette.xkb $DISPLAY
+else
+	setxkbmap fr
+fi
+fi

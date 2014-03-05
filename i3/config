@@ -98,7 +98,7 @@ bar {
   output $screen0
    # TODO: remove redundant battery information from the status line
    #status_command i3status
-  status_command i3status --config ~/.i3/i3status
+  status_command ~/.i3/keymap.sh
   position bottom
   mode dock
 # tray_output <none|primary|output>
@@ -388,6 +388,10 @@ bind $mod+47       focus parent
 # (note: does not apply to tabbed containers)
 bind $mod+56 border toggle
 
+
+# see bin/keyboard_switch
+bind $mod+52 exec /usr/local/bin/keyboard_switch
+
 # >>>
 
 #|=============================================================================
@@ -559,3 +563,4 @@ for_window [title="^screenkey"] floating enable
 # >>>
 
 # vim: set fdm=marker fmr=<<<,>>> fdl=0:
+
