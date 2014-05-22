@@ -101,12 +101,19 @@ if [ "$res" = "(unknown)" -o "$res" == "" ]; then
 	fi
 }
 
+source /usr/lib/git-core/git-sh-prompt
 GIT_PS1_SHOWDIRTYSTATE=1
 GIT_PS1_SHOWSTASHSTATE=1
 GIT_PS1_SHOWUNTRACKEDFILES=1
+GIT_PS1_SHOWCOLORHINTS=2
 # can be verbose, legacy, git, auto, svn
-GIT_PS1_SHOWUPSTREAM="auto"
-PS1="$CYAN\$(date +%H:%M) $BLUE\w$TXTRST\[\$(check_git_changes)\]\$(check__git_ps1)$TXTRST "
+GIT_PS1_SHOWUPSTREAM="legacy"
+# PS1="$CYAN\$(date +%H:%M)$TXTRST $BLUE\w$TXTRST"'$(__git_ps1 "(%s)") '
+# PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '
+PS1=""
+source /usr/lib/git-core/git-sh-prompt
+# TODO: display \h in different color according to a config file
+PROMPT_COMMAND='__git_ps1 "$CYAN$(date +%H:%M)$TXTRST \u@\h $BLUE\w"$TXTRST "\\\$ "'
 if [ "`id -u`" -eq 0 ]; then
 	PS1=$PS1'# '
 else
