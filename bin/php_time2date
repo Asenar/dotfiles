@@ -1,5 +1,6 @@
 #!/usr/bin/php
 <?php
+date_default_timezone_set('Europe/Paris');
 $time=$_SERVER['argv'][1];
 echo date('Y-m-d H:i:s', $time).PHP_EOL;
 
