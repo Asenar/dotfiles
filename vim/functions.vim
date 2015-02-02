@@ -12,6 +12,8 @@ endfunction
 " switch scheme based on http://vim.wikia.com/wiki/Switch_color_schemes
 
 " unlet loaded_switchcolor
+" {{{
+if use_switchcolor == 1
 if v:version > 700 && !exists('loaded_switchcolor') || ! &cp
 	let paths = split(globpath(&runtimepath, 'colors/*.vim'), "\n")
 	let s:swcolors = map(paths, 'fnamemodify(v:val, ":t:r")')
@@ -19,7 +21,6 @@ if v:version > 700 && !exists('loaded_switchcolor') || ! &cp
 	let s:swskip = []
 	let s:swback = 0 " background variants light/dark was not yet switched
 	let s:swindex = 0
-
 	function! SwitchColor(swinc)
 		" if have switched background: dark/light
 		if (s:swback == 1)
@@ -32,7 +33,6 @@ if v:version > 700 && !exists('loaded_switchcolor') || ! &cp
 			else
 				return SwitchColor(a:swinc)
 			endif
-
 		else
 			let s:swback = 1
 			if (&background == "light")
@@ -40,26 +40,23 @@ if v:version > 700 && !exists('loaded_switchcolor') || ! &cp
 			else
 				execute "set background=light"
 			endif
-
 			" roll back if background is not supported
 			if (!exists('g:colors_name'))
 				return SwitchColor(a:swinc)
 			endif
 		endif
-
 		" show current name on screen. :h :echo-redraw
 		redraw
 		execute "colorscheme"
 	endfunction
-
 	map <F8> :call SwitchColor(1)<CR>
 	imap <F8> <Esc>:call SwitchColor(1)<CR>
-
 	map <S-F8> :call SwitchColor(-1)<CR>
 	imap <S-F8> <Esc>:call SwitchColor(-1)<CR>
-
 	let loaded_switchcolor = 1
 endif
+endif
+" }}}
 
 
 function! Number2price()
@@ -83,6 +80,8 @@ if exists("b:did_indent")
   finish
 endif
 
+" {{{
+if use_doing_indent_inits == 1
 " This script pulls in the default indent/php.vim with the :runtime command
 " which could re-run this script recursively unless we catch that:
 if exists('s:doing_indent_inits')
@@ -93,6 +92,11 @@ runtime! indent/html.vim
 unlet b:did_indent
 runtime! indent/php.vim
 unlet s:doing_indent_inits
+endif
+" }}}
+
+" {{{
+if use_phphtmlindent == 1
 
 function! GetPhpHtmlIndent(lnum)
   if exists('*HtmlIndent')
@@ -117,3 +121,17 @@ endfunction
 
 setlocal indentexpr=GetPhpHtmlIndent(v:lnum)
 setlocal indentkeys+=<>>
+endif
+" }}}
+
+
+" simple php string
+let @j = 'ca'' __()PF''hx'
+let @m = 'ca" __()PF"hx'
+" most html things
+let @k = 'cit<?php echo __(''pa'') ?>'
+" most javascript things
+let @l = 'ci"<?php echo __(''''); ?>F(lp'
+
+let @s = ':s#<strong>\(.*\)</strong>\(.*\) '')#%s\1%s\2'', array(''<strong>'', ''</strong>''))#'
+
