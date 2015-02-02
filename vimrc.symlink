@@ -1,32 +1,70 @@
-" {{{ Colors
+" {{{ config
+let use_color_daylight      = 0
+let use_cursor_change_color = 1 " change cursor color when insert mode
+" bundles
+let use_neobundle           = 1
+let use_quickfixsigns       = 0
+let use_fugitive            = 0
+let use_powerline           = 0
+let use_pomodoro            = 1
+let use_browserlink         = 1
+let use_css3_syntax         = 0
+let use_surround            = 0
+let use_orgmode             = 1
+" required for orgmode
+let use_speeddatting        = 1
+let use_calendar            = 1
+let use_php_bundles         = 0
+let use_surround            = 0
+let use_surround            = 0
+
+let use_ctags               = 0
+let use_manplugin           = 0
+let use_wildmode_full       = 0
+let use_last_edit_position  = 0
+let use_php_special         = 0
+
+let use_switchcolor         = 0 " f8 / shift+f8
+let use_doing_indent_inits  = 0
+let use_phphtmlindent       = 0
+" }}}
 
 set nocompatible               " Be iMproved
+
+" {{{ Colors
 set t_Co=256
 colorscheme kalahari " https://raw.github.com/fabi1cazenave/kalahari.vim/master/colors/kalahari.vim
 " colorscheme 256_xoria
 " colorscheme iijo
-
-" change color according to the daylight
-"if strftime("%H") < 6 + 0
-"	colorscheme darkblue
-"elseif strftime("%H") < 12 + 0
-"	colorscheme morning
-"elseif strftime("%H") < 18 + 0
-"	colorscheme shine
-"else
-"	colorscheme evening
-"endif
-
 " }}}
+
+" {{{ color daylight
+if use_color_daylight
+" change color according to the daylight
+let current_hour = strftime("%H")
+if strftime("%H") < 6 + 0
+	colorscheme darkblue
+elseif current_hour < 12 + 0
+	colorscheme morning
+elseif current_hour < 18 + 0
+	colorscheme shine
+else
+	colorscheme evening
+endif
+endif
+" }}}
+
 " {{{ Spaces & Tabs 
 set noexpandtab   " do not convert tabs to spaces
 set softtabstop=2 " Number of spaces that a <Tab> counts for while performing edit
 set shiftwidth=2  " Number of spaces to use for each step of indent
 set tabstop=2     " number of spaces that a <Tab> in the file counts for
 " }}}
-" {{{ UI layout
+
+" {{{ vim base config, UI layout
 " List invisible chars
-set listchars=nbsp:¤,tab:▶\ ,trail:◀,extends:»,precedes:«
+set listchars=nbsp:¤,tab:→\ ,trail:◀,extends:»,precedes:«
+"set listchars=nbsp:¤,tab:▶\ ,trail:◀,extends:»,precedes:«
 set list
 " History of: file marks, command lines, input line, searches.
 " Also disable highlights on start and save buffers.
@@ -35,13 +73,12 @@ set list
 set history=5000
 set viminfo='5000,:5000,@5000,/5000,h,%
 syntax on
-set showtabline=2 " show tabline even when 1 tab
+set showtabline=2 " show tabline menu even when 1 tab
 set ruler " show line,colomn in the status bar
 set showcmd " when starting to type a command in normal mode, display it 
 set showmatch " show corresponding bracket
 set number " and show line number
 " should I keep that ? (see at the bottom filetype off)
-filetype plugin indent on
 set backspace=indent,eol,start " more powerful backspacing
 set encoding=utf8              " utf-8 encoding
 set formatoptions=tqrn1j       " see help
@@ -52,9 +89,9 @@ set cmdheight=1                " slightly bigger command line
 set nowrap                     " do not automatically go to newline
 set hidden                     " allow hidden buffers
 set nolinebreak                " I do not want to automatically breaks if lines are too long.
-set modeline                   " last lines in document sets vim mode
-set modelines=2                " number lines checked for modelines
-set nomodeline                 " don't load modelines... (see :help modeline
+"set modeline                   " last lines in document sets vim mode
+"set modelines=2                " number lines checked for modelines
+"set nomodeline                 " don't load modelines... (see :help modeline
 set nodigraph                  " disable digraph input to make <^> work faster
 
 set incsearch                  " I don't want to show matches while typing search
@@ -62,8 +99,13 @@ set hlsearch                   " highlight search
 set ignorecase                 " ignorecase + smartcase to search case not sensitive if all is lowercase
 set smartcase
 
-set smartindent                " works for c-like program, 
-" set cindent " use c-like indenting rule(more strict than 'smartindent'
+"set smartindent                " works for c-like program, 
+set cindent " use c-like indenting rule(more strict than 'smartindent'
+set cinkeys=o,O
+set cinoptions=l1
+set cinwords=
+set indentexpr=
+
 set scrolloff=2                " minimal number of screen lines to keep above and below cursor
 set cursorline                 " current line has a different color :)
 set showfulltag                " for completion
@@ -71,16 +113,15 @@ set colorcolumn=80             " show column to limit line size
 " au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>120v.\+', -1) " prior to vim7.3
 
 set title " show title in console title bar
-set lazyredraw " don't redraw while executing macros
 set laststatus=2 " always show status line
-set scrolloff=3 " make cursor offset
-set shortmess=atToO " abbreviate messages oO is useful see help
+set shortmess=atToO " abbreviate notice/warn messages (oO is useful) see help
 set showmode " show current mode
 set splitbelow " split at the bottom
 set splitright " vsplit on right
 set noshowcmd " do not display incomplete commands
 set noruler " do not show ruler
 
+if use_wildmode_full == 1
 " see :help wildmode for all options available
 " full means complete the next full match
 set wildmode=full
@@ -92,39 +133,60 @@ set wildignore+=*/.build*/*,*/build/*,*/.deps/*
 set wildignore+=*.pch,*.d,*.o,*.Po
 set wildmenu " wildmenu show possible matches above the command line
 set wildmode=longest,full
+else
+	se nowildmenu
+endif
 
 
+" {{{ If change cursor color when insert mode
 " Set a white cursor in insert mode, and a red cursor otherwise.
 " Works at least for xterm and rxvt terminals.
 " src: http://vim.wikia.com/wiki/Configuring_the_cursor
 " @see: :h t_EI
-if &term =~ "xterm\\|rxvt"
-	let &t_EI = "\033]12;white\007"
-	let &t_SI = "\033]12;red\007"
-	:silent !echo -ne "\033]12;white\007"
-	autocmd VimLeave * :silent :!echo -ne "\033]12;white\007"
+if use_cursor_change_color == 1
+	if &term =~ "xterm\\|rxvt"
+		let &t_EI = "\033]12;white\007"
+		let &t_SI = "\033]12;red\007"
+		:silent !echo -ne "\033]12;white\007"
+		autocmd VimLeave * :silent :!echo -ne "\033]12;white\007"
+	endif
+	if &term =~ "screen"
+		"let &t_EI = "\033P\033]12;white\007\033\\"
+		"let &t_SI = "\033P\033]12;red\007\033\\"
+		":silent !echo -ne "\033P\033]12;white\007\033\\"
+		autocmd InsertLeave * :silent :!echo -ne "\033P\033]12;white\007\033\\"
+		autocmd InsertEnter * :silent :!echo -ne "\033P\033]12;red\007\033\\"
+		autocmd VimLeave * :silent :!echo -ne "\033P\033]12;white\007\033\\"
+		set term=xterm
+	endif
+	autocmd InsertLeave * hi StatusLine ctermbg=black
+	autocmd InsertEnter * hi StatusLine ctermbg=red
 endif
-if &term =~ "screen"
-	"let &t_EI = "\033P\033]12;white\007\033\\"
-	"let &t_SI = "\033P\033]12;red\007\033\\"
-	":silent !echo -ne "\033P\033]12;white\007\033\\"
-	autocmd InsertLeave * :silent :!echo -ne "\033P\033]12;white\007\033\\"
-	autocmd InsertEnter * :silent :!echo -ne "\033P\033]12;red\007\033\\"
-	autocmd VimLeave * :silent :!echo -ne "\033P\033]12;white\007\033\\"
-	set term=xterm
-endif
-autocmd InsertLeave * hi StatusLine ctermbg=black
-autocmd InsertEnter * hi StatusLine ctermbg=red
+" }}}
 
+" {{{
+if use_last_edit_position == 1
 " Return to last edit position when opening files (You want this!)
-autocmd BufReadPost *
-			\ if line("'\"") > 0 && line("'\"") <= line("$") |
-			\   exe "normal! g`\"" |
-			\ endif
+augroup resCur
+autocmd!
+autocmd BufWinEnter * call ResCur()
+augroup END
+function! ResCur()
+if line("'\"") > 0 && line("'\"") <= line("$")
+	normal! g`"
+	return 1
+endif
+endfunction
 " Remember info about open buffers on close
+" Tell vim to remember certain things when we exit
+"  '10  :  marks will be remembered for up to 10 previously edited files
+"  "100 :  will save up to 100 lines for each register
+"  :20  :  up to 20 lines of command-line history will be remembered
+"  %    :  saves and restores the buffer list
+"  n... :  where to save the viminfo files
+" set viminfo='10,\"100,:20,%,n~/.viminfo
 set viminfo^=%
-
-
+endif
 " }}}
 
 " {{{ Searching
@@ -138,105 +200,13 @@ set foldnestmax=10    " too many fold
 " set foldlevel=10 " open most folds by default
 " set foldmethod=marker " basic marker as default folding method
 " }}}
-" {{{ Line Shortcuts
+" {{{ Leader Shortcuts will be space :)
+let maplocalleader = "\<Space>"
+let mapleader = "\<Space>"
+let g:mapleader = "\<Space>"
 " }}}
-" {{{ Leader Shortcuts
-let maplocalleader = "²"
-let mapleader = "²"
-let g:mapleader = "²"
-" }}}
-" {{{ Plugin 
-" {{{ (NeoBundle) 
-if has('vim_starting')
-	set runtimepath+=~/.vim/bundle/neobundle.vim/
-endif
-call neobundle#rc(expand('~/.vim/bundle/'))
-NeoBundleFetch 'Shougo/neobundle.vim'
-" }}}
-" {{{
-set lazyredraw
-" update quickfixsigns always (need to be before pathogen#infect)
-let g:quickfixsigns_events = ['BufEnter', 'CursorHold', 'CursorHoldI', 'InsertLeave', 'InsertEnter', 'InsertChange', 'CursorMoved', 'CursorMovedI']
-NeoBundle 'tomtom/quickfixsigns_vim'
-" }}}
-" {{{ fugitive
-NeoBundle 'tpope/vim-fugitive'
-" }}}
-" {{{ Powerline
-NeoBundle 'Lokaltog/vim-powerline'
-let g:Powerline_symbols = 'fancy'
-let g:Powerline_stl_path_style = 'relative'
-" }}}
-" }}}
-" {{{ Pomodoro
-" NeoBundle 'pydave/AsyncCommand' " required for vim-pomodoro
-" NeoBundle 'mnick/vim-pomodoro'
-" Duration of a pomodoro in minutes (default: 25)
-if has('clientserver')
-	let g:pomodoro_time_work = 25
-	" Duration of a break in minutes (default: 5)
-	let g:pomodoro_time_slack = 5 
-	" Log completed pomodoros, 0 = False, 1 = True (default: 0)
-	let g:pomodoro_do_log = 1
-	" Path to the pomodoro log file (default: /tmp/pomodoro.log)
-	let g:pomodoro_log_file = "/tmp/pomodoro.log" 
-	let g:pomodoro_notification_cmd = 'zenity --notification --text="Pomodoro finished"'
-	set laststatus=2
+"
 
-	"set statusline+=%#InfoMsg#%{PomodoroStatus()}%#StatusLine#
-	" set statusline=%n%0F%m%r%h%w%q#%{echo " "}#%{PomodoroStatus()}%#StatusLine#
-	" set statusline=%t       "tail of the filename
-	" set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
-	" set statusline+=%{&ff}] "file format
-	" set statusline+=%h      "help file flag
-	" set statusline+=%m      "modified flag
-	" set statusline+=%r      "read only flag
-	" set statusline+=%y      "filetype
-	" set statusline+=%=      "left/right separator
-	" set statusline+=%{PomodoroStatus()}      "left/right separator
-	""  set statusline+=%c,     "cursor column
-	""  set statusline+=%l/%L   "cursor line/total lines
-	" set statusline+=\ %P    "percent through file
-	" statusline
-	" cf the default statusline: %<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
-	" format markers:
-	"   %< truncation point
-	"   %n buffer number
-	"   %f relative path to file
-	"   %m modified flag [+] (modified), [-] (unmodifiable) or nothing
-	"   %r readonly flag [RO]
-	"   %y filetype [ruby]
-	"   %= split point for left and right justification
-	"   %-35. width specification
-	"   %l current line number
-	"   %L number of lines in buffer
-	"   %c current column number
-	"   %V current virtual column number (-n), if different from %c
-	"   %P percentage through buffer
-	"   %) end of width specification
-	""""""" set statusline=%<\ %n:%f\ %m%r%y%=%-35.(line:\ %l\ of\ %L,\ col:\ %c%V\ (%P)%)
-	" set statusline=%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P%{PomodoroStatus()}
-endif
-" }}}
-" {{{ Others
-NeoBundle 'tpope/vim-speeddating' " increment / decrement date & time with <C-a><C-x>
-NeoBundle 'hail2u/vim-css3-syntax'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'jceb/vim-orgmode'
-" NeoBundle 'othree/html5.vim'
-" NeoBundle 'shawncplus/phpcomplete.vim'
-" NeoBundle 'ervandew/supertab'
-" NeoBundle 'pangloss/vim-javascript'
-" /home/michael/.vim/bundle/PHP-Indenting-for-VIm
-filetype plugin indent on     " Required!
-" Brief help
-" :NeoBundleList          - list configured bundles
-" :NeoBundleInstall(!)    - install(update) bundles
-" :NeoBundleClean(!)      - confirm(or auto-approve) removal of unused
-" bundles
-NeoBundleCheck
-" }}}
 " {{{ VimDiff
 set diffopt+=vertical " make vertical default split
 " diffopt
@@ -244,6 +214,148 @@ set diffopt+=vertical " make vertical default split
 " filler means scrollbind 
 set diffopt=filler,iwhite
 " }}}
+
+" {{{ if neobundle PLUGINS WITH NEOBUNDLE
+if use_neobundle == 1
+" {{{ neobundle requirement
+if has('vim_starting')
+	set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
+call neobundle#begin(expand('~/.vim/bundle/'))
+NeoBundleFetch 'Shougo/neobundle.vim'
+" was required.. but not anymore ??
+"NeoBundle 'Shougo/unite.vim'
+" }}}
+" {{{ if quickfixsigns
+if use_quickfixsigns == 1
+" update quickfixsigns always (need to be before pathogen#infect)
+let g:quickfixsigns_events = ['BufEnter', 'CursorHold', 'CursorHoldI', 'InsertLeave', 'InsertEnter', 'InsertChange', 'CursorMoved', 'CursorMovedI']
+NeoBundle 'tomtom/quickfixsigns_vim'
+set lazyredraw " required by quickfixsigns
+" force redraw
+endif
+" }}}
+" {{{ if fugitive
+if use_fugitive == 1
+NeoBundle 'tpope/vim-fugitive'
+endif
+" }}}
+" {{{ if Powerline
+if use_powerline == 1
+	NeoBundle 'Lokaltog/vim-powerline'
+	let g:Powerline_symbols = 'fancy'
+	let g:Powerline_stl_path_style = 'relative'
+endif
+" }}}
+" {{{ if Pomodoro
+if use_pomodoro == 1
+	NeoBundle 'pydave/AsyncCommand' " required for vim-pomodoro
+	NeoBundle 'mnick/vim-pomodoro'
+	" Duration of a pomodoro in minutes (default: 25)
+	if has('clientserver')
+		let g:pomodoro_time_work = 25
+		" Duration of a break in minutes (default: 5)
+		let g:pomodoro_time_slack = 5 
+		" Log completed pomodoros, 0 = False, 1 = True (default: 0)
+		let g:pomodoro_do_log = 1
+		" Path to the pomodoro log file (default: /tmp/pomodoro.log)
+		let g:pomodoro_log_file = "/tmp/pomodoro.log" 
+		let g:pomodoro_notification_cmd = 'zenity --notification --text="Pomodoro finished"'
+		set laststatus=2
+
+		"set statusline+=%#InfoMsg#%{PomodoroStatus()}%#StatusLine#
+		" set statusline=%n%0F%m%r%h%w%q#%{echo " "}#%{PomodoroStatus()}%#StatusLine#
+		" set statusline=%t       "tail of the filename
+		" set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
+		" set statusline+=%{&ff}] "file format
+		" set statusline+=%h      "help file flag
+		" set statusline+=%m      "modified flag
+		" set statusline+=%r      "read only flag
+		" set statusline+=%y      "filetype
+		" set statusline+=%=      "left/right separator
+		" set statusline+=%{PomodoroStatus()}      "left/right separator
+		""  set statusline+=%c,     "cursor column
+		""  set statusline+=%l/%L   "cursor line/total lines
+		" set statusline+=\ %P    "percent through file
+		" statusline
+		" cf the default statusline: %<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
+		" format markers:
+		"   %< truncation point
+		"   %n buffer number
+		"   %f relative path to file
+		"   %m modified flag [+] (modified), [-] (unmodifiable) or nothing
+		"   %r readonly flag [RO]
+		"   %y filetype [ruby]
+		"   %= split point for left and right justification
+		"   %-35. width specification
+		"   %l current line number
+		"   %L number of lines in buffer
+		"   %c current column number
+		"   %V current virtual column number (-n), if different from %c
+		"   %P percentage through buffer
+		"   %) end of width specification
+		""""""" set statusline=%<\ %n:%f\ %m%r%y%=%-35.(line:\ %l\ of\ %L,\ col:\ %c%V\ (%P)%)
+		" set statusline=%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P%{PomodoroStatus()}
+nmap <F7> <ESC>:PomodoroStart<CR>
+imap <F7> <ESC>:PomodoroStart<CR>a
+	endif
+NeoBundle 'Shougo/vimproc.vim', {
+\   'build' : {
+\   'unix' : 'make -f make_unix.mak',
+\  }
+\ }
+endif
+" }}}
+" {{{ if browserlink
+if use_browserlink
+	NeoBundle 'jaxbot/browserlink.vim' " live browser editing !!!
+endif
+" }}}
+" {{{ if speeddatting
+if use_speeddatting
+	NeoBundle 'tpope/vim-speeddating' " increment / decrement date & time with <C-a><C-x>
+endif
+" }}}
+" {{{ if speeddatting
+if use_calendar
+	NeoBundle 'mattn/calendar-vim' " create calendar window 
+endif
+" }}}
+" {{{ if css3_syntax
+if use_css3_syntax
+	NeoBundle 'hail2u/vim-css3-syntax'
+endif
+" }}}
+" {{{ if surround
+if use_surround
+	NeoBundle 'tpope/vim-surround'
+endif
+" }}}
+" {{{ if orgmode
+if use_orgmode
+	NeoBundle 'jceb/vim-orgmode'
+	" config orgmode
+endif
+" }}}
+NeoBundle 'othree/html5.vim'
+" {{{ if php_bundles
+if use_php_bundles
+ NeoBundle 'shawncplus/phpcomplete.vim'
+ NeoBundle 'm2mdas/phpcomplete-extended'
+ NeoBundle 'ervandew/supertab'
+" NeoBundle 'pangloss/vim-javascript'
+NeoBundle '2072/PHP-Indenting-for-VIm'
+ NeoBundle 'StanAngeloff/php.vim'
+endif
+" }}}
+" /home/michael/.vim/bundle/PHP-Indenting-for-VIm
+"""    NeoBundle 'alvan/vim-phpmanual'
+
+" Brief help
+" :NeoBundleList          - list configured bundles
+" :NeoBundleInstall(!)    - install(update) bundles
+" :NeoBundleClean(!)      - confirm(or auto-approve) removal of unused
+
 " {{{ Syntastic
 let g:syntastic_check_on_open=0
 let g:syntastic_error_symbol='✗'
@@ -251,7 +363,13 @@ let g:syntastic_warning_symbol='⚠'
 " let g:syntastic_mode_map = { 'mode': 'passive'}
 NeoBundle 'scrooloose/syntastic'
 " }}}
+call neobundle#end()
+NeoBundleCheck
+endif
+" }}}PLUGINS WITH NEOBUNDLE
+
 " {{{ Custom Functions
+if use_ctags == 1
 " Load a tag file
 " Loads a tag file from ~/.vim.tags/, based on the argument provided. The
 " command "Ltag"" is mapped to this function.
@@ -261,13 +379,13 @@ NeoBundle 'scrooloose/syntastic'
 :   execute tagcommand
 :endfunction
 :command! -nargs=1 Ltag :call LoadTags("<args>")
+endif
 " }}}
 
 
 " Vim specific
-"set autoread " automatically reload file changes
+"set autoread " DANGEROUS: automatically reload file changes
 "set autowriteall " same as autowrite but for all actions
-set omnifunc=syntaxcomplete#Complete " basic autocomplete from buffers
 
 "set noerrorbells " no error sounds
 set nostartofline " don't jump to first char when paging
@@ -298,17 +416,43 @@ iabbrev _date <C-r>=strftime('%Y-%m-%d')<CR>
 " http://www.vimtweets.com/tips.json
 " au VimEnter * echomsg system('/usr/games/fortune -o -s')
 
+if use_manplugin == 1
+	runtime ftplugin/man.vim
+endif
 
-runtime ftplugin/man.vim
-
-" see vim/syntax/php.vim
+if use_php_special == 1
+" {{{
+" see vim/bundle/php.vim/php.vim
 let php_sql_query = 1 "Sql coloration in php
 let php_html_in_strings = 1 "html coloration in html
 let php_parent_error_open = 1
 let php_no_shorttags = 1
 " I prefer foldmethod=manual
-let php_folding = 0
+let php_folding = 2
 let php_sync_method = 0
+
+""""   function! PhpSyntaxOverride()
+""""   	hi! def link phpDocTags  phpDefine
+""""   	hi! def link phpDocParam phpType
+""""   endfunction
+""""   
+""""   augroup phpSyntaxOverride
+""""   	autocmd!
+""""   	autocmd FileType php call PhpSyntaxOverride()
+""""   augroup END
+" }}}
+endif
+
+"""""   set omnifunc=syntaxcomplete#Complete " basic autocomplete from buffers
+"""""   " autocmd  FileType  php setlocal omnifunc=phpcomplete_extended#CompletePHP
+"""""     set tags=tags;/ " Permet de rechercher un fichier "tags" en remontant depuis le répertoire courant jusqu'à la racine jusqu'à ce qu'il soit trouvé
+"""""     augroup TagFileType
+"""""       autocmd!
+"""""       autocmd FileType * setl tags<
+"""""       autocmd FileType * exe 'setl tags+=~/.ctags/' . &filetype . '/*/tags'
+"""""     augroup END
+
+filetype plugin indent on     " Required!
 
 " :bufdo
 "
