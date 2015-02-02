@@ -203,3 +203,10 @@ nmap <Leader>tw :set wrap!<CR>
 
 nnoremap <Leader>y% :let @+ = expand("%:p")<CR>
 
+" inoremap ( ()<left>
+" inoremap ' ''<left>
+" inoremap " ""<left>
+" inoremap [ []<left>
+" inoremap < <><left>
+" inoremap { {<CR>}<Esc>O
+
