@@ -23,7 +23,7 @@ nmap <silent> zz zR
 "vnoremap <F4> zf
 "map <F4> :make<CR> " Compile
 " refresh syntax
-noremap <F5> :syntax sync fromstart<CR>
+noremap <F5> :syntax sync fromstart<CR>:diffu<CR>
 map <F6> :cwindow<CR> " Ouvre la quickfix si nécessaire
 nmap <F7> <ESC>:PomodoroStart<CR>
 imap <F7> <ESC>:PomodoroStart<CR>a
