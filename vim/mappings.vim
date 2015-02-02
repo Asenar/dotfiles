@@ -25,8 +25,6 @@ nmap <silent> zz zR
 " refresh syntax
 noremap <F5> :syntax sync fromstart<CR>:diffu<CR>
 map <F6> :cwindow<CR> " Ouvre la quickfix si nécessaire
-nmap <F7> <ESC>:PomodoroStart<CR>
-imap <F7> <ESC>:PomodoroStart<CR>a
 nmap <F8> :set number!<CR>
 imap <F8> <Esc>:set number!<CR>a
 map <S-F9> :cprevious<CR> " Recule d'une erreur
