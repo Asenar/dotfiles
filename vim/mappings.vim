@@ -35,10 +35,10 @@ map <F9> :cnext<CR> " Avance d'une erreur
 "imap <C-F9> <Esc>:CodeSniff<CR>a
 " Panic Button
 nnoremap <F12> mzggg?G`z
-inoremap <C-P><ESC> :call PhpDocSingle()<CR>i
-nnoremap <C-P> :call PhpDocSingle()<CR>
-" Map <ctrl>+p to multi line mode documentation (in visual mode)
-vnoremap <C-P> :call PhpDocRange()<CR>
+"inoremap <C-P><ESC> :call PhpDocSingle()<CR>i
+"nnoremap <C-P> :call PhpDocSingle()<CR>
+"" Map <ctrl>+p to multi line mode documentation (in visual mode)
+"vnoremap <C-P> :call PhpDocRange()<CR>
 
 " "sudo" save: command map w!! 
 :cmap w!! w !sudo tee % >/dev/null
