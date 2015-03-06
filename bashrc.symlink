@@ -101,7 +101,11 @@ if [ "$res" = "(unknown)" -o "$res" == "" ]; then
 	fi
 }
 
-source git/git-sh-prompt
+dotfile_dir=$(dirname $0)
+if [ -r ${dotfile_dir}/git/git-sh-prompt ]; then
+	. ${dotfile_dir}/git/git-sh-prompt
+fi
+
 GIT_PS1_SHOWDIRTYSTATE=1
 GIT_PS1_SHOWSTASHSTATE=1
 GIT_PS1_SHOWUNTRACKEDFILES=1
