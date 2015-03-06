@@ -56,7 +56,7 @@ endif
 endif
 " }}}
 
-" {{{ Spaces & Tabs 
+" {{{ Spaces & Tabs
 set noexpandtab   " do not convert tabs to spaces
 set softtabstop=2 " Number of spaces that a <Tab> counts for while performing edit
 set shiftwidth=2  " Number of spaces to use for each step of indent
@@ -77,7 +77,7 @@ set viminfo='5000,:5000,@5000,/5000,h,%
 syntax on
 set showtabline=2 " show tabline menu even when 1 tab
 set ruler " show line,colomn in the status bar
-set showcmd " when starting to type a command in normal mode, display it 
+set showcmd " when starting to type a command in normal mode, display it
 set showmatch " show corresponding bracket
 set number " and show line number
 " should I keep that ? (see at the bottom filetype off)
@@ -101,7 +101,7 @@ set hlsearch                   " highlight search
 set ignorecase                 " ignorecase + smartcase to search case not sensitive if all is lowercase
 set smartcase
 
-"set smartindent                " works for c-like program, 
+"set smartindent                " works for c-like program,
 set cindent " use c-like indenting rule(more strict than 'smartindent'
 set cinkeys=o,O
 set cinoptions=l1
@@ -213,7 +213,7 @@ let g:mapleader = "\<Space>"
 set diffopt+=vertical " make vertical default split
 " diffopt
 " iwhite means ignore whitespace in differences
-" filler means scrollbind 
+" filler means scrollbind
 set diffopt=filler,iwhite
 " }}}
 
@@ -247,11 +247,20 @@ if use_fugitive == 1
 NeoBundle 'tpope/vim-fugitive'
 endif
 " }}}
-" {{{ if Powerline
+" {{{ Airline or Powerline
 if use_airline && !use_powerline
 	NeoBundle 'bling/vim-airline'
 	NeoBundle 'majutsushi/tagbar'
+"	let g:airline_section_b = '%{strftime("%c")}'
+"	let g:airline_section_y = 'BN: %{bufnr("%")}'
+"let g:airline#extensions#tagbar#enabled = 1
+"let g:airline_powerline_fonts = 1
+"let g:airline_section_b = '%{strftime("%c")}'
+"let g:airline_section_y = 'BN: %{bufnr("%")}'
+"let g:airline_section_b = 0
+"let g:airline_section_y = 1
 endif
+if use_powerline && !use_airline
 	NeoBundle 'Lokaltog/vim-powerline'
 	let g:Powerline_symbols = 'fancy'
 	let g:Powerline_stl_path_style = 'relative'
@@ -265,11 +274,11 @@ if use_pomodoro == 1
 	if has('clientserver')
 		let g:pomodoro_time_work = 25
 		" Duration of a break in minutes (default: 5)
-		let g:pomodoro_time_slack = 5 
+		let g:pomodoro_time_slack = 5
 		" Log completed pomodoros, 0 = False, 1 = True (default: 0)
 		let g:pomodoro_do_log = 1
 		" Path to the pomodoro log file (default: /tmp/pomodoro.log)
-		let g:pomodoro_log_file = "/tmp/pomodoro.log" 
+		let g:pomodoro_log_file = "/tmp/pomodoro.log"
 		let g:pomodoro_notification_cmd = 'zenity --notification --text="Pomodoro finished"'
 		set laststatus=2
 
@@ -318,6 +327,8 @@ endif
 " }}}
 " {{{ if browserlink
 if use_browserlink
+	let g:bl_pagefiletypes = ['html', 'javascript', 'css']
+	"let g:bl_pagefiletypes = ['html', 'javascript', 'php']
 	NeoBundle 'jaxbot/browserlink.vim' " live browser editing !!!
 endif
 " }}}
@@ -328,7 +339,7 @@ endif
 " }}}
 " {{{ if speeddatting
 if use_calendar
-	NeoBundle 'mattn/calendar-vim' " create calendar window 
+	NeoBundle 'mattn/calendar-vim' " create calendar window
 endif
 " }}}
 " {{{ if css3_syntax
@@ -445,7 +456,7 @@ let php_sync_method = 0
 """"   	hi! def link phpDocTags  phpDefine
 """"   	hi! def link phpDocParam phpType
 """"   endfunction
-""""   
+""""
 """"   augroup phpSyntaxOverride
 """"   	autocmd!
 """"   	autocmd FileType php call PhpSyntaxOverride()
