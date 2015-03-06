@@ -3,11 +3,13 @@ let use_color_daylight      = 0
 let use_cursor_change_color = 1 " change cursor color when insert mode
 " bundles
 let use_neobundle           = 1
+let use_gundo               = 1
 let use_quickfixsigns       = 0
-let use_fugitive            = 0
+let use_fugitive            = 1
+let use_airline             = 1
 let use_powerline           = 0
 let use_pomodoro            = 1
-let use_browserlink         = 1
+let use_browserlink         = 0
 let use_css3_syntax         = 0
 let use_surround            = 0
 let use_orgmode             = 1
@@ -224,7 +226,12 @@ endif
 call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 " was required.. but not anymore ??
-"NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/unite.vim'
+" }}}
+" {{{ if gundo (visualization undo tree)
+if use_gundo == 1
+NeoBundle 'sjl/gundo.vim'
+endif
 " }}}
 " {{{ if quickfixsigns
 if use_quickfixsigns == 1
@@ -241,7 +248,10 @@ NeoBundle 'tpope/vim-fugitive'
 endif
 " }}}
 " {{{ if Powerline
-if use_powerline == 1
+if use_airline && !use_powerline
+	NeoBundle 'bling/vim-airline'
+	NeoBundle 'majutsushi/tagbar'
+endif
 	NeoBundle 'Lokaltog/vim-powerline'
 	let g:Powerline_symbols = 'fancy'
 	let g:Powerline_stl_path_style = 'relative'
