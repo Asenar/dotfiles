@@ -533,6 +533,8 @@ exec --no-startup-id i3-msg "workspace $w02; exec gnome-terminal"
 # exec --no-startup-id i3-msg 'workspace $w05; exec xchat'
 # exec --no-startup-id i3-msg 'workspace $w12; exec gnome-terminal -e "vim /home/michael/.i3/config ";workspace $w01'
 exec --no-startup-id i3-msg 'workspace $w12; exec $terminal -e "vim --servername=pomodoro"'
+# WIFI
+exec --no-startup-id nm-applet
 
 exec --no-startup-id i3-msg 'workspace $w01; exec gnome-terminal'
 # exec --no-startup-id i3-msg 'workspace $w01; exec firefox -P work'
