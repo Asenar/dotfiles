@@ -23,7 +23,7 @@ order += "disk /"
 # Note: with nm-applet, no need of wireless and ethernet, ?
 #order += "wireless wlan0"
 #order += "ethernet eth0"
-#order += "battery 0"
+order += "battery 0"
 order += "cpu_temperature 0"
 order += "load"
 order += "cpu_usage"
