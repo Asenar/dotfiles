@@ -15,11 +15,20 @@
 current=$(setxkbmap -print | grep xkb_symbols | awk -F"+" '{print $2}')
 
 if [ $current == 'fr' ]; then
-	setxkbmap fr lafayette
-else if [ $current == 'fr(lafayette)' ]; then
-	setxkbmap us
-	# xkbcomp -w9 /usr/share/X11/xkb/keymap/kaze/lafayette.xkb $DISPLAY
+  selected="fr lafayette"
 else
-	setxkbmap fr
+  if [ $current == 'fr(lafayette)' ]; then
+    selected="us"
+    # xkbcomp -w9 /usr/share/X11/xkb/keymap/kaze/lafayette.xkb $DISPLAY
+  else
+    selected="fr"
+  fi
 fi
-fi
+setxkbmap $selected
+#LG=$(setxkbmap -print | grep xkb_symbols | awk -F"+" '{print $2}') 
+#echo "keyboard: "$LG" | "$line || exit 1
+#if [ "$selected" == "fr lafayette" ]; then
+#  echo "$selected" > /tmp/watch_keyboard
+#else
+#  rm -rf /tmp/watch_keyboard
+#fi
