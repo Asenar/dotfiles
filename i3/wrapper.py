@@ -38,7 +38,7 @@ def get_keyboard():
 
    if output == 'fr(lafayette)':
      keyboard = {
-       "desc":"Qwerty-Lafayette",
+       "desc":"Lafa",
        "color":"#80ff00",
      }
    else:
@@ -95,7 +95,7 @@ if __name__ == '__main__':
         # CHANGE THIS LINE TO INSERT SOMETHING ELSE
         keyboard = get_keyboard();
         j.insert(0, {
-          'full_text' : 'Kb:%s' % keyboard["desc"],
+          'full_text' : 'K:%s' % keyboard["desc"],
           'name'    : 'keyboard',
           #'background' : keyboard["bgcolor"],
           #'background_color' : keyboard["bgcolor"],
