@@ -6,6 +6,12 @@
 #| Last Modified : 2013-03-21 (requires i3 v4.2+)
 #|
 
+# HELP
+# Find the keys (as root):
+#    showkey --scancodes
+#    evtest /dev/input/event7
+#    or xev
+#
 # <<<
 #
 # This configuration relies on a single modifier key. It uses keycodes instead of keysyms
