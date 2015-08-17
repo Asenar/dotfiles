@@ -7,8 +7,13 @@
 #|
 
 # {{{
-#
+# HELP
 # use xev to detect which key is stroke
+# Find the keys (as root):
+#    showkey --scancodes
+#    evtest /dev/input/event7
+#    or xev
+#
 #
 # This configuration relies on a single modifier key. It uses keycodes instead of keysyms
 # in order to be compatible with any keyboard layout: qwerty, qwertz, azerty, dvorak…
@@ -550,14 +555,14 @@ exec --no-startup-id i3-msg "workspace $w02; exec $terminal"
 # exec --no-startup-id i3-msg "workspace $w03; exec firefox -P procrastifox; workspace $w01"
 # exec --no-startup-id i3-msg "workspace $w04; exec icedove"
 # exec --no-startup-id i3-msg 'workspace $w05; exec xchat'
-# exec --no-startup-id i3-msg 'workspace $w12; exec gnome-terminal -e "vim /home/michael/.i3/config ";workspace $w01'
+# exec --no-startup-id i3-msg 'workspace $w12; exec $terminal -e "vim /home/michael/.i3/config ";workspace $w01'
 # exec --no-startup-id i3-msg 'workspace $w12; exec $terminal -e "vim --servername=pomodoro"'
 # WIFI
 exec --no-startup-id nm-applet
 # for transparency (require xcompmgr to be installed)
 # exec xcompmgr -c -f -n
 
-#exec --no-startup-id i3-msg 'workspace $w01; exec gnome-terminal'
+#exec --no-startup-id i3-msg 'workspace $w01; exec $terminal'
 # exec --no-startup-id i3-msg 'workspace $w01; exec firefox -P work'
 
 # how to find windows criteria?
