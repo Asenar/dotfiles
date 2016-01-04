@@ -1,0 +1,50 @@
+#!/bin/sh
+# file: autoload
+# desc: execute some startup command for i3wm
+
+## {{{ Determine connected monitors
+hdmi_yes=0
+dvi_yes=0
+vga_yes=0
+dp_yes=0
+any_yes=0
+
+hdmi_1=1
+dvi_1=1
+vga_1=1
+dp_1=1
+any_1=1
+
+hdmi_0=0
+dvi_0=0
+vga_0=0
+dp_0=0
+any_0=0
+
+xrandr | grep -Eq "DP[12345] connected" && dp_yes=1 && any_yes=1
+xrandr | grep -Eq "DVI-I-[12345] connected" && dvi_yes=1 && any_yes=1
+xrandr | grep -Eq "HDMI-[12345] connected" && hdmi_yes=1 && any_yes=1
+xrandr | grep -Eq "VGA-[12345] connected" && vga_yes=1 && any_yes=1
+hdmi=$(xrandr | grep -E "HDMI-[12345] connected" | grep -oE "HDMI-[12345]")
+dvi=$(xrandr | grep -E "DVI-I-[12345] connected" | grep -oE "DVI-I-[12345]")
+vga=$(xrandr | grep -E "VGA-[12345] connected" | grep -oE "VGA-[12345]")
+dp=$(xrandr | grep -E "DP[12345] connected" | grep -oE "DP[12345]")
+
+# xrand 2 screen
+case "${vga_yes}${dvi_yes}${hdmi_yes}${dp_yes}" in
+	"${vga_1}${dvi_1}${hdmi_0}${dp_0}")
+		echo "found screen vga and dvi"
+		xrandr --output VGA-1 --mode 1366x768 --output DVI-I-1 --mode 1920x1080 --right-of VGA-1
+		;;
+	"${vga_1}${dvi_0}${hdmi_1}${dp_0}")
+		echo "found screen vga and dvi"
+		xrandr --output VGA-1 --mode 1366x768 --output HDMI-1 --mode 1920x1080 --right-of VGA-1
+		;;
+	*)
+		echo "default case: do nothing" ;;
+esac
+# }}}
+
+# no system sound please :)
+xset -b
+setterm -blength 0 # add this in .inputrc
