@@ -423,7 +423,7 @@ if dein#check_install()
 endif
 
 endif
-" }}}PLUGINS WITH NEOBUNDLE
+" }}}PLUGINS WITH dein
 
 " {{{ Custom Functions
 if use_ctags == 1
@@ -519,6 +519,9 @@ autocmd BufWritePost *.less call WriteLess()
 """""       autocmd FileType * exe 'setl tags+=~/.ctags/' . &filetype . '/*/tags'
 """""     augroup END
 
+
+" convert tab to space
+set expandtab
 
 " :bufdo
 "
