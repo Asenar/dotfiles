@@ -384,6 +384,7 @@ let g:syntastic_warning_symbol='⚠'
 " let g:syntastic_mode_map = { 'mode': 'passive'}
 NeoBundle 'scrooloose/syntastic'
 " }}}
+NeoBundle 'groenewege/vim-less'
 call neobundle#end()
 NeoBundleCheck
 endif
@@ -474,6 +475,9 @@ endif
 """""     augroup END
 
 filetype plugin indent on     " Required!
+
+" convert tab to space
+set expandtab
 
 " :bufdo
 "
