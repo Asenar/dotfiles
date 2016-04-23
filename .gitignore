@@ -1,3 +1,4 @@
 vim/.netrwhist
 git/gitconfig.symlink
 vim/bundle/
+!vim/bundle/neobundle.vim
