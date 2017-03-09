@@ -33,11 +33,12 @@ let use_switchcolor         = 0 " f8 / shift+f8
 let use_doing_indent_inits  = 0
 let use_phphtmlindent       = 1
 " }}}
+set mouse=
 
 
 " {{{ Colors
 set t_Co=256
-colorscheme kalahari " https://raw.github.com/fabi1cazenave/kalahari.vim/master/colors/kalahari.vim
+"colorscheme kalahari " https://raw.github.com/fabi1cazenave/kalahari.vim/master/colors/kalahari.vim
 " colorscheme 256_xoria
 " colorscheme iijo
 " }}}
@@ -46,23 +47,24 @@ colorscheme kalahari " https://raw.github.com/fabi1cazenave/kalahari.vim/master/
 if use_color_daylight
 " change color according to the daylight
 let current_hour = strftime("%H")
-if strftime("%H") < 6 + 0
-	colorscheme darkblue
-elseif current_hour < 12 + 0
-	colorscheme morning
-elseif current_hour < 18 + 0
-	colorscheme shine
-else
-	colorscheme evening
-endif
+"if strftime("%H") < 6 + 0
+"	colorscheme darkblue
+"elseif current_hour < 12 + 0
+"	colorscheme morning
+"elseif current_hour < 18 + 0
+"	colorscheme shine
+"else
+"	colorscheme evening
+"endif
 endif
 " }}}
+set background=dark
 
 " {{{ Spaces & Tabs
-set noexpandtab   " do not convert tabs to spaces
-set softtabstop=2 " Number of spaces that a <Tab> counts for while performing edit
-set shiftwidth=2  " Number of spaces to use for each step of indent
-set tabstop=2     " number of spaces that a <Tab> in the file counts for
+set expandtab   " do not convert tabs to spaces
+set softtabstop=4 " Number of spaces that a <Tab> counts for while performing edit
+set shiftwidth=4  " Number of spaces to use for each step of indent
+set tabstop=4     " number of spaces that a <Tab> in the file counts for
 " }}}
 
 " {{{ vim base config, UI layout
