@@ -6,7 +6,7 @@
 #| Last Modified : 2013-03-21 (requires i3 v4.2+)
 #|
 
-# <<<
+# {{{
 #
 # This configuration relies on a single modifier key. It uses keycodes instead of keysyms
 # in order to be compatible with any keyboard layout: qwerty, qwertz, azerty, dvorak…
@@ -47,10 +47,10 @@
 # ┃ Ctrl  ┃ super ┃ Alt   ┃ Space                          ┃ AltGr ┃ super ┃ menu  ┃ Ctrl  ┃
 # ┗━━━━━━━┻━━━━━━━┻━━━━━━━┹────────────────────────────────┺━━━━━━━┻━━━━━━━┻━━━━━━━┻━━━━━━━┛
 #
-# >>>
+# }}}
 
 #|=============================================================================
-#|    general                                                               <<<
+#|    general                                                               {{{
 #|=============================================================================
 
 # define your preferred main modifier key: Alt_L (Mod1) or Super_L (Mod4)
@@ -162,10 +162,10 @@ client.focused_inactive #333333 #3030FF #888888 #ff0000
 client.unfocused        #333333 #222222 #888888 #ff0000
 client.urgent           #ff0000 #993333 #ffffff
 
-# >>>
+# }}}
 
 #|=============================================================================
-#|    workspaces                                                            <<<
+#|    workspaces                                                            {{{
 #|=============================================================================
 
 # Workspace names:
@@ -240,10 +240,10 @@ for_window [window_role="dialog"]      floating enable
 for_window [instance="^feh$"]          floating enable
 #for_window [title="Video"]      floating enable
 
-# >>>
+# }}}
 
 #|=============================================================================
-#|    wmii-like keybindings                                                 <<<
+#|    wmii-like keybindings                                                 {{{
 #|=============================================================================
 
 # Switch between Tabbed/Stacking/Divided/Fullscreen modes         ($mod+[asdf])
@@ -318,10 +318,10 @@ bind $mod+Shift+19 move workspace $w10
 bind $mod+Shift+20 move workspace $w11
 bind $mod+Shift+21 move workspace $w12
 
-# >>>
+# }}}
 
 #|=============================================================================
-#|    i3-specific keybindings                                               <<<
+#|    i3-specific keybindings                                               {{{
 #|=============================================================================
 
 # Resize Containers, Vim-style                            ($mod+Control+[hjkl])
@@ -395,13 +395,13 @@ bind $mod+47       focus parent
 bind $mod+56 border toggle
 
 
-# see bin/keyboard_switch
+# see bin/keyboard_switch                                              ($mod+z)
 bind $mod+52 exec /usr/local/bin/keyboard_switch
 
-# >>>
+# }}}
 
 #|=============================================================================
-#|    applications & scripts                                                <<<
+#|    applications & scripts                                                {{{
 #|=============================================================================
 
 # Start a new terminal                                             ($mod+Enter)
@@ -429,10 +429,10 @@ exec /home/michael/bin/autoload.sh
 # Toggle Desktop Panel                                     ($mod+Control+Space)
 bind $mod+Control+65 exec panel-toggle
 
-# >>>
+# }}}
 
 #|=============================================================================
-#|    generic shortcuts (xdotool powwa!)                                    <<<
+#|    generic shortcuts (xdotool powwa!)                                    {{{
 #|=============================================================================
 
 # Dvorak-compliant cut/copy/paste                                  ($mod+[xcv])
@@ -476,10 +476,10 @@ bindsym mod4+Shift+Right exec $(xdotool getactivewindow key shift+End)
 # bindsym $mod+Shift+Up    exec $(xdotool click 4)
 # bindsym $mod+Shift+Right exec $(xdotool click 3)
 
-# >>>
+# }}}
 
 #|=============================================================================
-#|    multimedia keys (Thinkpad X220)                                       <<<
+#|    multimedia keys (Thinkpad X220)                                       {{{
 #|=============================================================================
 
 # Volume control (pulseaudio)                                  (mute|vol-|vol+)
@@ -572,7 +572,7 @@ for_window [title="^screenkey"] floating enable
 # setterm -blength 0
 #feh --bg-scale Pictures/At-the-end-of-the-game-the-king-and-the-pawn-go-back-in-the-same-box.png
 
-# >>>
+# }}}
 
-# vim: set fdm=marker fmr=<<<,>>> fdl=0:
+# vim: set fdm=marker fdl=0:
 
