@@ -66,7 +66,16 @@ floating_modifier $mod
 # set $terminal roxterm
 # set $terminal $(roxterm -e tmux -2)
 # set $terminal $(urxvt -e tmux)
-set $terminal gnome-terminal
+#set $terminal gnome-terminal
+set $terminal terminator
+# terminator shortcut:
+#     ctrl+shift+o     split horizontal
+#     ctrl+shift+e     split vertical
+#     ctrl+(shift)+tab go to next terminal
+#     ctrl+shift+a      broadcast_all
+#     ctrl+shift+g      broadcast_group
+#     ctrl+shift+n      broadcast_off
+
 
 # define your preferred application launcher
 set $launcher $(dmenu_run | sort -u | dmenu -fn '-*-fixed-*-r-normal-*-*-120-*-*-*-*-iso8859-*' -nb '#000000' -nf '#FFFFFF' -sb '#1793d1')
