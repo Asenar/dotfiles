@@ -8,6 +8,8 @@
 
 # {{{
 #
+# use xev to detect which key is stroke
+#
 # This configuration relies on a single modifier key. It uses keycodes instead of keysyms
 # in order to be compatible with any keyboard layout: qwerty, qwertz, azerty, dvorak…
 #
@@ -108,13 +110,14 @@ bar {
    # TODO: remove redundant battery information from the status line
   #status_command i3status --config ~/.i3/i3status
   #status_command ~/.i3/keymap.sh
-  status_command i3status --config ~/.i3/i3status | ~/.i3/wrapper.py
+  # pomodoro here \o/
+  status_command i3status --config ~/.i3/i3status.conf | ~/.i3/i3status.py
   position bottom
   mode dock
 # tray_output <none|primary|output>
   tray_output $screen0
 #  font pango:DejaVu Sans Mono 8
-font pango:Inconsolata Sans Mono 10
+  font pango:Code 11
   workspace_buttons yes
   binding_mode_indicator yes
   colors{
@@ -405,7 +408,7 @@ bind $mod+56 border toggle
 
 
 # see bin/keyboard_switch                                              ($mod+z)
-bind $mod+52 exec /usr/local/bin/keyboard_switch
+bind $mod+52 exec ~/bin/keyboard_switch
 
 # }}}
 
@@ -437,6 +440,13 @@ exec /home/michael/bin/autoload.sh
 
 # Toggle Desktop Panel                                     ($mod+Control+Space)
 bind $mod+Control+65 exec panel-toggle
+
+# pomodoro                                                   (Fn+[F9|F10|F11|F12])
+
+bind $mod+75 exec "~/.i3/i3-gnome-pomodoro/pomodoro-client.py start"
+bind $mod+76 exec "~/.i3/i3-gnome-pomodoro/pomodoro-client.py toggle"
+bind $mod+85 exec "~/.i3/i3-gnome-pomodoro/pomodoro-client.py skip"
+bind $mod+86 exec "~/.i3/i3-gnome-pomodoro/pomodoro-client.py stop"
 
 # }}}
 
@@ -536,18 +546,22 @@ bind $mod+Shift+61 move scratchpad
 #bind 235 exec $()
 #bind 199 exec $()
 
-exec --no-startup-id i3-msg "workspace $w02; exec gnome-terminal"
+exec --no-startup-id i3-msg "workspace $w02; exec $terminal"
 # exec --no-startup-id i3-msg "workspace $w03; exec firefox -P procrastifox; workspace $w01"
 # exec --no-startup-id i3-msg "workspace $w04; exec icedove"
 # exec --no-startup-id i3-msg 'workspace $w05; exec xchat'
 # exec --no-startup-id i3-msg 'workspace $w12; exec gnome-terminal -e "vim /home/michael/.i3/config ";workspace $w01'
-exec --no-startup-id i3-msg 'workspace $w12; exec $terminal -e "vim --servername=pomodoro"'
+# exec --no-startup-id i3-msg 'workspace $w12; exec $terminal -e "vim --servername=pomodoro"'
 # WIFI
 exec --no-startup-id nm-applet
+# for transparency (require xcompmgr to be installed)
+# exec xcompmgr -c -f -n
 
-exec --no-startup-id i3-msg 'workspace $w01; exec gnome-terminal'
+#exec --no-startup-id i3-msg 'workspace $w01; exec gnome-terminal'
 # exec --no-startup-id i3-msg 'workspace $w01; exec firefox -P work'
 
+# how to find windows criteria?
+# https://faq.i3wm.org/question/2172/how-do-i-find-the-criteria-for-use-with-i3-config-commands-like-for_window-eg-to-force-splashscreens-and-dialogs-to-show-in-floating-mode.1.html
 # Common apps are sorted by workspace
 assign [class="^Thunderbird"] → $w04
 assign [class="^Work$"] → $w01
@@ -578,8 +592,13 @@ for_window [class="^B2g$"] floating enable
 for_window [title="^Debconf"] floating enable
 for_window [title="^screenkey"] floating enable
 
+for_window [class="Hamster-time-tracker"] floating enable
+for_window [title="Options de Terminator"] floating enable
+for_window [title="Terminator Layout Launcher"] floating enable
+for_window [class="Firefox" window_role="toolbox" instance="Devtools"] floating enable
+
 # setterm -blength 0
-#feh --bg-scale Pictures/At-the-end-of-the-game-the-king-and-the-pawn-go-back-in-the-same-box.png
+#exec feh --bg-scale Images/At-the-end-of-the-game-the-king-and-the-pawn-go-back-in-the-same-box.jpg
 
 # }}}
 
