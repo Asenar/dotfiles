@@ -1,6 +1,6 @@
 [submodule "i3/i3-gnome-pomodoro"]
 	path = i3/i3-gnome-pomodoro
 	url = https://github.com/Asenar/i3-gnome-pomodoro
-[submodule "dein"]
+[submodule "vim/bundle/dein"]
 	path = vim/bundle/dein
 	url = https://github.com/Shougo/dein.vim
