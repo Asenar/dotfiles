@@ -1,0 +1,39 @@
+[global_config]
+[keybindings]
+  go_up = <Ctrl>k
+  resize_up = <Ctrl><Shift>k
+  resize_left = <Ctrl><Shift>h
+  split_horiz = <Ctrl>o
+  go_down = <Ctrl>j
+  split_vert = <Ctrl><shift>O
+  go_right = <Ctrl>l
+  go_left = <Ctrl>h
+  resize_right = <Ctrl><Shift>l
+  resize_down = <Ctrl><Shift>j
+[profiles]
+  [[default]]
+    scrollback_lines = 5000
+    background_image = None
+  [[Solarized (blue)]]
+    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
+    background_color = "#002b36"
+    background_image = None
+    foreground_color = "#839496"
+  [[Green]]
+    scrollback_lines = 5000
+    background_color = "#1b3822"
+    background_image = None
+    foreground_color = "#ffffff"
+  [[Ambience (purple)]]
+    background_image = None
+    background_color = "#300a24"
+    foreground_color = "#ffffff"
+[layouts]
+  [[default]]
+    [[[child1]]]
+      type = Terminal
+      parent = window0
+    [[[window0]]]
+      type = Window
+      parent = ""
+[plugins]
