@@ -111,7 +111,7 @@ new_float normal
 # Statusline (i3bar)
 bar {
   id bar-1
-  output $screen0
+  #output $screen0
    # TODO: remove redundant battery information from the status line
   #status_command i3status --config ~/.i3/i3status
   #status_command ~/.i3/keymap.sh
@@ -138,29 +138,29 @@ bar {
   }
 }
 
-bar {
-  id bar-2
-  output $screen1
-  # TODO: remove redundant battery information from the status line
-  position bottom
-  status_command i3status --config ~/.i3/i3status
-  mode dock
-  #mode hide
-  tray_output $screen1
-  workspace_buttons yes
-  binding_mode_indicator yes
-  colors {
-      # solarized
-      background #073642
-      statusline #eee8d5
-      separator #666666
-
-    focused_workspace  #4c7899 #285577 #ffffff
-    active_workspace   #33aaaa #5f676a #ffffff
-    inactive_workspace #333333 #228022 #333333
-    urgent_workspace   #2f343a #900000 #ffffff
-  }
-}
+#bar {
+#  id bar-2
+#  output $screen1
+#  # TODO: remove redundant battery information from the status line
+#  position bottom
+#  status_command i3status --config ~/.i3/i3status
+#  mode dock
+#  #mode hide
+#  tray_output $screen1
+#  workspace_buttons yes
+#  binding_mode_indicator yes
+#  colors {
+#      # solarized
+#      background #073642
+#      statusline #eee8d5
+#      separator #666666
+#
+#    focused_workspace  #4c7899 #285577 #ffffff
+#    active_workspace   #33aaaa #5f676a #ffffff
+#    inactive_workspace #333333 #228022 #333333
+#    urgent_workspace   #2f343a #900000 #ffffff
+#  }
+#}
 
 # Default color theme:
 #   class                 border  backgr. text
