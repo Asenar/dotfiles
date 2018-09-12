@@ -7,7 +7,6 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
-
 FONT_HOME=~/.local/share/fonts
 
 # don't put duplicate lines in the history. See bash(1) for more options
@@ -188,7 +187,6 @@ fi
 
 # tab = 2 spaces in terminal
 tabs -2
-
 
 if [ -f ~/.bashrc_local ]; then
     # customize inside .bashrc_local (like CDPATH=) 
