@@ -394,7 +394,8 @@ bind $mod+Shift+27 reload
 bind $mod+Shift+22 restart
 
 # Exit i3                                                 ($mod+Ctrl+BackSpace)
-bind $mod+Control+22 exit
+# bind $mod+Control+22 exit
+bind $mod+Control+22 exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # Split (horizontal/vertical)                                  ($mod[+Shift]+o)
 bind $mod+32       split v
