@@ -46,9 +46,11 @@
 ##  #
 ##  #
 [global_config]
-focus = system
-#  enabled_plugins = InactivityWatch, ActivityWatch, TerminalShot, LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
-#  title_receive_bg_color = "#1b262e"
+  focus = system
+  #  enabled_plugins = InactivityWatch, ActivityWatch, TerminalShot, LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
+  title_inactive_bg_color = "#222222"
+  title_inactive_fg_color = "#888888"
+  title_transmit_bg_color = "#3030ff"
 [keybindings]
 #  broadcast_all = <Ctrl><Shift>a
 #  broadcast_group = <Ctrl><Shift>g
@@ -149,6 +151,8 @@ focus = system
     # scrollback_lines = '500' #More comment. Single quotes are valid too
     # cursor_blink = True
     # custom_command = "echo \"foo#bar\"" #Final comment - this will work as expected.
+    use_system_font = False
+    font = Source Code Pro Medium 12
     background_darkness = 0.79
     background_type = transparent
     cursor_color = "#ffffff"

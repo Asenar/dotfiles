@@ -29,20 +29,20 @@ fail () {
 
 setup_gitconfig () {
   if ! [ -f git/gitconfig.symlink ]; then
-		doit="true"
-	else
-		cat git/gitconfig.symlink
+    doit="true"
+  else
+    cat git/gitconfig.symlink
     user "File already exists: git/gitconfig.symlink, what do you want to do? \r\n [o]verwrite, [u]se it?"
     read -n 1 action
-		if [ "$action" == "o" ]; then
-			doit="true"
-		else
-			doit="false"
-		fi
-	fi
+    if [ "$action" == "o" ]; then
+      doit="true"
+    else
+      doit="false"
+    fi
+  fi
 
-	echo "";
-	if [ "$doit" == "true" ];
+  echo "";
+  if [ "$doit" == "true" ];
   then
     info 'setup gitconfig'
 
@@ -52,15 +52,15 @@ setup_gitconfig () {
     read -e git_authoremail
 
     sed -e "s/AUTHOR_NAME/$git_authorname/g" \
-			-e "s/AUTHOR_EMAIL/$git_authoremail/g" \
-			-e "s#GITCONFIG_MAIN#$DOTFILES_ROOT/git/gitconfig.main#g" \
-			git/gitconfig.symlink.example > git/gitconfig.symlink
+      -e "s/AUTHOR_EMAIL/$git_authoremail/g" \
+      -e "s#GITCONFIG_MAIN#$DOTFILES_ROOT/git/gitconfig.main#g" \
+      git/gitconfig.symlink.example > git/gitconfig.symlink
 
     success "gitconfig"
-	else
-	echo "";
+  else
+    echo "";
     info "previous gitconfig kept"
-	echo "";
+    echo "";
   fi
 }
 
@@ -75,7 +75,7 @@ install_dotfiles () {
   overwrite_all=false
   backup_all=false
   skip_all=false
-	allfiles=$(find $DOTFILES_ROOT -maxdepth 2 -name \*.symlink)
+  allfiles=$(find $DOTFILES_ROOT -maxdepth 2 -name \*.symlink)
   for source in $allfiles;
   do
     dest="$HOME/.`basename \"${source%.*}\"`"
@@ -146,6 +146,7 @@ then
   if . bin/dot > /tmp/dotfiles-dot 2>&1
   then
     success "dependencies installed"
+    info "apt install fortune cowsay sl"
   else
     fail "error installing dependencies"
   fi

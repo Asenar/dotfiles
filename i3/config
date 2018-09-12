@@ -72,7 +72,8 @@ floating_modifier $mod
 # set $terminal roxterm
 # set $terminal $(roxterm -e tmux -2)
 # set $terminal $(urxvt -e tmux)
-set $terminal gnome-terminal
+# set $terminal gnome-terminal
+set $terminal terminator
 
 # define your preferred application launcher
 set $launcher $(dmenu_run | sort -u | dmenu -fn '-*-fixed-*-r-normal-*-*-120-*-*-*-*-iso8859-*' -nb '#000000' -nf '#FFFFFF' -sb '#1793d1')
@@ -85,7 +86,8 @@ set $lock $(i3lock -c 000000)
 # window font (note: iso10646 = unicode)
 #font -misc-fixed-medium-r-normal--18-120-75-75-C-70-iso10646-1
 #font pango:Inconsolata Sans Mono 9
-font pango:Code Sans Mono 9
+font pango:Source Code Pro 12
+#font -misc-inconsolata-medium-r-normal--0-0-0-0-p-0-iso10646-1
 
 #font xft:Droid Sans Mono 10
 #font -misc-inconsolata-medium-r-normal--0-0-0-0-p-0-iso10646-1
