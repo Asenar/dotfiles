@@ -50,24 +50,24 @@
   focus = system
   broadcast_default = off
   #  enabled_plugins = InactivityWatch, ActivityWatch, TerminalShot, LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
+  focus = system
+  handle_size = 1
   #title_receive_bg_color = "#1b262e"
   #title_inactive_bg_color = "#2d2d2d"
   #title_transmit_bg_color = "#757575"
   #title_inactive_fg_color = "#afafaf"
   # transmit is the active terminal
   title_transmit_fg_color = "#ffffff"
-  title_transmit_bg_color = "#3030ff" # Default value: '#C80003' 
+  title_transmit_bg_color = "#3030ff"
   # all terminal receiving when broadcast
-  # title_receive_fg_color = 
-  # title_receive_bg_color =
-  # inactive terminal
+  title_receive_fg_color = "#ffffff"
+  title_receive_bg_color = "#c80003" # ou 0076c9
+  # inactive terminals
   title_inactive_fg_color = "#666666"
   title_inactive_bg_color = "#222222"
 
-
   handle_size = 1
   borderless = True
-
 
 [keybindings]
 #  broadcast_all = <Ctrl><Shift>a
@@ -174,20 +174,29 @@
     background_darkness = 0.79
     background_type = transparent
     cursor_color = "#ffffff"
+    font = Source Code Pro Medium 12
     scrollback_infinite = True
+    use_system_font = False
   [[ambiance purple]]
     background_color = "#300a24"
     cursor_color = "#eee8d5"
+    font = Source Code Pro Light 12
     foreground_color = "#ffffff"
     palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#586e75:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
+    use_system_font = False
   [[blue]]
     background_color = "#002b36"
     background_darkness = 0.73
     background_type = transparent
+    cursor_color = "#839496"
+    font = Inconsolata Medium 12
     foreground_color = "#839496"
     palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
+    use_system_font = False
   [[solarized-dark]]
     background_color = "#002b36"
     cursor_color = "#aaaaaa"
+    font = Source Code Pro Light 12
     foreground_color = "#839496"
     palette = "#282828:#cc241d:#98971a:#d79921:#458588:#b16286:#689d6a:#a89984:#928374:#fb4934:#b8bb26:#fabd2f:#83a598:#d3869b:#8ec07c:#ebdbb2"
+    use_system_font = False
