@@ -1,0 +1,171 @@
+# cheat sheet https://github.com/spabinger/terminator-cheat-sheet
+############ Terminator Cheat Sheet ############ 
+##  ## Splitting Windows
+##  
+## Command          Action
+
+## Ctrl+Shift+E     vertical split
+## Ctrl+Shift+O     horizontal split
+## Alt+ArrowKeys    Navigate terminals
+## Ctrl+Shift+P     focus be active on the previous view
+## Ctrl+Shift+N     focus be active on the next view
+## Ctrl+Shift+W     close the view where the focus is on
+## Ctrl+Shift+Q     exit terminator
+## Ctrl+Shift+X     focus active window and enlarge it
+##  
+##  ## Groups
+##  
+##  |    Command    |     Action    |
+##  | ------------- | ------------- |
+##  | Ctrl+G        | Group All     |
+##  | Ctrl+Shift+G  | Ungroup All   |
+##  | Ctrl+T        | Group Tab     | 
+##  | Ctrl+Shift+T  | Ungroup Tab   | 
+##  
+##  ## Navigation
+##  
+##  | Command  | Action |
+##  | ------------- | ------------- |
+##  | Alt+Up    | Focus on the terminal above |
+##  | Alt+Dn    | Focus on the terminal below |
+##  | Alt+Left  | Focus on the terminatl left |
+##  | Alt+Right | Focus on the terminal right |
+##  
+##  ## Launcher parameters
+##  
+##  * -m – maximize
+##  * -b – borderless – works well with Gnome2 but is a bit redundant with Unity as a maximised window is borderless anyway
+##  * -T – sets the title
+##  
+##  
+##  ## Links
+##  http://www.linuxnov.com/the-complete-guide-to-configure-terminator-terminal-emulator-layouts/
+##  http://askubuntu.com/questions/158159/how-do-i-get-terminator-to-start-up-with-my-custom-layout
+##  http://blog.al4.co.nz/2011/05/getting-the-most-out-of-terminator/
+##  
+##  #
+##  #
+[global_config]
+focus = system
+#  enabled_plugins = InactivityWatch, ActivityWatch, TerminalShot, LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
+#  title_receive_bg_color = "#1b262e"
+[keybindings]
+#  broadcast_all = <Ctrl><Shift>a
+#  broadcast_group = <Ctrl><Shift>g
+#  broadcast_off = <Primary><Alt>n
+#  go_down = <Primary><Shift>j
+#  go_left = <Primary><Shift>l
+#  go_right = <Ctrl><Shift>l
+#  go_up = <Ctrl><Shift>k
+#  resize_down = <Ctrl><Shift><Alt>j
+#  resize_left = <Ctrl><Shift><Alt>h
+#  resize_right = <Ctrl><Shift><Alt>l
+#  resize_up = <Ctrl><Shift><Alt>k
+[layouts]
+  [[default]]
+    [[[child0]]]
+      fullscreen = False
+      last_active_term = 24f82a53-5dd7-4ec1-ad41-a9ea3e98c5e7
+      last_active_window = True
+      maximised = False
+      order = 0
+      parent = ""
+      position = 1920:0
+      size = 1918, 1058
+      title = /bin/bash
+      type = Window
+    [[[terminal1]]]
+      order = 0
+      parent = child0
+      profile = default
+      type = Terminal
+      uuid = 24f82a53-5dd7-4ec1-ad41-a9ea3e98c5e7
+  [[log apache www]]
+    [[[child0]]]
+      fullscreen = False
+      last_active_term = 24f82a53-5dd7-4ec1-ad41-a9ea3e98c5e7
+      last_active_window = True
+      maximised = False
+      order = 0
+      parent = ""
+      position = 1920:0
+      size = 1918, 1058
+      title = term de travail + connexion serveur
+      type = Window
+    [[[child1]]]
+      order = 0
+      parent = child0
+      position = 529
+      ratio = 0.5
+      type = VPaned
+    [[[terminal2]]]
+      order = 0
+      parent = child1
+      profile = default
+      type = Terminal
+      uuid = 24f82a53-5dd7-4ec1-ad41-a9ea3e98c5e7
+    [[[terminal3]]]
+      order = 1
+      parent = child1
+      profile = blue
+      type = Terminal
+      uuid = 581c2460-239e-4cea-8670-eeb9578c9a8c
+  [[work+lu]]
+    [[[child0]]]
+      fullscreen = False
+      last_active_term = 24f82a53-5dd7-4ec1-ad41-a9ea3e98c5e7
+      last_active_window = True
+      maximised = False
+      order = 0
+      parent = ""
+      position = 1920:0
+      size = 1918, 1058
+      title = config (~/.config/terminator) - VIM
+      type = Window
+    [[[child1]]]
+      order = 0
+      parent = child0
+      position = 529
+      ratio = 0.5
+      type = VPaned
+    [[[terminal2]]]
+      order = 0
+      parent = child1
+      profile = default
+      type = Terminal
+      uuid = 24f82a53-5dd7-4ec1-ad41-a9ea3e98c5e7
+    [[[terminal3]]]
+      order = 1
+      parent = child1
+      profile = blue
+      type = Terminal
+      uuid = 581c2460-239e-4cea-8670-eeb9578c9a8c
+[plugins]
+[profiles]
+  [[default]]
+    # background_color = "#000000" # A comment
+    # foreground_color = "#FFFFFF" # Note that hex colour values must be quoted
+    # font = Fixed 10
+    # scrollback_lines = '500' #More comment. Single quotes are valid too
+    # cursor_blink = True
+    # custom_command = "echo \"foo#bar\"" #Final comment - this will work as expected.
+    background_darkness = 0.79
+    background_type = transparent
+    cursor_color = "#ffffff"
+    scrollback_infinite = True
+  [[ambiance purple]]
+    background_color = "#300a24"
+    cursor_color = "#eee8d5"
+    foreground_color = "#ffffff"
+    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#586e75:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
+  [[blue]]
+    background_color = "#002b36"
+    background_darkness = 0.73
+    background_type = transparent
+    foreground_color = "#839496"
+    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
+  [[solarized-dark]]
+    background_color = "#002b36"
+    cursor_color = "#aaaaaa"
+    foreground_color = "#839496"
+    palette = "#282828:#cc241d:#98971a:#d79921:#458588:#b16286:#689d6a:#a89984:#928374:#fb4934:#b8bb26:#fabd2f:#83a598:#d3869b:#8ec07c:#ebdbb2"
