@@ -62,8 +62,8 @@
 # define your preferred main modifier key: Alt_L (Mod1) or Super_L (Mod4)
 set $mod Mod4
 
-set $screen0 VGA-1
-set $screen1 DVI-I-1
+set $screen0 DVI-I-1
+set $screen1 VGA-1
 
 # use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -246,6 +246,8 @@ for_window [title="^screenkey"]        floating enable
 for_window [window_role="^Detached$"]  floating enable
 for_window [window_role="dialog"]      floating enable
 for_window [instance="^feh$"]          floating enable
+for_window [title="^Terminator Layout Launcher"]      floating enable
+for_window [class="^Slack"]      floating enable
 #for_window [title="Video"]      floating enable
 
 # >>>
