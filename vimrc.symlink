@@ -2,9 +2,12 @@
 let use_color_daylight      = 0
 let use_cursor_change_color = 1 " change cursor color when insert mode
 " bundles
-let use_neobundle           = 1
-let use_gundo               = 1
-let use_quickfixsigns       = 1
+let use_dein                = 1
+let use_syntastic           = 1
+let use_less                = 1
+
+let use_gundo               = 0
+let use_quickfixsigns       = 0
 let use_fugitive            = 1
 let use_airline             = 1
 let use_powerline           = 0
@@ -27,9 +30,10 @@ let use_php_special         = 0
 
 let use_switchcolor         = 0 " f8 / shift+f8
 let use_doing_indent_inits  = 0
-let use_phphtmlindent       = 0
+let use_phphtmlindent       = 1
 " }}}
 
+set mouse=
 set nocompatible               " Be iMproved
 
 " {{{ Colors
@@ -56,7 +60,7 @@ endif
 " }}}
 
 " {{{ Spaces & Tabs
-set noexpandtab   " do not convert tabs to spaces
+set expandtab   " do not convert tabs to spaces
 set softtabstop=4 " Number of spaces that a <Tab> counts for while performing edit
 set shiftwidth=4  " Number of spaces to use for each step of indent
 set tabstop=4     " number of spaces that a <Tab> in the file counts for
@@ -216,40 +220,53 @@ set diffopt+=vertical " make vertical default split
 set diffopt=filler,iwhite
 " }}}
 
-" {{{ if neobundle PLUGINS WITH NEOBUNDLE
-if use_neobundle == 1
-" {{{ neobundle requirement
-if has('vim_starting')
-	set runtimepath+=~/.vim/bundle/neobundle.vim/
+" {{{ if dein PLUGINS WITH dein
+if use_dein      == 1
+" {{{ dein requirement
+
+"dein Scripts-----------------------------
+if &compatible
+  set nocompatible               " Be iMproved
 endif
-call neobundle#begin(expand('~/.vim/bundle/'))
-NeoBundleFetch 'Shougo/neobundle.vim'
-" was required.. but not anymore ??
-NeoBundle 'Shougo/unite.vim'
+
+" Required:
+set runtimepath^=~/.vim/bundle/repos/github.com/Shougo/dein.vim
+
+" Required:
+call dein#begin(expand('~/.vim/bundle'))
+
+" Let dein manage dein
+" Required:
+call dein#add('Shougo/dein.vim')
+
+
+" Required:
+filetype plugin indent on
+
 " }}}
 " {{{ if gundo (visualization undo tree)
 if use_gundo == 1
-NeoBundle 'sjl/gundo.vim'
+call dein#add('sjl/gundo.vim')
 endif
 " }}}
 " {{{ if quickfixsigns
 if use_quickfixsigns == 1
 " update quickfixsigns always (need to be before pathogen#infect)
 let g:quickfixsigns_events = ['BufEnter', 'CursorHold', 'CursorHoldI', 'InsertLeave', 'InsertEnter', 'InsertChange', 'CursorMoved', 'CursorMovedI']
-NeoBundle 'tomtom/quickfixsigns_vim'
+call dein#add('tomtom/quickfixsigns_vim')
 set lazyredraw " required by quickfixsigns
 " force redraw
 endif
 " }}}
 " {{{ if fugitive
 if use_fugitive == 1
-NeoBundle 'tpope/vim-fugitive'
+call dein#add('tpope/vim-fugitive')
 endif
 " }}}
 " {{{ Airline or Powerline
 if use_airline && !use_powerline
-	NeoBundle 'bling/vim-airline'
-	NeoBundle 'majutsushi/tagbar'
+	call dein#add('bling/vim-airline')
+	call dein#add('majutsushi/tagbar')
 "	let g:airline_section_b = '%{strftime("%c")}'
 "	let g:airline_section_y = 'BN: %{bufnr("%")}'
 "let g:airline#extensions#tagbar#enabled = 1
@@ -260,7 +277,7 @@ if use_airline && !use_powerline
 "let g:airline_section_y = 1
 endif
 if use_powerline && !use_airline
-	NeoBundle 'Lokaltog/vim-powerline'
+	call dein#add('Lokaltog/vim-powerline')
 	let g:Powerline_symbols = 'fancy'
 	let g:Powerline_stl_path_style = 'relative'
 endif
@@ -268,9 +285,9 @@ endif
 " {{{ if Pomodoro
 if use_pomodoro == 1
 	if has('clientserver')
-    NeoBundle 'pydave/AsyncCommand' " required for vim-pomodoro
-    NeoBundle 'mnick/vim-pomodoro'
-    " Duration of a pomodoro in minutes (default: 25)
+        call dein#add('pydave/AsyncCommand') " required for vim-pomodoro)
+        call dein#add('mnick/vim-pomodoro')
+        " Duration of a pomodoro in minutes (default: 25)
 		let g:pomodoro_time_work = 25
 		" Duration of a break in minutes (default: 5)
 		let g:pomodoro_time_slack = 5
@@ -319,59 +336,55 @@ if use_pomodoro == 1
   else
     echo "Pomodoro cannot be installed without +clientserver.\n Set use_pomodoro=0 to disable this message"
 	endif
-  NeoBundle 'Shougo/vimproc.vim', {
-  \   'build' : {
-  \   'unix' : 'make -f make_unix.mak',
-  \  }
-  \ }
+"call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
 endif
 " }}}
 " {{{ if browserlink
 if use_browserlink
 	let g:bl_pagefiletypes = ['html', 'javascript', 'css']
 	"let g:bl_pagefiletypes = ['html', 'javascript', 'php']
-	NeoBundle 'jaxbot/browserlink.vim' " live browser editing !!!
+	call dein#add('jaxbot/browserlink.vim' " live browser editing !!!)
 endif
 " }}}
 " {{{ if speeddatting
 if use_speeddatting
-	NeoBundle 'tpope/vim-speeddating' " increment / decrement date & time with <C-a><C-x>
+	call dein#add('tpope/vim-speeddating') " increment / decrement date & time with <C-a><C-x>
 endif
 " }}}
 " {{{ if speeddatting
 if use_calendar
-	NeoBundle 'mattn/calendar-vim' " create calendar window
+	call dein#add('mattn/calendar-vim') " create calendar window)
 endif
 " }}}
 " {{{ if css3_syntax
 if use_css3_syntax
-	NeoBundle 'hail2u/vim-css3-syntax'
+	call dein#add('hail2u/vim-css3-syntax')
 endif
 " }}}
 " {{{ if surround
 if use_surround
-	NeoBundle 'tpope/vim-surround'
+	call dein#add('tpope/vim-surround')
 endif
 " }}}
 " {{{ if orgmode
 if use_orgmode
-	NeoBundle 'jceb/vim-orgmode'
+	call dein#add('jceb/vim-orgmode')
 	" config orgmode
 endif
 " }}}
-NeoBundle 'othree/html5.vim'
+call dein#add('othree/html5.vim')
 " {{{ if php_bundles
 if use_php_bundles
- NeoBundle 'shawncplus/phpcomplete.vim'
- NeoBundle 'm2mdas/phpcomplete-extended'
- NeoBundle 'ervandew/supertab'
-" NeoBundle 'pangloss/vim-javascript'
-NeoBundle '2072/PHP-Indenting-for-VIm'
- NeoBundle 'StanAngeloff/php.vim'
+ call dein#add('shawncplus/phpcomplete.vim')
+ call dein#add('m2mdas/phpcomplete-extended')
+ call dein#add('ervandew/supertab')
+" call dein#add('pangloss/vim-javascript')
+call dein#add('2072/PHP-Indenting-for-VIm')
+ call dein#add('StanAngeloff/php.vim')
 endif
 " }}}
 " /home/michael/.vim/bundle/PHP-Indenting-for-VIm
-"""    NeoBundle 'alvan/vim-phpmanual'
+"""    call dein#add('alvan/vim-phpmanual')
 
 " Brief help
 " :NeoBundleList          - list configured bundles
@@ -379,17 +392,39 @@ endif
 " :NeoBundleClean(!)      - confirm(or auto-approve) removal of unused
 
 " {{{ Syntastic
-let g:syntastic_check_on_open=0
-let g:syntastic_error_symbol='✗'
-let g:syntastic_warning_symbol='⚠'
-" let g:syntastic_mode_map = { 'mode': 'passive'}
-NeoBundle 'scrooloose/syntastic'
-" }}}
-NeoBundle 'groenewege/vim-less'
-call neobundle#end()
-NeoBundleCheck
+if use_syntastic
+    call dein#add('scrooloose/syntastic')
+    let g:syntastic_check_on_open=0
+    let g:syntastic_error_symbol='✗'
+    let g:syntastic_warning_symbol='⚠'
+
+    "let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
+    "let g:syntastic_phpcs_standard = 'psr2'
+    let g:loaded_syntastic_php_phpcs_checker = 1
+    let g:syntastic_php_checkers = ['php']
+    " let g:syntastic_mode_map = { 'mode': 'passive'}
+
+
 endif
-" }}}PLUGINS WITH NEOBUNDLE
+" }}}
+" let g:syntastic_less_checkers = []
+
+" {{{ vim-less
+if use_less
+call dein#add('groenewege/vim-less')
+
+call dein#add('tpope/vim-dispatch')
+endif
+" }}} vim-less
+call dein#end()
+filetype plugin indent on     " Required!
+
+if dein#check_install()
+	call dein#install()
+endif
+
+endif
+" }}}PLUGINS WITH dein
 
 " {{{ Custom Functions
 if use_ctags == 1
@@ -475,7 +510,6 @@ endif
 """""       autocmd FileType * exe 'setl tags+=~/.ctags/' . &filetype . '/*/tags'
 """""     augroup END
 
-filetype plugin indent on     " Required!
 
 " convert tab to space
 set expandtab
