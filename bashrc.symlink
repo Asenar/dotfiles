@@ -134,7 +134,6 @@ fi
 # ~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
-
 # some more ls aliases
 #alias ll='ls -l'
 #alias la='ls -A'
@@ -183,9 +182,9 @@ fi
 #   vim -XMnR "+runtime! syntax/man.vim" "+Man $1" "+set nomodifiable" "+only"
 # }
 # export PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
-  #     vim -R -c 'set ft=man nomod nolist' -c 'map q :q<CR>' \
-  #     -c 'map <SPACE> <C-D>' -c 'map b <C-U>' \
-  #     -c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\""
+#     vim -R -c 'set ft=man nomod nolist' -c 'map q :q<CR>' \
+#     -c 'map <SPACE> <C-D>' -c 'map b <C-U>' \
+#     -c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\""
 
 # tab = 2 spaces in terminal
 tabs -2
