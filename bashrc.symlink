@@ -6,6 +6,9 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
+
+FONT_HOME=~/.local/share/fonts
+
 # don't put duplicate lines in the history. See bash(1) for more options
 # don't overwrite GNU Midnight Commander's setting of `ignorespace'.
 HISTCONTROL=$HISTCONTROL${HISTCONTROL+:}ignoredups
@@ -28,50 +31,51 @@ shopt -s checkwinsize
 
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
+  debian_chroot=$(cat /etc/debian_chroot)
 fi
 
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-    . /etc/bash_completion
+  . /etc/bash_completion
 fi
 
 #sudo hint
 if [ ! -e "$HOME/.sudo_as_admin_successful" ]; then
-    case " $(groups) " in *\ admin\ *)
+  case " $(groups) " in *\ admin\ *)
     if [ -x /usr/bin/sudo ]; then
-	cat <<-EOF
-	To run a command as administrator (user "root"), use "sudo <command>".
-	See "man sudo_root" for details.
-	
-	EOF
+      cat <<-EOF
+    To run a command as administrator (user "root"), use "sudo <command>".
+    See "man sudo_root" for details.
+EOF
     fi
-    esac
+esac
 fi
 
+# {{{ guess which command when typo
 # if the command-not-found package is installed, use it
 if [ -x /usr/lib/command-not-found -o -x /usr/share/command-not-found ]; then
-	function command_not_found_handle {
-	        # check because c-n-f could've been removed in the meantime
-                if [ -x /usr/lib/command-not-found ]; then
-		   /usr/bin/python /usr/lib/command-not-found -- $1
-                   return $?
-                elif [ -x /usr/share/command-not-found ]; then
-		   /usr/bin/python /usr/share/command-not-found -- $1
-                   return $?
-		else
-		   return 127
-		fi
-	}
+  function command_not_found_handle {
+    # check because c-n-f could've been removed in the meantime
+    if [ -x /usr/lib/command-not-found ]; then
+      /usr/bin/python /usr/lib/command-not-found -- $1
+      return $?
+    elif [ -x /usr/share/command-not-found ]; then
+      /usr/bin/python /usr/share/command-not-found -- $1
+      return $?
+    else
+      return 127
+    fi
+  }
 fi
+# }}} guess which command when typo
 
-# GIT TIME
+# {{{ git prompt (TODO: clean this)
 #its almost the default /etc/bash.bashrc 
 # may require some additionnal git installation / sources git-prompt package 
 # /etc/bash_completion.d/git-prompt
 if [ -r /etc/bash_completion.d/git-prompt ]; then
-	. /etc/bash_completion.d/git-prompt
+  . /etc/bash_completion.d/git-prompt
 fi
 
 # strongly inspired by http://feedreader.com/feed/Kevin_Decherf_s_blog/25920209
@@ -89,21 +93,21 @@ function parse_git_status {
 }
 function check_git_changes {
   # tput setaf 1 = RED, tput setaf 2 = GREEN
-	  [ `parse_git_status` -ne 1 ] && tput setaf 1 || tput setaf 2
+  [ `parse_git_status` -ne 1 ] && tput setaf 1 || tput setaf 2
 }
 function check__git_ps1 {
-	# if a .git is present but not readable, this will not annoy me :)
-	res="$(__git_ps1 '%s')"
-if [ "$res" = "(unknown)" -o "$res" == "" ]; then
-		echo ""
-	else
-		echo " ($res)"
-	fi
+  # if a .git is present but not readable, this will not annoy me :)
+  res="$(__git_ps1 '%s')"
+  if [ "$res" = "(unknown)" -o "$res" == "" ]; then
+    echo ""
+  else
+    echo " ($res)"
+  fi
 }
 
 dotfile_dir=$(dirname $0)
 if [ -r ${dotfile_dir}/git/git-sh-prompt ]; then
-	. ${dotfile_dir}/git/git-sh-prompt
+  . ${dotfile_dir}/git/git-sh-prompt
 fi
 
 GIT_PS1_SHOWDIRTYSTATE=1
@@ -118,42 +122,45 @@ PS1=""
 # TODO: display \h in different color according to a config file
 PROMPT_COMMAND='__git_ps1 "$CYAN$(date +%H:%M)$TXTRST \u@\h $BLUE\w"$TXTRST "\\\$ "'
 if [ "`id -u`" -eq 0 ]; then
-	PS1=$PS1'# '
+  PS1=$PS1'# '
 else
-	PS1=$PS1'$ '
+  PS1=$PS1'$ '
 fi
+# }}} git prompt
+
+# {{{ Alias definitions.
+# You may want to put all your additions into a separate file like
+# ~/.bash_aliases, instead of adding them here directly.
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+
 
 # some more ls aliases
 #alias ll='ls -l'
 #alias la='ls -A'
 #alias l='ls -CF'
 
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
 if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+  . ~/.bash_aliases
 fi
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-    alias less='less -R'
+  test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+  alias ls='ls --color=auto'
+  #alias dir='dir --color=auto'
+  #alias vdir='vdir --color=auto'
+  alias grep='grep --color=auto'
+  alias fgrep='fgrep --color=auto'
+  alias egrep='egrep --color=auto'
+  alias less='less -R'
 fi
-# require vim plugin AsyncCommand
+# require vim built with +clientserver + plugin AsyncCommand
 alias v="vim --servername pomodoro"
 alias vt='vim --servername pomodoro +":tab sball"'
-#source /home/michael/.dotfiles/liquidprompt/liquidprompt
+
+# open all files in vim with separate tab
 alias vimt='vim +":tab sball"'
-alias suvicron='sudo EDITOR=vim crontab -e'
-# source ~/.dotfiles/liquidprompt/liquidprompt
+# }}} Alias definitions.
+
 export LC_TIME=fr_FR.UTF-8
 
 # umask 002
@@ -165,7 +172,9 @@ fortune_exists=$?
 cowsay=$(which cowsay)
 cowsay_exists=$?
 if [ $cowsay_exists -eq 0 ]; then
-	$fortune | $cowsay -f $(ls /usr/share/cowsay/cows/ | shuf -n1)
+  $fortune -a | $cowsay -f $(ls /usr/share/cowsay/cows/ | shuf -n1)
+else
+  echo "Do I forgot to install fortune and cowsay ?"
 fi
 
 # function man()
@@ -173,9 +182,9 @@ fi
 #   vim -XMnR "+runtime! syntax/man.vim" "+Man $1" "+set nomodifiable" "+only"
 # }
 # export PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
-#     vim -R -c 'set ft=man nomod nolist' -c 'map q :q<CR>' \
-#     -c 'map <SPACE> <C-D>' -c 'map b <C-U>' \
-#     -c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\""
+  #     vim -R -c 'set ft=man nomod nolist' -c 'map q :q<CR>' \
+  #     -c 'map <SPACE> <C-D>' -c 'map b <C-U>' \
+  #     -c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\""
 
 # tab = 2 spaces in terminal
 tabs -2
