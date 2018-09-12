@@ -89,6 +89,7 @@ prompt = false
 
 [merge]
 tool = vimdiff
+log = 500
 
 [push]
 default = upstream
