@@ -4,11 +4,11 @@ let use_cursor_change_color = 1 " change cursor color when insert mode
 " bundles
 let use_neobundle           = 1
 let use_gundo               = 1
-let use_quickfixsigns       = 0
+let use_quickfixsigns       = 1
 let use_fugitive            = 1
 let use_airline             = 1
 let use_powerline           = 0
-let use_pomodoro            = 1
+let use_pomodoro            = 0
 let use_browserlink         = 0
 let use_css3_syntax         = 0
 let use_surround            = 0
@@ -17,8 +17,7 @@ let use_orgmode             = 1
 let use_speeddatting        = 1
 let use_calendar            = 1
 let use_php_bundles         = 0
-let use_surround            = 0
-let use_surround            = 0
+let use_surround            = 1
 
 let use_ctags               = 0
 let use_manplugin           = 0
@@ -58,16 +57,16 @@ endif
 
 " {{{ Spaces & Tabs
 set noexpandtab   " do not convert tabs to spaces
-set softtabstop=2 " Number of spaces that a <Tab> counts for while performing edit
-set shiftwidth=2  " Number of spaces to use for each step of indent
-set tabstop=2     " number of spaces that a <Tab> in the file counts for
+set softtabstop=4 " Number of spaces that a <Tab> counts for while performing edit
+set shiftwidth=4  " Number of spaces to use for each step of indent
+set tabstop=4     " number of spaces that a <Tab> in the file counts for
 " }}}
 
 " {{{ vim base config, UI layout
 " List invisible chars
-set listchars=nbsp:¤,tab:→\ ,trail:◀,extends:»,precedes:«
+"set listchars=nbsp:¤,tab:→\ ,trail:◀,extends:»,precedes:«
 "set listchars=nbsp:¤,tab:▶\ ,trail:◀,extends:»,precedes:«
-set list
+set nolist
 " History of: file marks, command lines, input line, searches.
 " Also disable highlights on start and save buffers.
 " history and viminfo are two separate settings.
@@ -268,10 +267,10 @@ endif
 " }}}
 " {{{ if Pomodoro
 if use_pomodoro == 1
-	NeoBundle 'pydave/AsyncCommand' " required for vim-pomodoro
-	NeoBundle 'mnick/vim-pomodoro'
-	" Duration of a pomodoro in minutes (default: 25)
 	if has('clientserver')
+    NeoBundle 'pydave/AsyncCommand' " required for vim-pomodoro
+    NeoBundle 'mnick/vim-pomodoro'
+    " Duration of a pomodoro in minutes (default: 25)
 		let g:pomodoro_time_work = 25
 		" Duration of a break in minutes (default: 5)
 		let g:pomodoro_time_slack = 5
@@ -315,14 +314,16 @@ if use_pomodoro == 1
 		"   %) end of width specification
 		""""""" set statusline=%<\ %n:%f\ %m%r%y%=%-35.(line:\ %l\ of\ %L,\ col:\ %c%V\ (%P)%)
 		" set statusline=%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P%{PomodoroStatus()}
-nmap <F7> <ESC>:PomodoroStart<CR>
-imap <F7> <ESC>:PomodoroStart<CR>a
+    nmap <F7> <ESC>:PomodoroStart<CR>
+    imap <F7> <ESC>:PomodoroStart<CR>a
+  else
+    echo "Pomodoro cannot be installed without +clientserver.\n Set use_pomodoro=0 to disable this message"
 	endif
-NeoBundle 'Shougo/vimproc.vim', {
-\   'build' : {
-\   'unix' : 'make -f make_unix.mak',
-\  }
-\ }
+  NeoBundle 'Shougo/vimproc.vim', {
+  \   'build' : {
+  \   'unix' : 'make -f make_unix.mak',
+  \  }
+  \ }
 endif
 " }}}
 " {{{ if browserlink
