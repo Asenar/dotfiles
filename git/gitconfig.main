@@ -74,6 +74,7 @@ pager = true
 
 [core]
 editor = vim
+pager  = less -x2
 
 [diff]
 tool = vimdiff
@@ -81,6 +82,7 @@ tool = vimdiff
 # https://github.com/ornicar/dotfiles/blob/master/gitconfig
 # see git help config
 mnemonicprefix = true
+#	renames = copies
 
 [difftool]
 prompt = false
