@@ -12,7 +12,7 @@
 #    evtest /dev/input/event7
 #    or xev
 #
-# <<<
+# {{{
 #
 # This configuration relies on a single modifier key. It uses keycodes instead of keysyms
 # in order to be compatible with any keyboard layout: qwerty, qwertz, azerty, dvorak…
@@ -53,10 +53,10 @@
 # ┃ Ctrl  ┃ super ┃ Alt   ┃ Space                          ┃ AltGr ┃ super ┃ menu  ┃ Ctrl  ┃
 # ┗━━━━━━━┻━━━━━━━┻━━━━━━━┹────────────────────────────────┺━━━━━━━┻━━━━━━━┻━━━━━━━┻━━━━━━━┛
 #
-# >>>
+# }}}
 
 #|=============================================================================
-#|    general                                                               <<<
+#|    general                                                               {{{
 #|=============================================================================
 
 # define your preferred main modifier key: Alt_L (Mod1) or Super_L (Mod4)
@@ -80,13 +80,14 @@ set $launcher $(dmenu_run | sort -u | dmenu -fn '-*-fixed-*-r-normal-*-*-120-*-*
 
 # define your preferred screen lock
 # set $lock $(xdg-screensaver lock)
-set $lock $(i3lock -c 000000)
-# set $lock $(i3lock -c 000000 -i /home/michael/Pictures/black-metallic-pattern.png -t )
+#set $lock $(i3lock -c 000000)
+set $lock $(i3lock -f -p win -t -i ~/.dotfiles/i3/screenlock.png)
 
 # window font (note: iso10646 = unicode)
 #font -misc-fixed-medium-r-normal--18-120-75-75-C-70-iso10646-1
 #font pango:Inconsolata Sans Mono 9
-font pango:Source Code Pro 12
+font pango:Source Code Pro 10
+#font pango: Inconsolata 10
 #font -misc-inconsolata-medium-r-normal--0-0-0-0-p-0-iso10646-1
 
 #font xft:Droid Sans Mono 10
@@ -113,7 +114,7 @@ bar {
 # tray_output <none|primary|output>
   tray_output $screen0
 #  font pango:DejaVu Sans Mono 8
-font pango:Inconsolata Sans Mono 10
+  font pango:Inconsolata Sans Mono 10
   workspace_buttons yes
   binding_mode_indicator yes
   colors{
@@ -170,10 +171,10 @@ client.focused_inactive #333333 #3030FF #888888 #ff0000
 client.unfocused        #333333 #222222 #888888 #ff0000
 client.urgent           #ff0000 #993333 #ffffff
 
-# >>>
+# }}}
 
 #|=============================================================================
-#|    workspaces                                                            <<<
+#|    workspaces                                                            {{{
 #|=============================================================================
 
 # Workspace names:
@@ -250,10 +251,10 @@ for_window [title="^Terminator Layout Launcher"]      floating enable
 for_window [class="^Slack"]      floating enable
 #for_window [title="Video"]      floating enable
 
-# >>>
+# }}}
 
 #|=============================================================================
-#|    wmii-like keybindings                                                 <<<
+#|    wmii-like keybindings                                                 {{{
 #|=============================================================================
 
 # Switch between Tabbed/Stacking/Divided/Fullscreen modes         ($mod+[asdf])
@@ -328,10 +329,10 @@ bind $mod+Shift+19 move workspace $w10
 bind $mod+Shift+20 move workspace $w11
 bind $mod+Shift+21 move workspace $w12
 
-# >>>
+# }}}
 
 #|=============================================================================
-#|    i3-specific keybindings                                               <<<
+#|    i3-specific keybindings                                               {{{
 #|=============================================================================
 
 # Resize Containers, Vim-style                            ($mod+Control+[hjkl])
@@ -408,10 +409,10 @@ bind $mod+56 border toggle
 # see bin/keyboard_switch
 bind $mod+52 exec /usr/local/bin/keyboard_switch
 
-# >>>
+# }}}
 
 #|=============================================================================
-#|    applications & scripts                                                <<<
+#|    applications & scripts                                                {{{
 #|=============================================================================
 
 # Start a new terminal                                             ($mod+Enter)
@@ -439,10 +440,10 @@ exec /home/michael/bin/autoload.sh
 # Toggle Desktop Panel                                     ($mod+Control+Space)
 bind $mod+Control+65 exec panel-toggle
 
-# >>>
+# }}}
 
 #|=============================================================================
-#|    generic shortcuts (xdotool powwa!)                                    <<<
+#|    generic shortcuts (xdotool powwa!)                                    {{{
 #|=============================================================================
 
 # Dvorak-compliant cut/copy/paste                                  ($mod+[xcv])
@@ -486,10 +487,10 @@ bindsym mod4+Shift+Right exec $(xdotool getactivewindow key shift+End)
 # bindsym $mod+Shift+Up    exec $(xdotool click 4)
 # bindsym $mod+Shift+Right exec $(xdotool click 3)
 
-# >>>
+# }}}
 
 #|=============================================================================
-#|    multimedia keys (Thinkpad X220)                                       <<<
+#|    multimedia keys (Thinkpad X220)                                       {{{
 #|=============================================================================
 
 # Volume control (pulseaudio)                                  (mute|vol-|vol+)
@@ -505,11 +506,11 @@ bind 172 exec $(cmus-remote --pause)
 bind 173 exec $(cmus-remote --prev)
 bind 174 exec $(cmus-remote --stop)
 
-# lock, battery, sleep, hibernate                           (Fn+[F2|F3|F4|F12])
-bind 160 exec $lock
-#bind 244 exec $()
-bind 150 exec $(dbus-send --system --print-reply --dest="org.freedesktop.UPower" /org/freedesktop/UPower org.freedesktop.UPower.Suspend)
-bind 213 exec $(dbus-send --system --print-reply --dest="org.freedesktop.UPower" /org/freedesktop/UPower org.freedesktop.UPower.Hibernate)
+## # lock, battery, sleep, hibernate                           (Fn+[F2|F3|F4|F12])
+## bind 160 exec $lock
+## #bind 244 exec $()
+## bind 150 exec $(dbus-send --system --print-reply --dest="org.freedesktop.UPower" /org/freedesktop/UPower org.freedesktop.UPower.Suspend)
+## bind 213 exec $(dbus-send --system --print-reply --dest="org.freedesktop.UPower" /org/freedesktop/UPower org.freedesktop.UPower.Hibernate)
 
 # do not auto-focus on mouse move
 focus_follows_mouse no
@@ -582,7 +583,7 @@ for_window [title="^screenkey"] floating enable
 # setterm -blength 0
 #feh --bg-scale Pictures/At-the-end-of-the-game-the-king-and-the-pawn-go-back-in-the-same-box.png
 
-# >>>
+# }}}
 
-# vim: set fdm=marker fmr=<<<,>>> fdl=0:
+# vim: set fdm=marker fdl=0:
 
