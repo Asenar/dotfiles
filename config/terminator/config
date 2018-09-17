@@ -50,7 +50,6 @@
   focus = system
   broadcast_default = off
   #  enabled_plugins = InactivityWatch, ActivityWatch, TerminalShot, LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
-  focus = system
   handle_size = 1
   #title_receive_bg_color = "#1b262e"
   #title_inactive_bg_color = "#2d2d2d"
@@ -66,7 +65,6 @@
   title_inactive_fg_color = "#666666"
   title_inactive_bg_color = "#222222"
 
-  handle_size = 1
   borderless = True
 
 [keybindings]
@@ -174,9 +172,7 @@
     background_darkness = 0.79
     background_type = transparent
     cursor_color = "#ffffff"
-    font = Source Code Pro Medium 12
     scrollback_infinite = True
-    use_system_font = False
   [[ambiance purple]]
     background_color = "#300a24"
     cursor_color = "#eee8d5"
