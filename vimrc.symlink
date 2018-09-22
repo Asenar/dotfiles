@@ -2,6 +2,9 @@
 let use_color_daylight      = 0
 let use_cursor_change_color = 1 " change cursor color when insert mode
 " bundles
+" install dein:
+" curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
+" sh installer.sh vim/bundle
 let use_dein                = 1
 let use_syntastic           = 1
 let use_less                = 1
@@ -61,6 +64,9 @@ endif
 
 " {{{ Spaces & Tabs
 set expandtab   " do not convert tabs to spaces
+"set softtabstop=2 " Number of spaces that a <Tab> counts for while performing edit
+"set shiftwidth=2  " Number of spaces to use for each step of indent
+"set tabstop=2     " number of spaces that a <Tab> in the file counts for
 set softtabstop=4 " Number of spaces that a <Tab> counts for while performing edit
 set shiftwidth=4  " Number of spaces to use for each step of indent
 set tabstop=4     " number of spaces that a <Tab> in the file counts for
@@ -501,6 +507,16 @@ let php_sync_method = 0
 " }}}
 endif
 
+
+function! WriteLess()
+	execute 'Dispatch!'
+	"execute 'Copen'
+endfunction
+"
+"autocmd FileType less setlocal makeprg=./css-regen
+autocmd FileType less let b:dispatch = './css-regen'
+autocmd BufWritePost *.less call WriteLess()
+"
 """""   set omnifunc=syntaxcomplete#Complete " basic autocomplete from buffers
 """""   " autocmd  FileType  php setlocal omnifunc=phpcomplete_extended#CompletePHP
 """""     set tags=tags;/ " Permet de rechercher un fichier "tags" en remontant depuis le répertoire courant jusqu'à la racine jusqu'à ce qu'il soit trouvé
@@ -511,8 +527,15 @@ endif
 """""     augroup END
 
 
-" convert tab to space
-set expandtab
+function! WriteLess()
+    if expand('%:t') != 'mediabong.less'
+        execute 'silent ! touch %:p:h/mediabong.less'
+        redraw!
+        echo 'file '.expand('%:p:h').'/mediabong.less touched !'
+    endif
+endfunction
+
+autocmd BufWrite *.less call WriteLess()
 
 " :bufdo
 "

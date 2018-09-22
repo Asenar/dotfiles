@@ -47,7 +47,6 @@
 ##  #
 ##  #
 [global_config]
-  focus = system
   broadcast_default = off
   #  enabled_plugins = InactivityWatch, ActivityWatch, TerminalShot, LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
   focus = system
@@ -66,7 +65,6 @@
   title_inactive_fg_color = "#666666"
   title_inactive_bg_color = "#222222"
 
-  handle_size = 1
   borderless = True
 
 [keybindings]

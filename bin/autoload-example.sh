@@ -18,7 +18,7 @@ DP=$(xrandr | grep -E "DP[12345] connected" | grep -oE "DP[12345]")
 # xrand 2 screen
 # this check avoid problem on autoload
 if [ $VGA_YES -eq 1 ] && [ $DVI_YES -eq 1 ]; then
-    xrandr --output VGA-1 --mode 1366x768 --output DVI-I-1 --mode 1366x768 --right-of VGA-1
+	xrandr --output VGA-1 --mode 1366x768 --output DVI-I-1 --mode 1366x768 --right-of VGA-1
 fi
 # no system sound please :)
 xset -b

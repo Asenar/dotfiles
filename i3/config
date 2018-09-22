@@ -62,8 +62,11 @@
 # define your preferred main modifier key: Alt_L (Mod1) or Super_L (Mod4)
 set $mod Mod4
 
-set $screen0 DVI-I-1
-set $screen1 VGA-1
+#set $screen_big HDMI-0
+#set $screen_big HDMI1
+set $screen_big HDMI-A-1
+# set $screen0 VGA-1
+# set $screen1 DVI-I-1
 
 # use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -74,13 +77,24 @@ floating_modifier $mod
 # set $terminal $(urxvt -e tmux)
 # set $terminal gnome-terminal
 set $terminal terminator
+# terminator shortcut:
+#     ctrl+shift+o     split horizontal
+#     ctrl+shift+e     split vertical
+#     ctrl+(shift)+tab go to next terminal
+#     ctrl+shift+a      broadcast_all
+#     ctrl+shift+g      broadcast_group
+#     ctrl+shift+n      broadcast_off
+
 
 # define your preferred application launcher
-set $launcher $(dmenu_run | sort -u | dmenu -fn '-*-fixed-*-r-normal-*-*-120-*-*-*-*-iso8859-*' -nb '#000000' -nf '#FFFFFF' -sb '#1793d1')
+#set $launcher $(dmenu_run | sort -u | dmenu_run_aliases -fn '-*-fixed-*-r-normal-*-*-120-*-*-*-*-iso8859-*' -nb '#000000' -nf '#FFFFFF' -sb '#1793d1')
+#set $launcher dmenu_run_aliases -fn '-*-fixed-*-r-normal-*-*-120-*-*-*-*-iso8859-*' -nb '#000000' -nf '#FFFFFF' -sb '#1793d1'
+# set $launcher $(dmenu_run | sort -u | dmenu_run_aliases -fn '-*-fixed-*-r-normal-*-*-120-*-*-*-*-iso8859-*' -nb '#000000' -nf '#FFFFFF' -sb '#1793d1')
 
 # define your preferred screen lock
 # set $lock $(xdg-screensaver lock)
-#set $lock $(i3lock -c 000000)
+set $lock $(i3lock -c 000000)
+# set $lock $(i3lock -c 000000 -i /home/michael/Pictures/black-metallic-pattern.png -t )
 set $lock $(i3lock -f -p win -t -i ~/.dotfiles/i3/screenlock.png)
 
 # window font (note: iso10646 = unicode)
@@ -104,15 +118,15 @@ new_float normal
 # Statusline (i3bar)
 bar {
   id bar-1
-  output $screen0
-   # TODO: remove redundant battery information from the status line
-  #status_command i3status --config ~/.i3/i3status
+  ##output $screen_big
+  # TODO: remove redundant battery information from the status line
+  #status_command i3status
   #status_command ~/.i3/keymap.sh
-  status_command i3status --config ~/.i3/i3status | ~/.i3/wrapper.py
+  status_command i3status --config ~/.dotfiles/i3/i3status.conf | ~/.dotfiles/i3/i3status.py
   position bottom
   mode dock
 # tray_output <none|primary|output>
-  tray_output $screen0
+  tray_output $screen_big
 #  font pango:DejaVu Sans Mono 8
   font pango:Inconsolata Sans Mono 10
   workspace_buttons yes
@@ -121,7 +135,7 @@ bar {
       # solarized
       background #073642
       statusline #eee8d5
-      separator #666666
+    separator #666666
 
     focused_workspace  #4c7899 #285577 #ffffff
     active_workspace   #33aaaa #5f676a #ffffff
@@ -130,29 +144,29 @@ bar {
   }
 }
 
-bar {
-  id bar-2
-  output $screen1
-  # TODO: remove redundant battery information from the status line
-  position bottom
-  status_command i3status --config ~/.i3/i3status
-  mode dock
-  #mode hide
-  tray_output $screen1
-  workspace_buttons yes
-  binding_mode_indicator yes
-  colors {
+#  bar {
+#    id bar-2
+#    output $screen0
+#    # TODO: remove redundant battery information from the status line
+#    position bottom
+#    status_command i3status --config ~/.i3/i3status
+#    mode dock
+#    #mode hide
+#    tray_output $screen1
+#    workspace_buttons yes
+#    binding_mode_indicator yes
+#    colors{
       # solarized
-      background #073642
-      statusline #eee8d5
-      separator #666666
-
-    focused_workspace  #4c7899 #285577 #ffffff
-    active_workspace   #33aaaa #5f676a #ffffff
-    inactive_workspace #333333 #228022 #333333
-    urgent_workspace   #2f343a #900000 #ffffff
-  }
-}
+#      background #205F20
+#      statusline #ffffff
+#      separator #666666
+#  
+#      focused_workspace  #4c7899 #285577 #ffffff
+#      active_workspace   #33aaaa #5f676a #ffffff
+#      inactive_workspace #333333 #228022 #333333
+#      urgent_workspace   #2f343a #900000 #ffffff
+#    }
+#  }
 
 # Default color theme:
 #   class                 border  backgr. text
@@ -407,8 +421,8 @@ bind $mod+47       focus parent
 bind $mod+56 border toggle
 
 
-# see bin/keyboard_switch
-bind $mod+52 exec /usr/local/bin/keyboard_switch
+# see bin/keyboard_switch                                              ($mod+z)
+bind $mod+52 exec ~/.dotfiles/bin/keyboard_switch
 
 # }}}
 
@@ -426,7 +440,10 @@ bind $mod+Shift+36 exec $lock
 # beware of gnome-settings-daemon:
 # http://askubuntu.com/questions/68463/how-to-disable-global-super-p-shortcut
 # http://askubuntu.com/questions/20113/how-to-stop-mod4-p-from-switching-the-display
-bind $mod+33 exec $launcher
+#bind $mod+33 exec $launcher
+#bind $mod+33 exec dmenu_run_aliases -fn '-*-fixed-*-r-normal-*-*-120-*-*-*-*-iso8859-*' -nb '#000000' -nf '#FFFFFF' -sb '#1793d1'
+#bind $mod+33 exec $(dmenu_run -l 20 | sort -u | dmenu_run_aliases -l -fn 'Inconsolata' -h 21 -nb '#000000' -nf '#FFFFFF' -sb '#1793d1')
+bind $mod+33 exec dmenu_run -fn "Source Code Variable" -nb '#000000' -nf '#FFFFFF' -sb '#1793d1'
 
 # Autostart (= personal startup script)
 exec /home/michael/bin/autoload.sh
@@ -440,6 +457,13 @@ exec /home/michael/bin/autoload.sh
 
 # Toggle Desktop Panel                                     ($mod+Control+Space)
 bind $mod+Control+65 exec panel-toggle
+
+# pomodoro                                                   (Fn+[F9|F10|F11|F12])
+
+## bind $mod+75 exec "~/.i3/i3-gnome-pomodoro/pomodoro-client.py start"
+## bind $mod+76 exec "~/.i3/i3-gnome-pomodoro/pomodoro-client.py toggle"
+## bind $mod+85 exec "~/.i3/i3-gnome-pomodoro/pomodoro-client.py skip"
+## bind $mod+86 exec "~/.i3/i3-gnome-pomodoro/pomodoro-client.py stop"
 
 # }}}
 
@@ -539,18 +563,16 @@ bind $mod+Shift+61 move scratchpad
 #bind 235 exec $()
 #bind 199 exec $()
 
-exec --no-startup-id i3-msg "workspace $w02; exec gnome-terminal"
-# exec --no-startup-id i3-msg "workspace $w03; exec firefox -P procrastifox; workspace $w01"
-# exec --no-startup-id i3-msg "workspace $w04; exec icedove"
+#exec --no-startup-id i3-msg 'workspace $w01; exec gnome-terminal'
+#exec --no-startup-id i3-msg 'workspace $w01; exec firefox -P work'
+#exec --no-startup-id i3-msg "workspace $w02; exec gnome-terminal"
+#exec --no-startup-id i3-msg "workspace $w03; exec firefox -P procrastifox; workspace $w01"
+#exec --no-startup-id i3-msg "workspace $w04; exec icedove"
 # exec --no-startup-id i3-msg 'workspace $w05; exec xchat'
-# exec --no-startup-id i3-msg 'workspace $w12; exec gnome-terminal -e "vim /home/michael/.i3/config ";workspace $w01'
-exec --no-startup-id i3-msg 'workspace $w12; exec $terminal -e "vim --servername=pomodoro"'
-# WIFI
-exec --no-startup-id nm-applet
+#exec --no-startup-id i3-msg 'workspace $w12; exec gnome-terminal -e "vim /home/michael/.i3/config ";workspace $w01'
 
-exec --no-startup-id i3-msg 'workspace $w01; exec gnome-terminal'
-# exec --no-startup-id i3-msg 'workspace $w01; exec firefox -P work'
-
+# how to find windows criteria?
+# https://faq.i3wm.org/question/2172/how-do-i-find-the-criteria-for-use-with-i3-config-commands-like-for_window-eg-to-force-splashscreens-and-dialogs-to-show-in-floating-mode.1.html
 # Common apps are sorted by workspace
 assign [class="^Thunderbird"] → $w04
 assign [class="^Work$"] → $w01
@@ -581,8 +603,13 @@ for_window [class="^B2g$"] floating enable
 for_window [title="^Debconf"] floating enable
 for_window [title="^screenkey"] floating enable
 
+for_window [class="Hamster-time-tracker"] floating enable
+for_window [title="Options de Terminator"] floating enable
+for_window [title="Terminator Layout Launcher"] floating enable
+for_window [class="Firefox" window_role="toolbox" instance="Devtools"] floating enable
+
 # setterm -blength 0
-#feh --bg-scale Pictures/At-the-end-of-the-game-the-king-and-the-pawn-go-back-in-the-same-box.png
+#exec feh --bg-scale Images/At-the-end-of-the-game-the-king-and-the-pawn-go-back-in-the-same-box.jpg
 
 # }}}
 
