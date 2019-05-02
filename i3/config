@@ -62,8 +62,8 @@
 # define your preferred main modifier key: Alt_L (Mod1) or Super_L (Mod4)
 set $mod Mod4
 
-set $screen0 DVI-I-1
-set $screen1 VGA-1
+set $screen0 VGA-2
+set $screen1 DVI-I-1
 
 # use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -81,7 +81,7 @@ set $launcher $(dmenu_run | sort -u | dmenu -fn '-*-fixed-*-r-normal-*-*-120-*-*
 # define your preferred screen lock
 # set $lock $(xdg-screensaver lock)
 #set $lock $(i3lock -c 000000)
-set $lock $(i3lock -f -p win -t -i ~/.dotfiles/i3/screenlock.png)
+set $lock $(i3lock -f -p win -t -i ~/.dotfiles/i3/blackhole2uhd.png)
 
 # window font (note: iso10646 = unicode)
 #font -misc-fixed-medium-r-normal--18-120-75-75-C-70-iso10646-1
@@ -193,8 +193,8 @@ set $w10 10
 set $w11 11
 set $w12 12: i3config
 
-set $screen0 "VGA-1"
-set $screen1 "DVI-I-1"
+#set $screen0 "VGA-2"
+#set $screen1 "DVI-I-1"
 
 workspace "1: work"      output $screen0
 workspace "2: workterm"  output $screen1
@@ -539,7 +539,7 @@ bind $mod+Shift+61 move scratchpad
 #bind 235 exec $()
 #bind 199 exec $()
 
-exec --no-startup-id i3-msg "workspace $w02; exec gnome-terminal"
+exec --no-startup-id i3-msg "workspace $w02; exec $terminal"
 # exec --no-startup-id i3-msg "workspace $w03; exec firefox -P procrastifox; workspace $w01"
 # exec --no-startup-id i3-msg "workspace $w04; exec icedove"
 # exec --no-startup-id i3-msg 'workspace $w05; exec xchat'
@@ -548,7 +548,7 @@ exec --no-startup-id i3-msg 'workspace $w12; exec $terminal -e "vim --servername
 # WIFI
 exec --no-startup-id nm-applet
 
-exec --no-startup-id i3-msg 'workspace $w01; exec gnome-terminal'
+exec --no-startup-id i3-msg 'workspace $w01; exec $terminal'
 # exec --no-startup-id i3-msg 'workspace $w01; exec firefox -P work'
 
 # Common apps are sorted by workspace
@@ -583,6 +583,8 @@ for_window [title="^screenkey"] floating enable
 
 # setterm -blength 0
 #feh --bg-scale Pictures/At-the-end-of-the-game-the-king-and-the-pawn-go-back-in-the-same-box.png
+# feh --bg-scale /home/michael/Pictures/blackhole2uhd.png
+exec --no-startup-id feh --bg-scale  /home/michael/Pictures/blackhole2uhd.png
 
 # }}}
 
