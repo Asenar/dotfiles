@@ -1,4 +1,5 @@
 " {{{ config
+let use_solarized           = 0
 let use_color_daylight      = 0
 let use_cursor_change_color = 1 " change cursor color when insert mode
 " bundles
@@ -35,29 +36,6 @@ let use_phphtmlindent       = 1
 
 set mouse=
 set nocompatible               " Be iMproved
-
-" {{{ Colors
-set t_Co=256
-colorscheme kalahari " https://raw.github.com/fabi1cazenave/kalahari.vim/master/colors/kalahari.vim
-" colorscheme 256_xoria
-" colorscheme iijo
-" }}}
-
-" {{{ color daylight
-if use_color_daylight
-" change color according to the daylight
-let current_hour = strftime("%H")
-if strftime("%H") < 6 + 0
-	colorscheme darkblue
-elseif current_hour < 12 + 0
-	colorscheme morning
-elseif current_hour < 18 + 0
-	colorscheme shine
-else
-	colorscheme evening
-endif
-endif
-" }}}
 
 " {{{ Spaces & Tabs
 set expandtab   " do not convert tabs to spaces
@@ -416,6 +394,43 @@ call dein#add('groenewege/vim-less')
 call dein#add('tpope/vim-dispatch')
 endif
 " }}} vim-less
+
+" {{{ colorscheme
+set t_Co=256
+if use_solarized
+    " {{{ solarized
+    call dein#add('altercation/vim-colors-solarized')
+    set t_Co=256
+    let g:solarized_termcolors=256
+    colorscheme solarized
+    set background=dark
+    " }}} solarized
+else
+    " {{{ Colors
+    colorscheme kalahari " https://raw.github.com/fabi1cazenave/kalahari.vim/master/colors/kalahari.vim
+    set background=dark
+    " colorscheme 256_xoria
+    " colorscheme iijo
+    " }}}
+endif
+
+" {{{ color daylight
+if use_color_daylight
+    " change color according to the daylight
+    let current_hour = strftime("%H")
+    if strftime("%H") < 6 + 0
+        colorscheme darkblue
+    elseif current_hour < 12 + 0
+        colorscheme morning
+    elseif current_hour < 18 + 0
+        colorscheme shine
+    else
+        colorscheme evening
+    endif
+endif
+" }}}
+" }}} colorscheme
+
 call dein#end()
 filetype plugin indent on     " Required!
 
