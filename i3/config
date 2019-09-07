@@ -480,12 +480,12 @@ exec /home/michael/bin/autoload.sh
 # Toggle Desktop Panel                                     ($mod+Control+Space)
 bind $mod+Control+65 exec panel-toggle
 
-# pomodoro                                                   (Fn+[F9|F10|F11|F12])
-
-## bind $mod+75 exec "~/.i3/i3-gnome-pomodoro/pomodoro-client.py start"
-## bind $mod+76 exec "~/.i3/i3-gnome-pomodoro/pomodoro-client.py toggle"
-## bind $mod+85 exec "~/.i3/i3-gnome-pomodoro/pomodoro-client.py skip"
-## bind $mod+86 exec "~/.i3/i3-gnome-pomodoro/pomodoro-client.py stop"
+# pomodoro                                     (Fn+[F9|F10|Shift+F9|Shift+F10])
+# commands: status,pause,resume,start,stop,skip,reset,toggle
+bind $mod+75       exec "~/.dotfiles/i3/i3-gnome-pomodoro/pomodoro-client.py start"
+bind $mod+76       exec "~/.dotfiles/i3/i3-gnome-pomodoro/pomodoro-client.py toggle"
+bind $mod+Shift+75 exec "~/.dotfiles/i3/i3-gnome-pomodoro/pomodoro-client.py skip"
+bind $mod+Shift+76 exec "~/.dotfiles/i3/i3-gnome-pomodoro/pomodoro-client.py stop"
 
 # }}}
 

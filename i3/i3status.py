@@ -32,7 +32,7 @@ import commands
 #import colored
 
 def get_pomodoro_status():
-  return commands.getoutput("~/.i3/i3-gnome-pomodoro/pomodoro-client.py status");
+  return commands.getoutput("python ~/.dotfiles/i3/i3-gnome-pomodoro/pomodoro-client.py status");
 
 
 
@@ -99,15 +99,16 @@ if __name__ == '__main__':
         j = json.loads(line)
         # insert information into the start of the json, but could be anywhere
         # CHANGE THIS LINE TO INSERT SOMETHING ELSE
-        #pomodoro = get_pomodoro_status();
-        pomodoro = "todo"
+        pomodoro = get_pomodoro_status();
+        # pomodoro = "todo"
         j.insert(0, {
-          'full_text'  : '⌚  %s ' % pomodoro,
+          # 'full_text'  : '⌚  %s ' % pomodoro,
+          'full_text'  : '%s ' % pomodoro,
           'name'       : 'pomodoro',
           #'background' : keyboard["bgcolor"],
           #'background_color' : keyboard["bgcolor"],
-          'color'      : "#80800",
-          'background' : "#80ff00"
+          # 'color'      : "#80800",
+          # 'background' : "#80ff00"
         })
 
         keyboard = get_keyboard();
