@@ -62,14 +62,18 @@
 # define your preferred main modifier key: Alt_L (Mod1) or Super_L (Mod4)
 set $mod Mod4
 
-#set $screen_big HDMI-0
-#set $screen_big HDMI1
-set $screen_big HDMI-A-1
+#set $screen0 HDMI-0
+#set $screen0 HDMI1
 # set $screen0 VGA-1
 # set $screen1 DVI-I-1
+set $screen0 HDMI-A-0
+# set $screen1 $screen0
 
 # use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
+
+focus_on_window_activation none # <smart|urgent|focus|none>
+show_marks yes
 
 # define your preferred terminal - you can refer to this as $terminal later
 # set $terminal roxterm
@@ -90,12 +94,6 @@ set $terminal terminator
 #set $launcher $(dmenu_run | sort -u | dmenu_run_aliases -fn '-*-fixed-*-r-normal-*-*-120-*-*-*-*-iso8859-*' -nb '#000000' -nf '#FFFFFF' -sb '#1793d1')
 #set $launcher dmenu_run_aliases -fn '-*-fixed-*-r-normal-*-*-120-*-*-*-*-iso8859-*' -nb '#000000' -nf '#FFFFFF' -sb '#1793d1'
 # set $launcher $(dmenu_run | sort -u | dmenu_run_aliases -fn '-*-fixed-*-r-normal-*-*-120-*-*-*-*-iso8859-*' -nb '#000000' -nf '#FFFFFF' -sb '#1793d1')
-
-# define your preferred screen lock
-# set $lock $(xdg-screensaver lock)
-set $lock $(i3lock -c 000000)
-# set $lock $(i3lock -c 000000 -i /home/michael/Pictures/black-metallic-pattern.png -t )
-set $lock $(i3lock -f -p win -t -i ~/.dotfiles/i3/screenlock.png)
 
 # window font (note: iso10646 = unicode)
 #font -misc-fixed-medium-r-normal--18-120-75-75-C-70-iso10646-1
@@ -118,7 +116,7 @@ new_float normal
 # Statusline (i3bar)
 bar {
   id bar-1
-  ##output $screen_big
+  # output $screen0
   # TODO: remove redundant battery information from the status line
   #status_command i3status
   #status_command ~/.i3/keymap.sh
@@ -126,7 +124,7 @@ bar {
   position bottom
   mode dock
 # tray_output <none|primary|output>
-  tray_output $screen_big
+  tray_output $screen0
 #  font pango:DejaVu Sans Mono 8
   font pango:Inconsolata Sans Mono 10
   workspace_buttons yes
@@ -156,11 +154,11 @@ bar {
 #    workspace_buttons yes
 #    binding_mode_indicator yes
 #    colors{
-      # solarized
+#      # solarized
 #      background #205F20
 #      statusline #ffffff
 #      separator #666666
-#  
+#
 #      focused_workspace  #4c7899 #285577 #ffffff
 #      active_workspace   #33aaaa #5f676a #ffffff
 #      inactive_workspace #333333 #228022 #333333
@@ -409,7 +407,34 @@ bind $mod+Shift+22 restart
 
 # Exit i3                                                 ($mod+Ctrl+BackSpace)
 # bind $mod+Control+22 exit
-bind $mod+Control+22 exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+# bind $mod+Control+22 exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+#
+
+set $lock $(i3lock -c 000000 -i ~/.dotfiles/i3/screenlock.png -f)
+# Lock i3                                                    ($mod+Shift+Enter)
+bind $mod+Shift+36 exec $lock
+# define your preferred screen lock
+# set $lock $(xdg-screensaver lock)
+# set $lock $(i3lock -c 000000 && sleep 1)
+# set $lock $(i3lock -c 000000 -i /home/michael/Pictures/black-metallic-pattern.png -t )
+# with mouse
+# set $lock $(i3lock -f -p win -t -i ~/.dotfiles/i3/screenlock.png)
+
+set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id $lock, mode "default"
+    bindsym e exec --no-startup-id i3-msg exit, mode "default"
+    bindsym s exec --no-startup-id $lock && systemctl suspend, mode "default"
+    bindsym h exec --no-startup-id $lock && systemctl hibernate, mode "default"
+    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+Pause mode "$mode_system"
 
 # Split (horizontal/vertical)                                  ($mod[+Shift]+o)
 bind $mod+32       split v
@@ -432,9 +457,6 @@ bind $mod+52 exec ~/.dotfiles/bin/keyboard_switch
 
 # Start a new terminal                                             ($mod+Enter)
 bind $mod+36 exec $terminal
-
-# Lock i3                                                    ($mod+Shift+Enter)
-bind $mod+Shift+36 exec $lock
 
 # Application launcher                                                 ($mod+p)
 # beware of gnome-settings-daemon:
