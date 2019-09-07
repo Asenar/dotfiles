@@ -40,6 +40,15 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
   . /etc/bash_completion
 fi
 
+# set a fancy prompt (non-color, unless we know we "want" color)
+case "$TERM" in
+    xterm-color|*-256color) color_prompt=yes;;
+esac
+
+# uncomment for a colored prompt, if the terminal has the capability; turned
+# off by default to not distract the user: the focus in a terminal window
+# should be on the output of commands, not on the prompt
+#force_color_prompt=yes
 #sudo hint
 if [ ! -e "$HOME/.sudo_as_admin_successful" ]; then
   case " $(groups) " in *\ admin\ *)
@@ -105,6 +114,7 @@ function check__git_ps1 {
   fi
 }
 
+# TODO: à documenter
 dotfile_dir=$(dirname $0)
 if [ -r ${dotfile_dir}/git/git-sh-prompt ]; then
   . ${dotfile_dir}/git/git-sh-prompt
@@ -152,9 +162,6 @@ if [ -x /usr/bin/dircolors ]; then
   alias egrep='egrep --color=auto'
   alias less='less -R'
 fi
-# require vim built with +clientserver + plugin AsyncCommand
-alias v="vim --servername pomodoro"
-alias vt='vim --servername pomodoro +":tab sball"'
 
 # open all files in vim with separate tab
 alias vimt='vim +":tab sball"'
