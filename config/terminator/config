@@ -68,17 +68,17 @@
   borderless = True
 
 [keybindings]
-#  broadcast_all = <Ctrl><Shift>a
-#  broadcast_group = <Ctrl><Shift>g
-#  broadcast_off = <Primary><Alt>n
-#  go_down = <Primary><Shift>j
-#  go_left = <Primary><Shift>l
-#  go_right = <Ctrl><Shift>l
-#  go_up = <Ctrl><Shift>k
-#  resize_down = <Ctrl><Shift><Alt>j
-#  resize_left = <Ctrl><Shift><Alt>h
-#  resize_right = <Ctrl><Shift><Alt>l
-#  resize_up = <Ctrl><Shift><Alt>k
+  #  broadcast_all = <Ctrl><Shift>a
+  #  broadcast_group = <Ctrl><Shift>g
+  #  broadcast_off = <Primary><Alt>n
+  #  go_down = <Primary><Shift>j
+  #  go_left = <Primary><Shift>l
+  #  go_right = <Ctrl><Shift>l
+  #  go_up = <Ctrl><Shift>k
+  #  resize_down = <Ctrl><Shift><Alt>j
+  #  resize_left = <Ctrl><Shift><Alt>h
+  #  resize_right = <Ctrl><Shift><Alt>l
+  #  resize_up = <Ctrl><Shift><Alt>k
 [layouts]
   [[default]]
     [[[child0]]]
@@ -108,7 +108,7 @@
       parent = ""
       position = 1920:0
       size = 1918, 1058
-      title = term de travail + connexion serveur
+      title = workterm + connexion serveur
       type = Window
     [[[child1]]]
       order = 0
@@ -167,14 +167,20 @@
     # scrollback_lines = '500' #More comment. Single quotes are valid too
     # cursor_blink = True
     # custom_command = "echo \"foo#bar\"" #Final comment - this will work as expected.
-    use_system_font = False
-    font = Source Code Pro Medium 12
+    ##### use_system_font = False
+    ##### font = Source Code Pro Medium 12
     background_darkness = 0.79
     background_type = transparent
-    cursor_color = "#ffffff"
-    font = Source Code Pro Medium 12
+    cursor_color = "#aaaaaa"
+    scrollback_lines = 5000
     scrollback_infinite = True
-    use_system_font = False
+  [[bleu]]
+    background_color = "#030836"
+    cursor_color = "#aaaaaa"
+  [[vert]]
+    background_color = "#144807"
+    cursor_color = "#aaaaaa"
+    foreground_color = "#ebdbb2"
   [[ambiance purple]]
     background_color = "#300a24"
     cursor_color = "#eee8d5"
