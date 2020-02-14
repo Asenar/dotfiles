@@ -4,3 +4,6 @@
 [submodule "i3/i3-gnome-pomodoro"]
 	path = i3/i3-gnome-pomodoro
 	url = https://github.com/kdani3/i3-gnome-pomodoro
+[submodule "gitrebase"]
+	path = submodules/gitrebase
+	url = https://github.com/goncalopp/git-utilities
