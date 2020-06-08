@@ -1,84 +1,63 @@
-# cheat sheet https://github.com/spabinger/terminator-cheat-sheet
-# all config parameters : https://www.systutorials.com/docs/linux/man/5-terminator_config/
-############ Terminator Cheat Sheet ############ 
-##  ## Splitting Windows
-##  
-## Command          Action
-
-## Ctrl+Shift+E     vertical split
-## Ctrl+Shift+O     horizontal split
-## Alt+ArrowKeys    Navigate terminals
-## Ctrl+Shift+P     focus be active on the previous view
-## Ctrl+Shift+N     focus be active on the next view
-## Ctrl+Shift+W     close the view where the focus is on
-## Ctrl+Shift+Q     exit terminator
-## Ctrl+Shift+X     focus active window and enlarge it
-##  
-##  ## Groups
-##  
-##  |    Command    |     Action    |
-##  | ------------- | ------------- |
-##  | Ctrl+G        | Group All     |
-##  | Ctrl+Shift+G  | Ungroup All   |
-##  | Ctrl+T        | Group Tab     | 
-##  | Ctrl+Shift+T  | Ungroup Tab   | 
-##  
-##  ## Navigation
-##  
-##  | Command  | Action |
-##  | ------------- | ------------- |
-##  | Alt+Up    | Focus on the terminal above |
-##  | Alt+Dn    | Focus on the terminal below |
-##  | Alt+Left  | Focus on the terminatl left |
-##  | Alt+Right | Focus on the terminal right |
-##  
-##  ## Launcher parameters
-##  
-##  * -m – maximize
-##  * -b – borderless – works well with Gnome2 but is a bit redundant with Unity as a maximised window is borderless anyway
-##  * -T – sets the title
-##  
-##  
-##  ## Links
-##  http://www.linuxnov.com/the-complete-guide-to-configure-terminator-terminal-emulator-layouts/
-##  http://askubuntu.com/questions/158159/how-do-i-get-terminator-to-start-up-with-my-custom-layout
-##  http://blog.al4.co.nz/2011/05/getting-the-most-out-of-terminator/
-##  
-##  #
-##  #
 [global_config]
-  broadcast_default = off
-  #  enabled_plugins = InactivityWatch, ActivityWatch, TerminalShot, LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
   focus = system
   handle_size = 1
-  #title_receive_bg_color = "#1b262e"
-  #title_inactive_bg_color = "#2d2d2d"
-  #title_transmit_bg_color = "#757575"
-  #title_inactive_fg_color = "#afafaf"
-  # transmit is the active terminal
-  title_transmit_fg_color = "#ffffff"
+  borderless = True
+  broadcast_default = off
   title_transmit_bg_color = "#3030ff"
-  # all terminal receiving when broadcast
-  title_receive_fg_color = "#ffffff"
-  title_receive_bg_color = "#c80003" # ou 0076c9
-  # inactive terminals
+  title_receive_bg_color = "#c80003"
   title_inactive_fg_color = "#666666"
   title_inactive_bg_color = "#222222"
-
-  borderless = True
-
 [keybindings]
-  #  broadcast_all = <Ctrl><Shift>a
-  #  broadcast_group = <Ctrl><Shift>g
-  #  broadcast_off = <Primary><Alt>n
-  #  go_down = <Primary><Shift>j
-  #  go_left = <Primary><Shift>l
-  #  go_right = <Ctrl><Shift>l
-  #  go_up = <Ctrl><Shift>k
-  #  resize_down = <Ctrl><Shift><Alt>j
-  #  resize_left = <Ctrl><Shift><Alt>h
-  #  resize_right = <Ctrl><Shift><Alt>l
-  #  resize_up = <Ctrl><Shift><Alt>k
+[profiles]
+  [[default]]
+    background_darkness = 0.79
+    background_type = transparent
+    cursor_color = "#aaaaaa"
+    scrollback_lines = 5000
+    scrollback_infinite = True
+  [[remote]]
+    background_color = "#480101"
+    cursor_color = "#aaaaaa"
+    foreground_color = "#ebdbb2"
+    scrollback_infinite = True
+  [[bleu]]
+    background_color = "#030836"
+    cursor_color = "#aaaaaa"
+    scrollback_infinite = True
+  [[solarized-dark]]
+    background_color = "#002b36"
+    cursor_color = "#aaaaaa"
+    font = Source Code Pro Light 12
+    foreground_color = "#839496"
+    scrollback_infinite = True
+    palette = "#282828:#cc241d:#98971a:#d79921:#458588:#b16286:#689d6a:#a89984:#928374:#fb4934:#b8bb26:#fabd2f:#83a598:#d3869b:#8ec07c:#ebdbb2"
+    use_system_font = False
+  [[vert]]
+    background_color = "#002407"
+    cursor_color = "#eee8d5"
+    font = Source Code Pro Light 12
+    foreground_color = "#ffffff"
+    scrollback_infinite = True
+    use_system_font = False
+  [[remote-preprod]]
+    background_color = "#5c3566"
+    cursor_color = "#aaaaaa"
+    foreground_color = "#eeeeec"
+    scrollback_infinite = True
+    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
+  [[ambiance purple]]
+    background_color = "#002b36"
+    background_darkness = 0.73
+    background_type = transparent
+    cursor_color = "#839496"
+    font = Inconsolata Medium 12
+    foreground_color = "#839496"
+    scrollback_infinite = True
+    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
+    use_system_font = False
+  [[blue]]
+    cursor_color = "#aaaaaa"
+    scrollback_infinite = True
 [layouts]
   [[default]]
     [[[child0]]]
@@ -159,48 +138,3 @@
       type = Terminal
       uuid = 581c2460-239e-4cea-8670-eeb9578c9a8c
 [plugins]
-[profiles]
-  [[default]]
-    # background_color = "#000000" # A comment
-    # foreground_color = "#FFFFFF" # Note that hex colour values must be quoted
-    # font = Fixed 10
-    # scrollback_lines = '500' #More comment. Single quotes are valid too
-    # cursor_blink = True
-    # custom_command = "echo \"foo#bar\"" #Final comment - this will work as expected.
-    ##### use_system_font = False
-    ##### font = Source Code Pro Medium 12
-    background_darkness = 0.79
-    background_type = transparent
-    cursor_color = "#aaaaaa"
-    scrollback_lines = 5000
-    scrollback_infinite = True
-  [[bleu]]
-    background_color = "#030836"
-    cursor_color = "#aaaaaa"
-  [[vert]]
-    background_color = "#144807"
-    cursor_color = "#aaaaaa"
-    foreground_color = "#ebdbb2"
-  [[ambiance purple]]
-    background_color = "#300a24"
-    cursor_color = "#eee8d5"
-    font = Source Code Pro Light 12
-    foreground_color = "#ffffff"
-    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#586e75:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
-    use_system_font = False
-  [[blue]]
-    background_color = "#002b36"
-    background_darkness = 0.73
-    background_type = transparent
-    cursor_color = "#839496"
-    font = Inconsolata Medium 12
-    foreground_color = "#839496"
-    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
-    use_system_font = False
-  [[solarized-dark]]
-    background_color = "#002b36"
-    cursor_color = "#aaaaaa"
-    font = Source Code Pro Light 12
-    foreground_color = "#839496"
-    palette = "#282828:#cc241d:#98971a:#d79921:#458588:#b16286:#689d6a:#a89984:#928374:#fb4934:#b8bb26:#fabd2f:#83a598:#d3869b:#8ec07c:#ebdbb2"
-    use_system_font = False

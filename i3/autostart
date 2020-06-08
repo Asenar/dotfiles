@@ -21,14 +21,14 @@ vga_0=0
 dp_0=0
 any_0=0
 
-xrandr | grep -Eq "DP[12345] connected" && dp_yes=1 && any_yes=1
+xrandr | grep -Eq "DP\-[12345] connected" && dp_yes=1 && any_yes=1
 xrandr | grep -Eq "DVI-I-[12345] connected" && dvi_yes=1 && any_yes=1
 xrandr | grep -Eq "HDMI-[12345] connected" && hdmi_yes=1 && any_yes=1
 xrandr | grep -Eq "VGA-[12345] connected" && vga_yes=1 && any_yes=1
 hdmi=$(xrandr | grep -E "HDMI-[12345] connected" | grep -oE "HDMI-[12345]")
 dvi=$(xrandr | grep -E "DVI-I-[12345] connected" | grep -oE "DVI-I-[12345]")
 vga=$(xrandr | grep -E "VGA-[12345] connected" | grep -oE "VGA-[12345]")
-dp=$(xrandr | grep -E "DP[12345] connected" | grep -oE "DP[12345]")
+dp=$(xrandr | grep -E "DP-[12345] connected" | grep -oE "DP=-[12345]")
 
 # xrand 2 screen
 case "${vga_yes}${dvi_yes}${hdmi_yes}${dp_yes}" in
@@ -40,8 +40,15 @@ case "${vga_yes}${dvi_yes}${hdmi_yes}${dp_yes}" in
 		echo "found screen vga and dvi"
 		xrandr --output VGA-1 --mode 1366x768 --output HDMI-1 --mode 1920x1080 --right-of VGA-1
 		;;
+	"${vga_0}${dvi_0}${hdmi_0}${dp_1}")
+		echo "found screen vga and dvi"
+		xrandr --output DP-1 --mode 1920x1080 --output DP-2 --mode 1920x1080 --right-of DP-1
+		;;
 	*)
-		echo "default case: do nothing" ;;
+        echo "default case: do nothing"
+        echo "vga-dvi-hdmi-dp = ${vga_yes}${dvi_yes}${hdmi_yes}${dp_yes}"
+        echo "vga1/dvi0/hdmi1/dp0 = ${vga_1}/${dvi_0}/${hdmi_1}/${dp_0}"
+        ;;
 esac
 # }}}
 

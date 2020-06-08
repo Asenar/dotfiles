@@ -75,7 +75,7 @@ cpu_usage {
 }
 
 disk "/" {
-  format = "%free"
+  format = "disk %free"
 }
 
 volume master {

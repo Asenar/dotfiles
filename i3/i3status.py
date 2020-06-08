@@ -32,7 +32,8 @@ import commands
 #import colored
 
 def get_pomodoro_status():
-  return commands.getoutput("python ~/.dotfiles/i3/i3-gnome-pomodoro/pomodoro-client.py status");
+    # TODO: afficher les racourcis
+  return 'Pomo (f9/f10) : ' + commands.getoutput("python ~/.dotfiles/i3/i3-gnome-pomodoro/pomodoro-client.py status");
 
 
 

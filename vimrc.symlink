@@ -1,4 +1,5 @@
 " {{{ config
+let use_expand_tab          = 1
 let use_color_daylight      = 0
 let use_cursor_change_color = 1 " change cursor color when insert mode
 " bundles
@@ -63,13 +64,14 @@ endif
 " }}}
 
 " {{{ Spaces & Tabs
-set expandtab   " do not convert tabs to spaces
-"set softtabstop=2 " Number of spaces that a <Tab> counts for while performing edit
-"set shiftwidth=2  " Number of spaces to use for each step of indent
-"set tabstop=2     " number of spaces that a <Tab> in the file counts for
-set softtabstop=4 " Number of spaces that a <Tab> counts for while performing edit
-set shiftwidth=4  " Number of spaces to use for each step of indent
-set tabstop=4     " number of spaces that a <Tab> in the file counts for
+if use_expand_tab == 1
+	set expandtab   " do not convert tabs to spaces
+	set softtabstop=4 " Number of spaces that a <Tab> counts for while performing edit
+	set shiftwidth=4  " Number of spaces to use for each step of indent
+	set tabstop=4     " number of spaces that a <Tab> in the file counts for
+else
+	set noexpandtab   " do not convert tabs to spaces
+endif
 " }}}
 
 " {{{ vim base config, UI layout
@@ -527,15 +529,6 @@ autocmd BufWritePost *.less call WriteLess()
 """""     augroup END
 
 
-function! WriteLess()
-    if expand('%:t') != 'mediabong.less'
-        execute 'silent ! touch %:p:h/mediabong.less'
-        redraw!
-        echo 'file '.expand('%:p:h').'/mediabong.less touched !'
-    endif
-endfunction
-
-autocmd BufWrite *.less call WriteLess()
 
 " :bufdo
 "

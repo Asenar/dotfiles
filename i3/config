@@ -62,12 +62,10 @@
 # define your preferred main modifier key: Alt_L (Mod1) or Super_L (Mod4)
 set $mod Mod4
 
-#set $screen0 HDMI-0
-#set $screen0 HDMI1
+set $screen0 DP-1
+set $screen1 DP-2
 # set $screen0 VGA-1
 # set $screen1 DVI-I-1
-set $screen0 HDMI-A-0
-# set $screen1 $screen0
 
 # use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -97,10 +95,10 @@ set $terminal terminator
 
 # window font (note: iso10646 = unicode)
 #font -misc-fixed-medium-r-normal--18-120-75-75-C-70-iso10646-1
-#font pango:Inconsolata Sans Mono 9
-font pango:Source Code Pro 10
+# font pango:Inconsolata Sans Mono 9
+#font pango:Source Code Pro 10
 #font pango: Inconsolata 10
-#font -misc-inconsolata-medium-r-normal--0-0-0-0-p-0-iso10646-1
+font -misc-inconsolata-medium-r-normal--0-0-0-0-p-0-iso10646-1
 
 #font xft:Droid Sans Mono 10
 #font -misc-inconsolata-medium-r-normal--0-0-0-0-p-0-iso10646-1
@@ -193,7 +191,7 @@ client.urgent           #ff0000 #993333 #ffffff
 # the default modifier being Super_L, workspaces 6 to 12 are preferred
 # (=> left thumb + right hand to select a workspace)
 set $w01 1: work
-set $w02 2: workterm
+set $w02 2: phpstorm
 set $w03 3: procr
 set $w04 4: mail
 set $w05 5: chat
@@ -205,11 +203,8 @@ set $w10 10
 set $w11 11
 set $w12 12: i3config
 
-set $screen0 "VGA-1"
-set $screen1 "DVI-I-1"
-
 workspace "1: work"      output $screen0
-workspace "2: workterm"  output $screen1
+workspace "2: phpstorm"  output $screen1
 workspace "3: procr"     output $screen0
 workspace "4: mail"      output $screen1
 workspace "5: chat"      output $screen1
@@ -239,6 +234,7 @@ assign [class="^VirtualBox"]   → $w10
 assign [class="^Pidgin"]       → $w05
 assign [class="^Skype"]        → $w05
 assign [class="^Hotot"]        → $w11
+assign [class="jetbrains-phpstorm"] → $w02
 
 # These windows require a specific rule to be displayed in floating mode:
 #for_window [window_role="^Manager"]    floating enable
@@ -410,7 +406,7 @@ bind $mod+Shift+22 restart
 # bind $mod+Control+22 exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 #
 
-set $lock $(i3lock -c 000000 -i ~/.dotfiles/i3/screenlock.png -f)
+set $lock $(i3lock -f -c 000000 -t -i ~/.dotfiles/i3/screenlock.png -f)
 # Lock i3                                                    ($mod+Shift+Enter)
 bind $mod+Shift+36 exec $lock
 # define your preferred screen lock
@@ -427,13 +423,11 @@ mode "$mode_system" {
     bindsym s exec --no-startup-id $lock && systemctl suspend, mode "default"
     bindsym h exec --no-startup-id $lock && systemctl hibernate, mode "default"
     bindsym r exec --no-startup-id systemctl reboot, mode "default"
-    bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"
-
+    bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"  
     # back to normal: Enter or Escape
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-
 bindsym $mod+Pause mode "$mode_system"
 
 # Split (horizontal/vertical)                                  ($mod[+Shift]+o)
@@ -540,12 +534,12 @@ bindsym mod4+Shift+Right exec $(xdotool getactivewindow key shift+End)
 #|    multimedia keys (Thinkpad X220)                                       {{{
 #|=============================================================================
 
-# Volume control (pulseaudio)                                  (mute|vol-|vol+)
-# http://ubuntuforums.org/showpost.php?p=10232181&postcount=9
-bind 121 exec $(pacmd dump|awk --non-decimal-data '$1~/set-sink-mute/{system ("pacmd "$1" "$2" "($3=="yes"?"no":"yes"))}')
-bind 122 exec $(pacmd dump|awk --non-decimal-data '$1~/set-sink-volume/{system ("pacmd "$1" "$2" "$3-1000)}')
-bind 123 exec $(pacmd dump|awk --non-decimal-data '$1~/set-sink-volume/{system ("pacmd "$1" "$2" "$3+1000)}')
-# what about  pavucontrol?
+### # Volume control (pulseaudio)                                  (mute|vol-|vol+)
+### # http://ubuntuforums.org/showpost.php?p=10232181&postcount=9
+### bind 121 exec $(pacmd dump|awk --non-decimal-data '$1~/set-sink-mute/{system ("pacmd "$1" "$2" "($3=="yes"?"no":"yes"))}')
+### bind 122 exec $(pacmd dump|awk --non-decimal-data '$1~/set-sink-volume/{system ("pacmd "$1" "$2" "$3-1000)}')
+### bind 123 exec $(pacmd dump|awk --non-decimal-data '$1~/set-sink-volume/{system ("pacmd "$1" "$2" "$3+1000)}')
+### # what about  pavucontrol?
 
 # Playlist control (cmus)                                            (Fn+arrow)
 bind 171 exec $(cmus-remote --next)
@@ -585,13 +579,19 @@ bind $mod+Shift+61 move scratchpad
 #bind 235 exec $()
 #bind 199 exec $()
 
-#exec --no-startup-id i3-msg 'workspace $w01; exec gnome-terminal'
-#exec --no-startup-id i3-msg 'workspace $w01; exec firefox -P work'
-#exec --no-startup-id i3-msg "workspace $w02; exec gnome-terminal"
-#exec --no-startup-id i3-msg "workspace $w03; exec firefox -P procrastifox; workspace $w01"
-#exec --no-startup-id i3-msg "workspace $w04; exec icedove"
+# exec --no-startup-id i3-msg "workspace $w02; exec $terminal"
+# exec --no-startup-id i3-msg "workspace $w03; exec firefox -P procrastifox; workspace $w01"
+# exec --no-startup-id i3-msg "workspace $w04; exec icedove"
 # exec --no-startup-id i3-msg 'workspace $w05; exec xchat'
-#exec --no-startup-id i3-msg 'workspace $w12; exec gnome-terminal -e "vim /home/michael/.i3/config ";workspace $w01'
+# exec --no-startup-id i3-msg 'workspace $w12; exec $terminal -e "vim /home/michael/.i3/config ";workspace $w01'
+# exec --no-startup-id i3-msg 'workspace $w12; exec $terminal -e "vim --servername=pomodoro"'
+# WIFI
+exec --no-startup-id nm-applet
+# not working -_-
+# exec --no-startup-id volumeicon
+
+# exec --no-startup-id i3-msg 'workspace $w01; exec $terminal'
+# exec --no-startup-id i3-msg 'workspace $w01; exec firefox -P work'
 
 # how to find windows criteria?
 # https://faq.i3wm.org/question/2172/how-do-i-find-the-criteria-for-use-with-i3-config-commands-like-for_window-eg-to-force-splashscreens-and-dialogs-to-show-in-floating-mode.1.html
@@ -637,3 +637,67 @@ for_window [class="Firefox" window_role="toolbox" instance="Devtools"] floating 
 
 # vim: set fdm=marker fdl=0:
 
+
+##### # Review the lines below and append to ~/.config/i3/config
+##### 
+##### ## Volume control
+##### 
+##### # Path to volume control, without trailing slash
+##### set $volumepath ~/git/github/i3-volume
+##### 
+##### # Command for the status line
+##### #   ie: i3blocks, i3status
+##### set $statuscmd i3status
+##### 
+##### # Signal used to update the status line
+##### #   i3blocks uses SIGRTMIN+10 by default
+##### #   i3status uses SIGUSR1 by default
+##### set $statussig SIGUSR1
+##### 
+##### # Amount to increase/decrease volume as a percentage
+##### set $volumestep 5
+##### 
+##### # alsa-utils settings
+##### #
+##### # To configure a default card, see https://www.alsa-project.org/main/index.php/Asoundrc
+##### #
+##### # Card number to control.
+##### #   If not specified, i3-volume will let `amixer` use a default.
+##### #   List cards: aplay -l
+##### #set $alsacard 1
+##### 
+##### # append "-c $alsacard" without quotes to override default card
+##### bindsym XF86AudioRaiseVolume exec $volumepath -anp -i $volumestep -t $statuscmd -u $statussig
+##### bindsym XF86AudioLowerVolume exec $volumepath -anp -d $volumestep -t $statuscmd -u $statussig
+##### bindsym XF86AudioMute        exec $volumepath -amn -t $statuscmd -u $statussig
+
+##### # Review the lines below and append to ~/.config/i3/config
+##### 
+##### ## Volume control
+##### 
+##### # Path to volume control, without trailing slash
+##### set $volumepath ~/i3-volume
+##### 
+##### # Command for the status line
+##### #   ie: i3blocks, i3status
+##### set $statuscmd i3status
+##### 
+##### # Signal used to update the status line
+##### #   i3blocks uses SIGRTMIN+10 by default
+##### #   i3status uses SIGUSR1 by default
+##### set $statussig SIGUSR1
+##### 
+##### # Amount to increase/decrease volume as a percentage
+##### set $volumestep 5
+##### 
+##### # pulseaudio-utils settings
+##### #
+##### # Symbolic name for sink (numeric index not supported)
+##### #   Recommended: comment out this setting and omit the -s option to use default sink
+##### #   List sink names: pacmd list-sinks | awk -F "[<>]" '/^\s+name: <.*>/{print $2}'
+##### #set $sinkname alsa_output.pci-0000_00_1b.0.analog-stereo
+##### 
+##### # Using pulseaudio-utils (append "-s $sinkname" without quotes to override default sink)
+##### bindsym XF86AudioRaiseVolume exec $volumepath -np -i $volumestep -t $statuscmd -u $statussig
+##### bindsym XF86AudioLowerVolume exec $volumepath -np -d $volumestep -t $statuscmd -u $statussig
+##### bindsym XF86AudioMute        exec $volumepath -mn -t $statuscmd -u $statussig

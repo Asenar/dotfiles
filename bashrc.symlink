@@ -34,11 +34,25 @@ if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
   debian_chroot=$(cat /etc/debian_chroot)
 fi
 
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+  DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+done
+DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
+
+# if [ -f $DIR/submodules/gitrebase/git-completion.bash ]; then
+#     # customize inside .bashrc_local (like CDPATH=) 
+#     #source $DIR/submodules/gitrebase/git-completion.bash
+# fi
+
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
   . /etc/bash_completion
 fi
+
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
@@ -199,3 +213,4 @@ if [ -f ~/.bashrc_local ]; then
     # customize inside .bashrc_local (like CDPATH=) 
     source ~/.bashrc_local
 fi
+
